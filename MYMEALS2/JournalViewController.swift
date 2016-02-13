@@ -16,6 +16,7 @@ class JournalViewController: UITableViewController {
     let cellIdentifier = "Cell"
     
     
+    
     override func viewDidLoad() {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Edit, target: self, action: "edit:")
         fetch()
