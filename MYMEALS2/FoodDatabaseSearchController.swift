@@ -1,0 +1,94 @@
+//
+//  FoodDatabaseSearchController.swift
+//  MYMEALS2
+//
+//  Created by Marc Felden on 31.01.16.
+//  Copyright © 2016 Timm Kent. All rights reserved.
+//
+
+import Foundation
+import CoreData
+
+class FoodDatabaseSearchController {
+    
+    var searchText : String!
+    var managedObjectContext: NSManagedObjectContext!
+    
+    func performSearch(completionHandler: ([FoodItem])->()) {
+        
+        var foodItems = [FoodItem]()
+        let urlstring   = "http://fddb.mobi/search/?lang=de&cat=mobile-de&search=\(searchText)"
+        let url         = NSURL(string: urlstring)
+        let data: NSData?
+        do {
+            data = try NSData(contentsOfURL: url!, options: NSDataReadingOptions())
+        } catch let error as NSError {
+            fatalError("\(error)")
+        }
+        
+        
+        if let data = data {
+            
+            let answerFromWebpage = NSString(data: data, encoding: NSWindowsCP1250StringEncoding)
+            
+            if let string = answerFromWebpage as? String {
+                
+                // jetzt kommt in string die windowslocation mehremls vor.
+                
+                let stringarray = string.componentsSeparatedByString("window.loc")
+                
+                for stringSub in stringarray {
+                    
+                    if let subURL = stringSub.getStringBetweenStrings("ation.href = '", string2: "';\"><table><tr><td") {
+                        
+                        // now we have the url
+                        let url1 = NSURL(string: subURL)
+                        let data1: NSData?
+                        do {
+                            data1 = try NSData(contentsOfURL: url1!, options: NSDataReadingOptions())
+                        } catch let error as NSError {
+                            fatalError("\(error)")
+                        }
+                        
+                        if let data3 = data1 {
+                            let answer2 = NSString(data: data3, encoding: NSWindowsCP1250StringEncoding)
+                            if let string3 = answer2 as? String {
+                                let name = string3.getStringBetweenStrings("content=\"Kalorien f&uuml;r ", string2: " - Fddb") ?? "not found"
+                                let protein = string3.getStringBetweenStrings("Protein</span></td><td>", string2: " g</td></tr><tr><td>") ?? "999"
+                                let kcal = string3.getStringBetweenStrings("Kalorien</span></td><td>", string2: " kcal</td></tr><tr style=") ?? "999"
+                                let kh = string3.getStringBetweenStrings(">Kohlenhydrate</span></td><td>", string2: " g</td></tr><tr") ?? "999"
+                                let fett = string3.getStringBetweenStrings("Fett</span></td><td>", string2: " g</td></tr></table><h4>") ?? "999"
+                                let foodItem = generateFoodItem(name, kcal: kcal, kohlenhydrate: kh, protein: protein, fett: fett)
+                                foodItems.append(foodItem)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        
+/*
+        
+        foodItems.append(generateFoodItem("H-Milch 1.5%"))
+        foodItems.append(generateFoodItem("H-Milch 3.5%"))
+        foodItems.append(generateFoodItem("H-Milch laktosefrei 0.1%"))
+  */
+        completionHandler(foodItems)
+        
+    }
+    
+    
+   
+    
+    func generateFoodItem(name: String, kcal: String, kohlenhydrate: String, protein: String, fett: String) -> FoodItem {
+        assert(managedObjectContext != nil)
+        let foodItem = NSEntityDescription.insertNewObjectForEntityForName("FoodItem", inManagedObjectContext: managedObjectContext) as! FoodItem
+        foodItem.name = name
+        foodItem.kcal = kcal
+        foodItem.kohlenhydrate = kohlenhydrate
+        foodItem.protein = protein
+        foodItem.fett = fett
+        return foodItem
+    }
+}
