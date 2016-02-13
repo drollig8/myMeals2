@@ -244,7 +244,7 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Section-2" id="D6Q-nX-MhT">
+                            <tableViewSection headerTitle="Nährwerte für 100g" id="D6Q-nX-MhT">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="OpA-AM-Ybn">
                                         <rect key="frame" x="0.0" y="209" width="320" height="44"/>

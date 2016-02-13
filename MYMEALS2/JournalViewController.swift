@@ -18,6 +18,7 @@ class JournalViewController: UITableViewController {
     
     
     override func viewDidLoad() {
+        self.navigationItem.title = "Ernährungs-Tagebuch"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Edit, target: self, action: "edit:")
         fetch()
     }
