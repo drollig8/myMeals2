@@ -235,7 +235,7 @@ class FoodItemsViewControllerTests: XCTestCase {
         sut.tableView.reloadData()
         sut.selectedFoodItem = foodItem
         sut.prepareForSegue(segue, sender: sut)
-        XCTAssertEqual(destVC.foodItem, foodItem, "Destination View Controller requires Food Item")
+        XCTAssertTrue(destVC.foodItem != nil, "Destination View Controller requires Food Item")
     }
     
     func testThatAddFoodItemProvidesDestinationViewControllerWithDelegate() {
@@ -386,6 +386,10 @@ class FoodItemsViewControllerTests: XCTestCase {
         let _ = sut.view
         sut.searchBarSearchButtonClicked(searchBarMock)
         XCTAssertTrue(searchBarMock.resignFirstResponderHasBeenCalled, "Performing Search dismisses Keyboard")
+    }
+    
+    func testWhenAddingFoodItemAnEmptyFoodItemIsSetToAddFootItemViewController() {
+        
     }
     
     // MARK: - MOC cannot be nil This is kinda wrong

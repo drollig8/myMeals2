@@ -121,7 +121,9 @@ class FoodItemsViewController: UITableViewController,AddFoodItemDelegate,AddAmou
         if segue.identifier == kSegue.AddFoodItem {
             let navController = segue.destinationViewController as! UINavigationController
             let destVC = navController.topViewController as! AddFoodItemViewController
-            destVC.foodItem = selectedFoodItem
+            // I dont know how to verify this by a test.
+            let foodItem = NSEntityDescription.insertNewObjectForEntityForName("FoodItem", inManagedObjectContext: managedObjectContext) as! FoodItem
+            destVC.foodItem = foodItem
             destVC.delegate = self
         }
         if segue.identifier == kSegue.ShowDetailsOfFoodItem {

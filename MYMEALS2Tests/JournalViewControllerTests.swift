@@ -281,6 +281,16 @@ class JournalViewControllerTests: XCTestCase {
         let _ = sut.view
         XCTAssertEqual(sut.navigationItem.title, "Ernährungs-Tagebuch","Titel vom Viewcontroller should be Ernährungs-Tagebuch")
     }
+    
+    func testThatCalendarIsConnected() {
+        let _ = sut.view
+        XCTAssertNotNil(sut.calendar, "Calendar View Should not be nil.")
+    }
+    
+    func testThatCalendarViewIsOfTypeDIDatepicker() {
+        let _ = sut.view
+        XCTAssertTrue(sut.calendar.isKindOfClass(DIDatepicker))
+    }
 
 }
 
