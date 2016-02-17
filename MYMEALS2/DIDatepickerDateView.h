@@ -3,7 +3,6 @@
 //  Copyright (c) 2014 Dmitry Ivanenko. All rights reserved.
 //
 
-
 #import <UIKit/UIKit.h>
 
 

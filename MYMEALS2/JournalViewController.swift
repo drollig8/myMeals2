@@ -16,12 +16,17 @@ class JournalViewController: UITableViewController {
     let cellIdentifier = "Cell"
     
     @IBOutlet weak var calendar: DIDatepicker!
-    
+    var selectedDateOnDatepicker: NSDate = NSDate() {
+        didSet {
+            calendar?.selectDate(selectedDateOnDatepicker)
+        }
+    }
     
     override func viewDidLoad() {
         self.navigationItem.title = "Ernährungs-Tagebuch"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Edit, target: self, action: "edit:")
-        calendar.fillCurrentYear1()
+        calendar.fillCurrentYear()
+        calendar.selectDate(selectedDateOnDatepicker)
         fetch()
     }
     

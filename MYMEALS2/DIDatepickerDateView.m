@@ -3,7 +3,6 @@
 //  Copyright (c) 2014 Dmitry Ivanenko. All rights reserved.
 //
 
-
 #import "DIDatepickerDateView.h"
 
 
@@ -11,7 +10,7 @@ const CGFloat kDIDatepickerItemWidth = 46.;
 const CGFloat kDIDatepickerSelectionLineWidth = 51.;
 
 
-@interface DIDatepickerCell()
+@interface DIDatepickerCell ()
 
 @property (strong, nonatomic) UILabel *dateLabel;
 @property (nonatomic, strong) UIView *selectionView;
@@ -140,8 +139,7 @@ const CGFloat kDIDatepickerSelectionLineWidth = 51.;
 
 - (BOOL)isWeekday:(NSDate *)date
 {
-    NSInteger day = [[[NSCalendar currentCalendar] components:NSCalendarUnitWeekday fromDate:date] weekday];
-    //NSInteger day = [[[NSCalendar currentCalendar] components:NSWeekdayCalendarUnit fromDate:date] weekday];
+    NSInteger day = [[[NSCalendar currentCalendar] components:NSWeekdayCalendarUnit fromDate:date] weekday];
     
     const NSInteger kSunday = 1;
     const NSInteger kSaturday = 7;
@@ -152,4 +150,3 @@ const CGFloat kDIDatepickerSelectionLineWidth = 51.;
 }
 
 @end
- 

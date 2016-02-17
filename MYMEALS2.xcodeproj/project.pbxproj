@@ -9,11 +9,10 @@
 /* Begin PBXBuildFile section */
 		6E23D2FD1C637DDD00D0F622 /* EditFoodItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E23D2FC1C637DDC00D0F622 /* EditFoodItemViewController.swift */; };
 		6E68C2811C654A9200CD50BA /* AddFootItemViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E68C2801C654A9200CD50BA /* AddFootItemViewControllerTests.swift */; };
-		6E70B5291C60E65D00AA47C0 /* DIDatepicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E70B5231C60E65D00AA47C0 /* DIDatepicker.swift */; };
-		6E70B52B1C60E65D00AA47C0 /* DIDatepickerDateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E70B5271C60E65D00AA47C0 /* DIDatepickerDateView.m */; };
-		6E70B52C1C60E65D00AA47C0 /* DIDatePickerDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E70B5281C60E65D00AA47C0 /* DIDatePickerDateView.swift */; };
 		6E70B52E1C60E6AA00AA47C0 /* JournalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E70B52D1C60E6AA00AA47C0 /* JournalViewController.swift */; };
 		6E70B5301C60E6BE00AA47C0 /* JournalViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E70B52F1C60E6BE00AA47C0 /* JournalViewControllerTests.swift */; };
+		6E9BDE1D1C706D0F008CD1AE /* DIDatepicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E9BDE1A1C706D0F008CD1AE /* DIDatepicker.m */; };
+		6E9BDE1E1C706D0F008CD1AE /* DIDatepickerDateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E9BDE1C1C706D0F008CD1AE /* DIDatepickerDateView.m */; };
 		6EB506851C5D512C00CF0589 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB506841C5D512C00CF0589 /* AppDelegate.swift */; };
 		6EB5068A1C5D512C00CF0589 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6EB506881C5D512C00CF0589 /* Main.storyboard */; };
 		6EB5068D1C5D512C00CF0589 /* MYMEALS2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6EB5068B1C5D512C00CF0589 /* MYMEALS2.xcdatamodeld */; };
@@ -48,13 +47,13 @@
 /* Begin PBXFileReference section */
 		6E23D2FC1C637DDC00D0F622 /* EditFoodItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditFoodItemViewController.swift; sourceTree = "<group>"; };
 		6E68C2801C654A9200CD50BA /* AddFootItemViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFootItemViewControllerTests.swift; sourceTree = "<group>"; };
-		6E70B5221C60E65C00AA47C0 /* MYMEALS2-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MYMEALS2-Bridging-Header.h"; sourceTree = "<group>"; };
-		6E70B5231C60E65D00AA47C0 /* DIDatepicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DIDatepicker.swift; sourceTree = "<group>"; };
-		6E70B5261C60E65D00AA47C0 /* DIDatepickerDateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIDatepickerDateView.h; sourceTree = "<group>"; };
-		6E70B5271C60E65D00AA47C0 /* DIDatepickerDateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIDatepickerDateView.m; sourceTree = "<group>"; };
-		6E70B5281C60E65D00AA47C0 /* DIDatePickerDateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DIDatePickerDateView.swift; sourceTree = "<group>"; };
 		6E70B52D1C60E6AA00AA47C0 /* JournalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalViewController.swift; sourceTree = "<group>"; };
 		6E70B52F1C60E6BE00AA47C0 /* JournalViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalViewControllerTests.swift; sourceTree = "<group>"; };
+		6E9BDE191C706D0F008CD1AE /* DIDatepicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIDatepicker.h; sourceTree = "<group>"; };
+		6E9BDE1A1C706D0F008CD1AE /* DIDatepicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIDatepicker.m; sourceTree = "<group>"; };
+		6E9BDE1B1C706D0F008CD1AE /* DIDatepickerDateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIDatepickerDateView.h; sourceTree = "<group>"; };
+		6E9BDE1C1C706D0F008CD1AE /* DIDatepickerDateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIDatepickerDateView.m; sourceTree = "<group>"; };
+		6E9BDE1F1C706D51008CD1AE /* MYMEALS2-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MYMEALS2-Bridging-Header.h"; sourceTree = "<group>"; };
 		6EB506811C5D512C00CF0589 /* MYMEALS2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MYMEALS2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EB506841C5D512C00CF0589 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6EB506891C5D512C00CF0589 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -101,11 +100,11 @@
 		6E70B5211C60E64700AA47C0 /* TKDatepicker */ = {
 			isa = PBXGroup;
 			children = (
-				6E70B5231C60E65D00AA47C0 /* DIDatepicker.swift */,
-				6E70B5261C60E65D00AA47C0 /* DIDatepickerDateView.h */,
-				6E70B5271C60E65D00AA47C0 /* DIDatepickerDateView.m */,
-				6E70B5281C60E65D00AA47C0 /* DIDatePickerDateView.swift */,
-				6E70B5221C60E65C00AA47C0 /* MYMEALS2-Bridging-Header.h */,
+				6E9BDE191C706D0F008CD1AE /* DIDatepicker.h */,
+				6E9BDE1A1C706D0F008CD1AE /* DIDatepicker.m */,
+				6E9BDE1B1C706D0F008CD1AE /* DIDatepickerDateView.h */,
+				6E9BDE1C1C706D0F008CD1AE /* DIDatepickerDateView.m */,
+				6E9BDE1F1C706D51008CD1AE /* MYMEALS2-Bridging-Header.h */,
 			);
 			name = TKDatepicker;
 			sourceTree = "<group>";
@@ -309,17 +308,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E70B52C1C60E65D00AA47C0 /* DIDatePickerDateView.swift in Sources */,
 				6EDE59F01C5E39DB00F33544 /* AddAmountViewController.swift in Sources */,
 				6EDE59F61C5E576A00F33544 /* ShowFoodItemViewController.swift in Sources */,
 				6EB506C81C5DF48F00CF0589 /* FoodEntry+CoreDataProperties.swift in Sources */,
 				6E70B52E1C60E6AA00AA47C0 /* JournalViewController.swift in Sources */,
-				6E70B52B1C60E65D00AA47C0 /* DIDatepickerDateView.m in Sources */,
 				6EB506C91C5DF48F00CF0589 /* FoodEntry.swift in Sources */,
 				6EDE59F81C5E85DC00F33544 /* FoodDatabaseSearchController.swift in Sources */,
+				6E9BDE1E1C706D0F008CD1AE /* DIDatepickerDateView.m in Sources */,
 				6EB506CA1C5DF48F00CF0589 /* FoodItem+CoreDataProperties.swift in Sources */,
-				6E70B5291C60E65D00AA47C0 /* DIDatepicker.swift in Sources */,
 				6EDE59F41C5E537500F33544 /* ScanFoodItemViewController.swift in Sources */,
+				6E9BDE1D1C706D0F008CD1AE /* DIDatepicker.m in Sources */,
 				6EB506AA1C5D513F00CF0589 /* CoreDataStack.swift in Sources */,
 				6EB506CB1C5DF48F00CF0589 /* FoodItem.swift in Sources */,
 				6EB506A81C5D513700CF0589 /* FoodItemsViewController.swift in Sources */,

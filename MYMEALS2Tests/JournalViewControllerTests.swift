@@ -291,6 +291,21 @@ class JournalViewControllerTests: XCTestCase {
         let _ = sut.view
         XCTAssertTrue(sut.calendar.isKindOfClass(DIDatepicker))
     }
+    
+    func DIS_testThatSelectingDateInDatePickerSetsSelectedDate() {
+        let _ = sut.view
+        let testDate = NSDate()
+        sut.calendar.selectDate(testDate)
+        print(testDate)
+        print(sut.selectedDateOnDatepicker)
+        XCTAssertEqual(testDate, sut.selectedDateOnDatepicker, "When changing date on Datepicker, the Class must be notified.")
+    }
+    
+    func testThatSelectingDateThatAlreadyContainsValuesShowsTheseValues() {
+        let foodEntry = NSEntityDescription.insertNewObjectForEntityForName("FoodEntry", inManagedObjectContext: managedObjectContext) as! FoodEntry
+        foodEntry.timeString = "08:00"
+        foodEntry.amount = "80"
+    }
 
 }
 
