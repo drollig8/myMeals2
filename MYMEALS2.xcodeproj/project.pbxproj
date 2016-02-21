@@ -48,7 +48,7 @@
 		6E23D2FC1C637DDC00D0F622 /* EditFoodItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditFoodItemViewController.swift; sourceTree = "<group>"; };
 		6E68C2801C654A9200CD50BA /* AddFootItemViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFootItemViewControllerTests.swift; sourceTree = "<group>"; };
 		6E70B52D1C60E6AA00AA47C0 /* JournalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalViewController.swift; sourceTree = "<group>"; };
-		6E70B52F1C60E6BE00AA47C0 /* JournalViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalViewControllerTests.swift; sourceTree = "<group>"; };
+		6E70B52F1C60E6BE00AA47C0 /* JournalViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JournalViewControllerTests.swift; path = MYMEALS2Tests/JournalViewControllerTests.swift; sourceTree = SOURCE_ROOT; };
 		6E9BDE191C706D0F008CD1AE /* DIDatepicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIDatepicker.h; sourceTree = "<group>"; };
 		6E9BDE1A1C706D0F008CD1AE /* DIDatepicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIDatepicker.m; sourceTree = "<group>"; };
 		6E9BDE1B1C706D0F008CD1AE /* DIDatepickerDateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIDatepickerDateView.h; sourceTree = "<group>"; };
@@ -65,7 +65,7 @@
 		6EB5069E1C5D512C00CF0589 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6EB506A71C5D513700CF0589 /* FoodItemsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = FoodItemsViewController.swift; sourceTree = "<group>"; tabWidth = 4; };
 		6EB506A91C5D513F00CF0589 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
-		6EB506AB1C5D514A00CF0589 /* FoodItemsViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodItemsViewControllerTests.swift; sourceTree = "<group>"; };
+		6EB506AB1C5D514A00CF0589 /* FoodItemsViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FoodItemsViewControllerTests.swift; path = MYMEALS2Tests/FoodItemsViewControllerTests.swift; sourceTree = SOURCE_ROOT; };
 		6EB506C01C5DF45D00CF0589 /* FoodEntry+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "FoodEntry+CoreDataProperties.swift"; path = "../FoodEntry+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		6EB506C11C5DF45D00CF0589 /* FoodEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FoodEntry.swift; path = ../FoodEntry.swift; sourceTree = "<group>"; };
 		6EB506C21C5DF45D00CF0589 /* FoodItem+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "FoodItem+CoreDataProperties.swift"; path = "../FoodItem+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -161,8 +161,10 @@
 				6EB506841C5D512C00CF0589 /* AppDelegate.swift */,
 				6EB506881C5D512C00CF0589 /* Main.storyboard */,
 				6E70B52D1C60E6AA00AA47C0 /* JournalViewController.swift */,
+				6E70B52F1C60E6BE00AA47C0 /* JournalViewControllerTests.swift */,
 				6E23D2FC1C637DDC00D0F622 /* EditFoodItemViewController.swift */,
 				6EB506A71C5D513700CF0589 /* FoodItemsViewController.swift */,
+				6EB506AB1C5D514A00CF0589 /* FoodItemsViewControllerTests.swift */,
 				6EDE59EF1C5E39DB00F33544 /* AddAmountViewController.swift */,
 				6EDE59F11C5E4A0A00F33544 /* AddFoodItemViewController.swift */,
 				6EDE59F31C5E537500F33544 /* ScanFoodItemViewController.swift */,
@@ -200,8 +202,6 @@
 		6EB506CD1C5DF86700CF0589 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				6E70B52F1C60E6BE00AA47C0 /* JournalViewControllerTests.swift */,
-				6EB506AB1C5D514A00CF0589 /* FoodItemsViewControllerTests.swift */,
 				6E68C2801C654A9200CD50BA /* AddFootItemViewControllerTests.swift */,
 			);
 			name = ViewController;

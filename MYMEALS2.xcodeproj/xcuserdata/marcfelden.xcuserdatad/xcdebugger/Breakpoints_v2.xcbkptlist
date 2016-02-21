@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MYMEALS2/FoodItemsViewController.swift"
-            timestampString = "476113169.178657"
+            timestampString = "477739719.792768"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "62"
-            endingLineNumber = "62"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
             landmarkName = "tableView(_:cellForRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MYMEALS2/FoodItemsViewController.swift"
-            timestampString = "476113169.178657"
+            timestampString = "477739719.792768"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "44"
-            endingLineNumber = "44"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
             landmarkName = "searchBarSearchButtonClicked(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -106,11 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MYMEALS2/FoodItemsViewController.swift"
-            timestampString = "476114064.388633"
+            timestampString = "477739719.792768"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "103"
-            endingLineNumber = "103"
+            startingLineNumber = "112"
+            endingLineNumber = "112"
             landmarkName = "fetch(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -122,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MYMEALS2/FoodItemsViewController.swift"
-            timestampString = "476113169.178657"
+            timestampString = "477739719.792768"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
             landmarkName = "searchBarSearchButtonClicked(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -138,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MYMEALS2Tests/JournalViewControllerTests.swift"
-            timestampString = "476195143.012583"
+            timestampString = "477742076.293791"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "128"
-            endingLineNumber = "128"
+            startingLineNumber = "140"
+            endingLineNumber = "140"
             landmarkName = "testThatTableViewCellInLastSectionPushesAddEntry()"
             landmarkType = "5">
          </BreakpointContent>
@@ -154,12 +154,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MYMEALS2/JournalViewController.swift"
-            timestampString = "477141643.965494"
+            timestampString = "477740385.883921"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "191"
-            endingLineNumber = "191"
-            landmarkName = "addEntry(_:)"
+            startingLineNumber = "222"
+            endingLineNumber = "222"
+            landmarkName = "fetch()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -170,13 +170,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MYMEALS2/JournalViewController.swift"
-            timestampString = "477141643.965494"
+            timestampString = "477740385.883921"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "106"
-            endingLineNumber = "106"
-            landmarkName = "JournalViewController"
-            landmarkType = "3">
+            startingLineNumber = "132"
+            endingLineNumber = "132"
+            landmarkName = "tableView(_:didSelectRowAtIndexPath:)"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -186,12 +186,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MYMEALS2/JournalViewController.swift"
-            timestampString = "477141643.965494"
+            timestampString = "477740385.883921"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "107"
-            endingLineNumber = "107"
-            landmarkName = "tableView(_:commitEditingStyle:forRowAtIndexPath:)"
+            startingLineNumber = "133"
+            endingLineNumber = "133"
+            landmarkName = "tableView(_:didSelectRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -202,43 +202,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MYMEALS2Tests/JournalViewControllerTests.swift"
-            timestampString = "476217704.993916"
+            timestampString = "477742076.293791"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "174"
-            endingLineNumber = "174"
-            landmarkName = "testThatCellsCanBeMovedIntoAnotherSection()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MYMEALS2Tests/JournalViewControllerTests.swift"
-            timestampString = "476217704.993916"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "173"
-            endingLineNumber = "173"
-            landmarkName = "testThatCellsCanBeMovedIntoAnotherSection()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MYMEALS2Tests/JournalViewControllerTests.swift"
-            timestampString = "476217704.993916"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "175"
-            endingLineNumber = "175"
+            startingLineNumber = "177"
+            endingLineNumber = "177"
             landmarkName = "testThatCellsCanBeMovedIntoAnotherSection()"
             landmarkType = "5">
             <Locations>
@@ -329,11 +297,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MYMEALS2/FoodItemsViewController.swift"
-            timestampString = "477093738.806537"
+            timestampString = "477739719.792768"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "126"
-            endingLineNumber = "126"
+            startingLineNumber = "135"
+            endingLineNumber = "135"
             landmarkName = "prepareForSegue(_:sender:)"
             landmarkType = "5">
          </BreakpointContent>

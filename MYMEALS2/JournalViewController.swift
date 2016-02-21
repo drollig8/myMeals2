@@ -28,8 +28,39 @@ class JournalViewController: UITableViewController {
         calendar.fillCurrentYear()
         calendar.selectDate(selectedDateOnDatepicker)
         fetch()
+        addToolBarButton()
+
     }
     
+    // MARK: Helper Methods
+    
+    func addToolBarButton() {
+        self.navigationController?.toolbarItems = [UIBarButtonItem(title: "Load Default", style: UIBarButtonItemStyle.Plain, target: self, action: "loadDefaults:")]
+        self.navigationController?.toolbarHidden = false
+    }
+    
+    func addFoodEntry(named name: String, amount: String? = nil, inSection section: Int) -> FoodEntry {
+        let foodEntry = NSEntityDescription.insertNewObjectForEntityForName("FoodEntry", inManagedObjectContext: managedObjectContext) as! FoodEntry
+        foodEntry.name = name
+        if let amount = amount {
+            foodEntry.amount = amount
+            foodEntry.section = NSNumber(integer: section)
+        }
+        return foodEntry
+    }
+    
+    func loadDefaults(sender: AnyObject) {
+
+        addFoodEntry(named: "Test", amount: "35", inSection: 0 )
+        addFoodEntry(named: "Test", amount: "", inSection: 1  )
+        addFoodEntry(named: "Test", amount: "", inSection: 1  )
+        addFoodEntry(named: "Test", amount: "", inSection: 1  )
+        addFoodEntry(named: "Test", amount: "", inSection: 0 )
+
+        try!self.managedObjectContext.save()
+    }
+    
+
     // MARK: - UITableView
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -130,10 +161,16 @@ class JournalViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == fetchedResultsController.sections!.count {
-            return nil
+        switch section {
+        case 0: return "Frühstück"
+        case 1: return "2. Frühstück"
+        case 2: return "Mittagessen"
+        case 3: return "Post-Workout-Shake"
+        case 4: return "Abendbrot"
+        case 5: return "Nachtisch"
+        default: return ""
         }
-        return "Mahlzeit von " + fetchedResultsController.sections![section].name + " Uhr"// fetchedResultsController.sectionNameKeyPath  // == timeString
+        
     }
     
     override func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {

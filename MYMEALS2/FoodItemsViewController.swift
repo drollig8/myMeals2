@@ -36,9 +36,10 @@ class FoodItemsViewController: UITableViewController,AddFoodItemDelegate,AddAmou
         scanButton?.addTarget(self, action: "scanFoodItem:", forControlEvents: .TouchUpInside)
         searchBar?.delegate = self
         searchBar?.returnKeyType = .Search
-        self.fetch(nil)
+        self.fetch()
     }
     
+
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         // TODO ASYNC
@@ -95,6 +96,14 @@ class FoodItemsViewController: UITableViewController,AddFoodItemDelegate,AddAmou
     }
 
 
+    func fetch() {
+        let fetchRequest = NSFetchRequest(entityName: "FoodItem")
+        let nameSort = NSSortDescriptor(key: "lastUsed", ascending: false)
+        fetchRequest.sortDescriptors = [nameSort]
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+        try! fetchedResultsController.performFetch()
+    }
+    
     func fetch(searchText:String?) {
         let fetchRequest = NSFetchRequest(entityName: "FoodItem")
         let nameSort = NSSortDescriptor(key: "lastUsed", ascending: false)

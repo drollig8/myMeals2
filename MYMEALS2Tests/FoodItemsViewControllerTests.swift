@@ -393,47 +393,17 @@ class FoodItemsViewControllerTests: XCTestCase {
     }
     
     func testThatAddedFoodItemGetsShownInTable() {
+        // Add Food Item
+        // Update Table
+        // Assert Cell contains Food Item
+    }
+    
+    // Layout tests
+    
+    func testThatTitleColorIsRed() {
         
     }
     
-    // MARK: - MOC cannot be nil This is kinda wrong
-    
-
-    
-    /*
-    func testAsynchronousURLConnection() {
-        let URL = NSURL(string: "http://nshipster.com/")!
-        let expectation = expectationWithDescription("GET \(URL)")
-        
-        let session = NSURLSession.sharedSession()
-        let task = session.dataTaskWithURL(URL) { data, response, error in
-            XCTAssertNotNil(data, "data should not be nil")
-            XCTAssertNil(error, "error should be nil")
-            
-            if let HTTPResponse = response as? NSHTTPURLResponse,
-                responseURL = HTTPResponse.URL,
-                MIMEType = HTTPResponse.MIMEType
-            {
-                XCTAssertEqual(responseURL.absoluteString, URL.absoluteString, "HTTP response URL should be equal to original URL")
-                XCTAssertEqual(HTTPResponse.statusCode, 200, "HTTP response status code should be 200")
-                XCTAssertEqual(MIMEType, "text/html", "HTTP response content type should be text/html")
-            } else {
-                XCTFail("Response was not NSHTTPURLResponse")
-            }
-            
-            expectation.fulfill()
-        }
-        
-        task.resume()
-        
-        waitForExpectationsWithTimeout(task.originalRequest!.timeoutInterval) { error in
-            if let error = error {
-                print("Error: \(error.localizedDescription)")
-            }
-            task.cancel()
-        }
-    }
-*/
 
     
     

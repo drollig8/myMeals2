@@ -20,6 +20,7 @@ extension FoodEntry {
     @NSManaged var amount: String?
     @NSManaged var dateString: String?
     @NSManaged var timeString: String?
+    @NSManaged var section: NSNumber?
     @NSManaged var foodItemRel: FoodItem?
 
 }

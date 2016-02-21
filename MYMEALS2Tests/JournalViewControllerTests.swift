@@ -43,54 +43,77 @@ class JournalViewControllerTests: XCTestCase {
         XCTAssertNotNil(sut.tableView.delegate)
     }
     
+    // MARK: Helper Methods
+    
+    private func createFoodEntry(timeString: String? = nil, unit: String? = nil, amount: String? = nil, foodItem: FoodItem? = nil) -> FoodEntry {
+        let foodEntry = NSEntityDescription.insertNewObjectForEntityForName("FoodEntry", inManagedObjectContext: managedObjectContext) as! FoodEntry
+        if let timeString = timeString {
+            foodEntry.timeString = timeString
+        }
+        if let unit = unit {
+            foodEntry.unit = unit
+        }
+        if let amount = amount {
+            foodEntry.amount = amount
+        }
+        if let foodItem = foodItem {
+            foodEntry.foodItemRel = foodItem
+        }
+        return foodEntry
+    }
+    
+    private func createFoodItem(name name: String? = nil, kcal: String? = nil) -> FoodItem {
+        let foodItem = NSEntityDescription.insertNewObjectForEntityForName("FoodItem", inManagedObjectContext: managedObjectContext) as! FoodItem
+        if let name = name {
+            foodItem.name = name
+        }
+        if let kcal = kcal {
+            foodItem.kcal = kcal
+        }
+
+        return foodItem
+    }
+    
+    private func createTwoFoodEntriesInTwoSections() {
+        let _ = createFoodEntry("A")
+        let _ = createFoodEntry("B")
+    }
+    
+    private func createTwoFoodEntriesInOneSections() {
+        let _ = createFoodEntry("A")
+        let _ = createFoodEntry("A")
+    }
+    
+    // MARK: Tests
+    
     func testThatOneFoodEntryReturnsOneRow() {
-        let foodItem = NSEntityDescription.insertNewObjectForEntityForName("FoodEntry", inManagedObjectContext: managedObjectContext) as! FoodEntry
-        try!foodItem.managedObjectContext?.save()
-        let _ = sut.view
+        createFoodEntry()
         XCTAssertEqual(sut.tableView(sut.tableView, numberOfRowsInSection: 0),1,"There should be one row in this test")
     }
     func testThatTwoFoodEntrysReturnTwoRows() {
-        let foodEntry = NSEntityDescription.insertNewObjectForEntityForName("FoodEntry", inManagedObjectContext: managedObjectContext) as! FoodEntry
-        let foodEntry1 = NSEntityDescription.insertNewObjectForEntityForName("FoodEntry", inManagedObjectContext: managedObjectContext) as! FoodEntry
-        try!foodEntry.managedObjectContext?.save()
-        try!foodEntry1.managedObjectContext?.save()
+        createTwoFoodEntriesInOneSections()
         let _ = sut.view
         XCTAssertEqual(sut.tableView(sut.tableView, numberOfRowsInSection: 0),2,"There should be one row in this test")
     }
+ 
     
     func testThatTwoFoodEntrysWithSameTimeReturnOneSection() {
-        let foodEntry = NSEntityDescription.insertNewObjectForEntityForName("FoodEntry", inManagedObjectContext: managedObjectContext) as! FoodEntry
-        let foodEntry1 = NSEntityDescription.insertNewObjectForEntityForName("FoodEntry", inManagedObjectContext: managedObjectContext) as! FoodEntry
-        foodEntry.timeString = "08:00"
-        foodEntry1.timeString = foodEntry.timeString
-        try!foodEntry.managedObjectContext?.save()
-        try!foodEntry1.managedObjectContext?.save()
+        createTwoFoodEntriesInOneSections()
         let _ = sut.view
-        XCTAssertEqual(sut.numberOfSectionsInTableView(sut.tableView),2,"There should be one section in this test")
+        XCTAssertEqual(sut.numberOfSectionsInTableView(sut.tableView),2,"There should be two sections in this test")
     }
     
     func testThatTwoFoodEntrysWithDifferentTimeReturnTwoSections() {
-        let foodEntry = NSEntityDescription.insertNewObjectForEntityForName("FoodEntry", inManagedObjectContext: managedObjectContext) as! FoodEntry
-        let foodEntry1 = NSEntityDescription.insertNewObjectForEntityForName("FoodEntry", inManagedObjectContext: managedObjectContext) as! FoodEntry
-        foodEntry.timeString = "08:00"
-        foodEntry1.timeString = "09:00"
-        try!foodEntry.managedObjectContext?.save()
-        try!foodEntry1.managedObjectContext?.save()
+        createTwoFoodEntriesInTwoSections()
         let _ = sut.view
-        XCTAssertEqual(sut.numberOfSectionsInTableView(sut.tableView),3,"There should be one section in this test")
+        XCTAssertEqual(sut.numberOfSectionsInTableView(sut.tableView),3,"There should be three sections in this test")
     }
     
     
     func testThatTableViewCellReturnsNameUnitOfFoodItem() {
-        let foodEntry = NSEntityDescription.insertNewObjectForEntityForName("FoodEntry", inManagedObjectContext: managedObjectContext) as! FoodEntry
-        foodEntry.timeString = "08:00"
-        let foodItem = NSEntityDescription.insertNewObjectForEntityForName("FoodItem", inManagedObjectContext: managedObjectContext) as! FoodItem
-        foodItem.name = "TestName"
-        foodItem.kcal = "150"
-        foodEntry.unit = "g"
-        foodEntry.amount = "50"
-        foodEntry.foodItemRel = foodItem
-        try!foodEntry.managedObjectContext?.save()
+        
+        let foodItem = createFoodItem(name: "TestName", kcal: "150")
+        let _ = createFoodEntry("08:00", unit: "g", amount: "50", foodItem: foodItem)
         let _ = sut.view
         sut.tableView.reloadData()
         let cell = sut.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! JournalCell
@@ -99,15 +122,9 @@ class JournalViewControllerTests: XCTestCase {
     }
     
     func testThatTableViewCellReturnsCaloriesOfFoodItem() {
-        let foodEntry = NSEntityDescription.insertNewObjectForEntityForName("FoodEntry", inManagedObjectContext: managedObjectContext) as! FoodEntry
-        foodEntry.timeString = "08:00"
-        let foodItem = NSEntityDescription.insertNewObjectForEntityForName("FoodItem", inManagedObjectContext: managedObjectContext) as! FoodItem
-        foodItem.name = "TestName"
-        foodItem.kcal = "150"
-        foodEntry.unit = "g"
-        foodEntry.amount = "50"
-        foodEntry.foodItemRel = foodItem
-        try!foodEntry.managedObjectContext?.save()
+
+        let foodItem = createFoodItem(name: "TestName", kcal: "150")
+        let _ = createFoodEntry("08:00", unit: "g", amount: "50", foodItem: foodItem)
         let _ = sut.view
         sut.tableView.reloadData()
         let cell = sut.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! JournalCell
@@ -119,12 +136,7 @@ class JournalViewControllerTests: XCTestCase {
         // We create 2 sections
         let navController = UINavigationController()
         navController.viewControllers = [sut]
-        let foodEntry = NSEntityDescription.insertNewObjectForEntityForName("FoodEntry", inManagedObjectContext: managedObjectContext) as! FoodEntry
-        let foodEntry1 = NSEntityDescription.insertNewObjectForEntityForName("FoodEntry", inManagedObjectContext: managedObjectContext) as! FoodEntry
-        foodEntry.timeString = "08:00"
-        foodEntry1.timeString = "09:00"
-        try!foodEntry.managedObjectContext?.save()
-        try!foodEntry1.managedObjectContext?.save()
+        createTwoFoodEntriesInTwoSections()
         let _ = sut.view
         sut.tableView(sut.tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 2))
         XCTAssertTrue(navController.viewControllers.count == 2, "Should push viewcontroller")
@@ -147,62 +159,38 @@ class JournalViewControllerTests: XCTestCase {
     }
     
     func testThatCellsCanBeDeleted() {
-        let foodItem = NSEntityDescription.insertNewObjectForEntityForName("FoodEntry", inManagedObjectContext: managedObjectContext) as! FoodEntry
-        foodItem.timeString = "A"
-        let foodItem1 = NSEntityDescription.insertNewObjectForEntityForName("FoodEntry", inManagedObjectContext: managedObjectContext) as! FoodEntry
-        try!managedObjectContext?.save()
-        foodItem1.timeString = "A"
+        createTwoFoodEntriesInOneSections()
         let _ = sut.view
         XCTAssertEqual(sut.tableView(sut.tableView, numberOfRowsInSection: 0),2,"There should be two row in this test")
         sut.edit(UIBarButtonItem())
         sut.tableView(sut.tableView, commitEditingStyle: .Delete, forRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
-        //print(sut.fetchedResultsController.fetchedObjects?.count)
         XCTAssertEqual(sut.tableView(sut.tableView, numberOfRowsInSection: 0),1,"There should be one row in this test")
     }
     
+
+    
     func testThatCellsCanBeMovedIntoAnotherSection() {
-        // Create 2 Sections
-        let foodEntry = NSEntityDescription.insertNewObjectForEntityForName("FoodEntry", inManagedObjectContext: managedObjectContext) as! FoodEntry
-        let foodEntry1 = NSEntityDescription.insertNewObjectForEntityForName("FoodEntry", inManagedObjectContext: managedObjectContext) as! FoodEntry
-        foodEntry.timeString = "08:00"
-        foodEntry1.timeString = "09:00"
-        try!foodEntry.managedObjectContext?.save()
+        createTwoFoodEntriesInTwoSections()
         let _ = sut.view
         XCTAssertEqual(sut.numberOfSectionsInTableView(sut.tableView),3,"There should be 3 sections in this test")
         sut.tableView(sut.tableView, moveRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 1), toIndexPath: NSIndexPath(forRow: 0, inSection: 0))
-        print(foodEntry.timeString)
-        print(foodEntry1.timeString)
         XCTAssertEqual(sut.numberOfSectionsInTableView(sut.tableView),2,"There should be 2 sections in this test")
     }
     
     func testThatAddSectionEntryCannotBeMoved() {
-        // Create 2 Sections
-        let foodEntry = NSEntityDescription.insertNewObjectForEntityForName("FoodEntry", inManagedObjectContext: managedObjectContext) as! FoodEntry
-        let foodEntry1 = NSEntityDescription.insertNewObjectForEntityForName("FoodEntry", inManagedObjectContext: managedObjectContext) as! FoodEntry
-        foodEntry.timeString = "08:00"
-        foodEntry1.timeString = "09:00"
-        try!foodEntry.managedObjectContext?.save()
+        createTwoFoodEntriesInTwoSections()
         XCTAssertFalse(sut.tableView(sut.tableView, canMoveRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 2)),"Add Section should not be movable")
     }
     
     func testThatAddSectionEntryCannotBeDeleted() {
-        // Create 2 Sections
-        let foodEntry = NSEntityDescription.insertNewObjectForEntityForName("FoodEntry", inManagedObjectContext: managedObjectContext) as! FoodEntry
-        let foodEntry1 = NSEntityDescription.insertNewObjectForEntityForName("FoodEntry", inManagedObjectContext: managedObjectContext) as! FoodEntry
-        foodEntry.timeString = "08:00"
-        foodEntry1.timeString = "09:00"
-        try!foodEntry.managedObjectContext?.save()
+        createTwoFoodEntriesInTwoSections()
         XCTAssertFalse(sut.tableView(sut.tableView, canEditRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 2)),"Add Section should not be deleted")
     }
     
     func testThatSelectingAnEntryInEditModePushesEditEntry() {
         let navController = UINavigationController()
         navController.viewControllers = [sut]
-        let foodEntry = NSEntityDescription.insertNewObjectForEntityForName("FoodEntry", inManagedObjectContext: managedObjectContext) as! FoodEntry
-        let foodEntry1 = NSEntityDescription.insertNewObjectForEntityForName("FoodEntry", inManagedObjectContext: managedObjectContext) as! FoodEntry
-        foodEntry.timeString = "08:00"
-        foodEntry1.timeString = "09:00"
-        try!foodEntry.managedObjectContext?.save()
+        createTwoFoodEntriesInTwoSections()
         let _ = sut.view
         sut.editing = true
         XCTAssertTrue(navController.viewControllers.count == 1, "Should be only one viewcontroller")
@@ -213,11 +201,7 @@ class JournalViewControllerTests: XCTestCase {
     func testThatSelectingAnEntryInNotEditModePushesShowEntry() {
         let navController = UINavigationController()
         navController.viewControllers = [sut]
-        let foodEntry = NSEntityDescription.insertNewObjectForEntityForName("FoodEntry", inManagedObjectContext: managedObjectContext) as! FoodEntry
-        let foodEntry1 = NSEntityDescription.insertNewObjectForEntityForName("FoodEntry", inManagedObjectContext: managedObjectContext) as! FoodEntry
-        foodEntry.timeString = "08:00"
-        foodEntry1.timeString = "09:00"
-        try!foodEntry.managedObjectContext?.save()
+        createTwoFoodEntriesInTwoSections()
         let _ = sut.view
         sut.editing = false
         XCTAssertTrue(navController.viewControllers.count == 1, "Should be only one viewcontroller")
@@ -225,20 +209,6 @@ class JournalViewControllerTests: XCTestCase {
         XCTAssertTrue(navController.viewControllers.count == 2, "Should push viewcontroller")
     }
     
-    func testThatHeaderOfSectionContainMealAndTime() {
-        let navController = UINavigationController()
-        navController.viewControllers = [sut]
-        let foodEntry = NSEntityDescription.insertNewObjectForEntityForName("FoodEntry", inManagedObjectContext: managedObjectContext) as! FoodEntry
-        let foodEntry1 = NSEntityDescription.insertNewObjectForEntityForName("FoodEntry", inManagedObjectContext: managedObjectContext) as! FoodEntry
-        foodEntry.timeString = "08:00"
-        foodEntry1.timeString = "09:00"
-        try!foodEntry.managedObjectContext?.save()
-        let _ = sut.view
-        let header = sut.tableView(sut.tableView, titleForHeaderInSection: 0)
-        let header1 = sut.tableView(sut.tableView, titleForHeaderInSection: 1)
-        XCTAssertEqual(header,"Mahlzeit von 08:00 Uhr", "08:00 should be header of first section")
-        XCTAssertEqual(header1,"Mahlzeit von 09:00 Uhr", "09:00 should be header of second section")
-    }
     
     func testThatFooterContainsSumOfCalories() {
         let navController = UINavigationController()
@@ -306,6 +276,71 @@ class JournalViewControllerTests: XCTestCase {
         foodEntry.timeString = "08:00"
         foodEntry.amount = "80"
     }
+    
+    private func titleInSection(section: Int) -> String {
+        return sut.tableView(sut.tableView, titleForHeaderInSection: section)!
+    }
+    
+    func testThatFirstSectionContaisFrühstück() {
+        XCTAssertEqual(titleInSection(0),"Frühstück","First Section should contain Frühstück")
+    }
+    func testThatFirstSectionContaisZweitesFrühstück() {
+        XCTAssertEqual(titleInSection(1),"2. Frühstück","First Section should contain 2. Frühstück")
+    }
+    func testThatFirstSectionContaisMittagessen() {
+        XCTAssertEqual(titleInSection(2),"Mittagessen","First Section should contain Mittagessen")
+    }
+    func testThatFirstSectionContaispostworkoutShaje() {
+        XCTAssertEqual(titleInSection(3),"Post-Workout-Shake","First Section should contain PostworkoutShake")
+    }
+    func testThatFirstSectionContainsAbendbrot() {
+        XCTAssertEqual(titleInSection(4),"Abendbrot","First Section should contain Abendbrot")
+    }
+    func testThatFirstSectionContainsNachtisch() {
+        XCTAssertEqual(titleInSection(5),"Nachtisch","First Section should contain Nachtisch")
+    }
+    
+    private func initSutWithNavigationController() ->  UINavigationController {
+        let navigationController = UINavigationController()
+        navigationController.viewControllers = [sut]
+        let _ = sut.view
+        return navigationController
+    }
+    func testThatButtomLineExists() {
+        let navigationController = initSutWithNavigationController()
+        XCTAssertFalse(navigationController.toolbarHidden, "Show Toolbar")
+    }
+    
+    private func initSutWithNavigationControllerAndGetButton() -> UIBarButtonItem {
+        let navigationController = initSutWithNavigationController()
+        let button = navigationController.toolbarItems!.first! as UIBarButtonItem
+        return button
+    }
+    
+    func testThatToolbarButtonHasTitle() {
+        let button = initSutWithNavigationControllerAndGetButton()
+        XCTAssertEqual(button.title, "Load Default", "There should be one Button in Toolbar with title Load Default")
+    }
+    
+    func testThatToolbarButtonHasAction() {
+        let button = initSutWithNavigationControllerAndGetButton()
+        XCTAssertEqual(button.action.description, "loadDefaults:", "There should be one Button in Toolbar with action Load Default")
+    }
+    
+    func testThatLoadDefaultActionLoadsValues() {
+        let _ = sut.view
+        XCTAssertEqual(sut.fetchedResultsController.fetchedObjects?.count, 0, "First there should be no objects in database")
+        sut.loadDefaults(self)
+        sut.fetch()
+        XCTAssertEqual(sut.fetchedResultsController.fetchedObjects?.count, 5, "First there should be no objects in database")
+    }
+    
+//    func testThatFoodEntriesHaveCorrectValues() {
+//        sut.loadDefaults(self)
+//        sut.fetch()
+//        let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! FoodEntry
+//        XCTAssertEqual(foodEntry.amount,"35")
+//    }
 
 }
 
