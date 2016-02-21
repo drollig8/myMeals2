@@ -285,14 +285,16 @@ class JournalViewControllerTests: XCTestCase {
         let _ = sut.view
         return navigationController
     }
+
+    
     func testThatButtomLineExists() {
         let navigationController = initSutWithNavigationController()
         XCTAssertFalse(navigationController.toolbarHidden, "Show Toolbar")
     }
     
     private func initSutWithNavigationControllerAndGetButton() -> UIBarButtonItem {
-        let navigationController = initSutWithNavigationController()
-        let button = navigationController.toolbarItems!.first! as UIBarButtonItem
+        initSutWithNavigationController()
+        let button = sut.toolbarItems!.first! as UIBarButtonItem
         return button
     }
     
@@ -314,12 +316,7 @@ class JournalViewControllerTests: XCTestCase {
         XCTAssertEqual(sut.fetchedResultsController.fetchedObjects?.count, 5, "First there should be no objects in database")
     }
     
-    func testThatFoodEntriesHaveCorrectValues() {
-        sut.loadDefaults(self)
-        sut.fetch()
-        let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! FoodEntry
-        XCTAssertEqual(foodEntry.amount,"35")
-    }
+
     
     private func getAllFoodItems() -> [FoodItem] {
         
@@ -362,5 +359,22 @@ class JournalViewControllerTests: XCTestCase {
         
     }
 
+    func testThatFoodEntryFrühstück1HasCorrectValues() {
+        sut.loadDefaults(self)
+        sut.fetch()
+        let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! FoodEntry
+        XCTAssertEqual(foodEntry.amount,"35")
+        let foodItem = foodEntry.foodItemRel! as FoodItem
+        XCTAssertEqual(foodItem.name, "Kölln - Köln Flocken")
+    }
+    
+    func testThatFoodEntryFrühstück2HasCorrectValues() {
+        sut.loadDefaults(self)
+        sut.fetch()
+        let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as! FoodEntry
+        XCTAssertEqual(foodEntry.amount,"35")
+        let foodItem = foodEntry.foodItemRel! as FoodItem
+        XCTAssertEqual(foodItem.name, "Hy-Pro 85 Vanille")
+    }
 }
 

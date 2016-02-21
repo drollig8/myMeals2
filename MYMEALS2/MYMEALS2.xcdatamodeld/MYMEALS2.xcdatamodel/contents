@@ -6,6 +6,7 @@
         <attribute name="dateString" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="section" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="sortOrder" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="timeString" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="unit" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="foodItemRel" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FoodItem" inverseName="foodEntriesRel" inverseEntity="FoodItem" syncable="YES"/>
@@ -21,7 +22,7 @@
         <relationship name="foodEntriesRel" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="FoodEntry" inverseName="foodItemRel" inverseEntity="FoodEntry" syncable="YES"/>
     </entity>
     <elements>
-        <element name="FoodEntry" positionX="-369" positionY="38" width="128" height="165"/>
-        <element name="FoodItem" positionX="-54" positionY="189" width="128" height="163"/>
+        <element name="FoodEntry" positionX="-369" positionY="38" width="128" height="180"/>
+        <element name="FoodItem" positionX="-54" positionY="189" width="128" height="165"/>
     </elements>
 </model>
