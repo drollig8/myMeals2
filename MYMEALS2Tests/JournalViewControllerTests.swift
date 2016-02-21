@@ -320,6 +320,47 @@ class JournalViewControllerTests: XCTestCase {
         let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! FoodEntry
         XCTAssertEqual(foodEntry.amount,"35")
     }
+    
+    private func getAllFoodItems() -> [FoodItem] {
+        
+        let fetchRequest = NSFetchRequest(entityName: "FoodItem")
+        let nameSort = NSSortDescriptor(key: "name", ascending: true)
+        fetchRequest.sortDescriptors = [nameSort]
+        let foodItems = try!managedObjectContext.executeFetchRequest(fetchRequest) as! [FoodItem]
+        return foodItems
+        
+    }
+    func testThatFoodItemsCanBeCreated() {
+        
+        sut.addFoodItem(named: "Test", kcal: "100", kohlenhydrate: "100", protein: "100", fett: "10")
+        let foodItems = getAllFoodItems()
+        let foodItem = foodItems.first
+        XCTAssertEqual(foodItem?.name, "Test")
+        XCTAssertEqual(foodItem?.kohlenhydrate, "100")
+        XCTAssertEqual(foodItem?.protein, "100")
+        XCTAssertEqual(foodItem?.fett, "10")
+        
+    }
+    
+    func testThatNoDublicateFoodItemsCanBeCreated() {
+        
+        sut.addFoodItem(named: "Test", kcal: "100", kohlenhydrate: "100", protein: "100", fett: "10")
+        sut.addFoodItem(named: "Test", kcal: "100", kohlenhydrate: "100", protein: "100", fett: "10")
+        let foodItems = getAllFoodItems()
+        XCTAssertTrue(foodItems.count == 1)
+        
+    }
+    
+    func testThatWeHaveAllFoodItems() {
+        
+        sut.loadDefaults(self)
+        let fetchRequest = NSFetchRequest(entityName: "FoodItem")
+        let nameSort = NSSortDescriptor(key: "name", ascending: true)
+        fetchRequest.sortDescriptors = [nameSort]
+        let foodItems = try!managedObjectContext.executeFetchRequest(fetchRequest) as! [FoodItem]
+        XCTAssertTrue(foodItems.count > 0)
+        
+    }
 
 }
 

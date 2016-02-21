@@ -35,29 +35,91 @@ class JournalViewController: UITableViewController {
     // MARK: Helper Methods
     
     func addToolBarButton() {
-        self.navigationController?.toolbarItems = [UIBarButtonItem(title: "Load Default", style: UIBarButtonItemStyle.Plain, target: self, action: "loadDefaults:")]
+
+        self.toolbarItems = [UIBarButtonItem(title: "Load Default", style: UIBarButtonItemStyle.Plain, target: self, action: "loadDefaults:")]
         self.navigationController?.toolbarHidden = false
     }
     
-    func addFoodEntry(named name: String, amount: String? = nil, inSection section: Int) -> FoodEntry {
+    private func getFoodItem(named name: String) -> FoodItem? {
+        
+        let fetchRequest = NSFetchRequest(entityName: "FoodItem")
+        let predicate = NSPredicate(format: "name =%@", name)
+        fetchRequest.predicate = predicate
+        let foodItems = try!managedObjectContext.executeFetchRequest(fetchRequest) as! [FoodItem]
+        return foodItems.first
+        
+    }
+    func addFoodEntry(named name: String, amount: String? = nil, inSection section: Int, withFoodItemNamed foodItemName: String?=nil) -> FoodEntry {
+
+        var foodItem : FoodItem?
+        
+        if let foodItemName = foodItemName {
+            
+            foodItem = getFoodItem(named: foodItemName)
+            
+        }
+        
         let foodEntry = NSEntityDescription.insertNewObjectForEntityForName("FoodEntry", inManagedObjectContext: managedObjectContext) as! FoodEntry
+        
         foodEntry.name = name
+        
         if let amount = amount {
+            
             foodEntry.amount = amount
             foodEntry.section = NSNumber(integer: section)
+            foodEntry.foodItemRel = foodItem
+            
         }
+        
         return foodEntry
+        
     }
     
+    private func hasFoodItem(named name:String) -> Bool {
+        
+        if getFoodItem(named: name) != nil {
+            return true
+        }
+        return false
+        
+    }
+    
+    func addFoodItem(named name: String, kcal: String, kohlenhydrate: String, protein: String, fett: String) {
+        
+        if !hasFoodItem(named: name) {
+        
+            let foodItem = NSEntityDescription.insertNewObjectForEntityForName("FoodItem", inManagedObjectContext: managedObjectContext) as! FoodItem
+            foodItem.name = name
+            foodItem.kohlenhydrate = kohlenhydrate
+            foodItem.protein = protein
+            foodItem.fett = fett
+        
+        }
+    }
+    
+
     func loadDefaults(sender: AnyObject) {
 
-        addFoodEntry(named: "Test", amount: "35", inSection: 0 )
+        addFoodItem(named: "Kölln - Köln Flocken", kcal: "361", kohlenhydrate: "55.8", protein: "13.8", fett: "6.7")
+        addFoodItem(named: "Hy-Pro 85 Vanille", kcal: "351", kohlenhydrate: "0.8", protein: "84.1", fett: "1.1")
+        addFoodItem(named: "Heidelbeeren TK", kcal: "32", kohlenhydrate: "6.1", protein: "0.6", fett: "0.6")
+        addFoodItem(named: "Nusskernmischung Seeberger", kcal: "634", kohlenhydrate: "15", protein: "17", fett: "54")
+        addFoodItem(named: "Körniger Frischkäse Fitline 0.8%", kcal: "63", kohlenhydrate: "1", protein: "13", fett: "0,8")
+        addFoodItem(named: "Hänchenbrust Filet", kcal: "99", kohlenhydrate: "0", protein: "23", fett: "0,8")
+        addFoodItem(named: "ESN Designer Whey Vanille", kcal: "390", kohlenhydrate: "5,3", protein: "80", fett: "5,5")
+        addFoodItem(named: "Bertolli Olivenöl", kcal: "819", kohlenhydrate: "0", protein: "0", fett: "91")
+        addFoodItem(named: "Seeberger milde Pinienkerne", kcal: "735", kohlenhydrate: "5,8", protein: "17", fett: "71")
+        addFoodItem(named: "Harry Ciabatta", kcal: "249", kohlenhydrate: "48,7", protein: "8,4", fett: "1,5")
+        addFoodItem(named: "Weider Casein", kcal: "374", kohlenhydrate: "3,2", protein: "88", fett: "1")
+        addFoodEntry(named: "Test", amount: "35", inSection: 0, withFoodItemNamed: "Kölln - Köln Flocken" )
         addFoodEntry(named: "Test", amount: "", inSection: 1  )
         addFoodEntry(named: "Test", amount: "", inSection: 1  )
         addFoodEntry(named: "Test", amount: "", inSection: 1  )
         addFoodEntry(named: "Test", amount: "", inSection: 1 )
 
         try!self.managedObjectContext.save()
+        
+        self.tableView.reloadData()
     }
     
 
@@ -187,31 +249,7 @@ class JournalViewController: UITableViewController {
         return "Summe: \(calories) kcal"
     }
 
-    // not used
-    /*
-    func createAttributedStringForCell(name: String, amount: String, kcal:String) -> NSAttributedString {
-        
-        let nameNS = name as NSString
-        let amountNS = amount as NSString
-        let kcalNS = kcal as NSString
-        
-        let resultString = NSMutableAttributedString(string: "\(nameNS) \(amountNS)\(kcalNS) kcal", attributes: nil)
 
-        
-        
-        let textStyle = NSMutableParagraphStyle.defaultParagraphStyle().mutableCopy() as! NSMutableParagraphStyle
-        textStyle.alignment = NSTextAlignment.Right
-
-        let font2 = UIFont(name: "HelveticaNeue-Thin", size: 20)
-        let textFontAttributes = [NSFontAttributeName: font2!, NSForegroundColorAttributeName: UIColor.blackColor(), NSParagraphStyleAttributeName: textStyle]
-        
-        
-        resultString.addAttributes([NSFontAttributeName : UIFont(name: "HelveticaNeue-Light", size: 34)!], range: NSMakeRange(0, nameNS.length))
-        resultString.addAttributes([NSFontAttributeName : UIFont(name: "HelveticaNeue-Thin", size: 20)!, NSForegroundColorAttributeName : UIColor.blackColor()], range: NSMakeRange(nameNS.length + 1, amountNS.length))
-        resultString.addAttributes(textFontAttributes, range: NSMakeRange(nameNS.length + amountNS.length + 1, kcalNS.length))
-        return resultString
-    }
-    */
     
     
     // MARK: - Actions
