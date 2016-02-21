@@ -55,7 +55,7 @@ class JournalViewController: UITableViewController {
         addFoodEntry(named: "Test", amount: "", inSection: 1  )
         addFoodEntry(named: "Test", amount: "", inSection: 1  )
         addFoodEntry(named: "Test", amount: "", inSection: 1  )
-        addFoodEntry(named: "Test", amount: "", inSection: 0 )
+        addFoodEntry(named: "Test", amount: "", inSection: 1 )
 
         try!self.managedObjectContext.save()
     }
