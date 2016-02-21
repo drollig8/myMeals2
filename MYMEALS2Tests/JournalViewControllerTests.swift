@@ -313,7 +313,7 @@ class JournalViewControllerTests: XCTestCase {
         XCTAssertEqual(sut.fetchedResultsController.fetchedObjects?.count, 0, "First there should be no objects in database")
         sut.loadDefaults(self)
         sut.fetch()
-        XCTAssertEqual(sut.fetchedResultsController.fetchedObjects?.count, 5, "First there should be no objects in database")
+        XCTAssertEqual(sut.fetchedResultsController.fetchedObjects?.count, 6, "First there should be no objects in database")
     }
     
 
@@ -359,6 +359,27 @@ class JournalViewControllerTests: XCTestCase {
         
     }
 
+
+    
+    func testThatFirstItemInSectionGetsSortOrderZero() {
+        XCTAssertEqual(sut.getLastSortOrderForSection(0), 0)
+    }
+    
+    func testThatSecondItemInSectionGetsSortOrderOne() {
+        createFoodEntry(inSection: 0)
+        XCTAssertEqual(sut.getLastSortOrderForSection(0), 1)
+    }
+    
+    func testThatSortOrderWorks() {
+        let foodEntry1 = createFoodEntry(inSection: 0, unit: nil, amount: "10", foodItem: nil)
+        foodEntry1.sortOrder = NSNumber(integer: 0)
+        let foodEntry2 =  createFoodEntry(inSection: 0, unit: nil, amount: "20", foodItem: nil)
+        foodEntry2.sortOrder = NSNumber(integer: 1)
+        sut.fetch()
+        let result = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))
+        XCTAssertEqual(result.amount, "10")
+    }
+    
     func testThatFoodEntryFrühstück1HasCorrectValues() {
         sut.loadDefaults(self)
         sut.fetch()
@@ -367,7 +388,7 @@ class JournalViewControllerTests: XCTestCase {
         let foodItem = foodEntry.foodItemRel! as FoodItem
         XCTAssertEqual(foodItem.name, "Kölln - Köln Flocken")
     }
-    
+
     func testThatFoodEntryFrühstück2HasCorrectValues() {
         sut.loadDefaults(self)
         sut.fetch()
@@ -376,5 +397,24 @@ class JournalViewControllerTests: XCTestCase {
         let foodItem = foodEntry.foodItemRel! as FoodItem
         XCTAssertEqual(foodItem.name, "Hy-Pro 85 Vanille")
     }
+    
+    func testThatFoodEntryFrühstück3HasCorrectValues() {
+        sut.loadDefaults(self)
+        sut.fetch()
+        let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 2, inSection: 0)) as! FoodEntry
+        XCTAssertEqual(foodEntry.amount,"100")
+        let foodItem = foodEntry.foodItemRel! as FoodItem
+        XCTAssertEqual(foodItem.name, "Heidelbeeren TK")
+    }
+    
+    func testThatFoodEntry2Frühstück1HasCorrectValues() {
+        sut.loadDefaults(self)
+        sut.fetch()
+        let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as! FoodEntry
+        XCTAssertEqual(foodEntry.amount,"30")
+        let foodItem = foodEntry.foodItemRel! as FoodItem
+        XCTAssertEqual(foodItem.name, "Nusskernmischung Seeberger")
+    }
+
 }
 

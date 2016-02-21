@@ -50,7 +50,7 @@ class JournalViewController: UITableViewController {
         
     }
     
-    private func getLastSortOrderForSection(section: Int) -> Int {
+     func getLastSortOrderForSection(section: Int) -> Int {
         // TODO and Date
         let dateString = "01.01.2016"
         let fetchRequest = NSFetchRequest(entityName: "FoodEntry")
@@ -73,7 +73,6 @@ class JournalViewController: UITableViewController {
             foodEntry.amount = amount
             foodEntry.section = NSNumber(integer: section)
             foodEntry.foodItemRel = foodItem
-            print(getLastSortOrderForSection(section))
             foodEntry.sortOrder = NSNumber(integer: getLastSortOrderForSection(section))
         }
         return foodEntry
@@ -112,8 +111,9 @@ class JournalViewController: UITableViewController {
         addFoodItem(named: "Harry Ciabatta", kcal: "249", kohlenhydrate: "48,7", protein: "8,4", fett: "1,5")
         addFoodItem(named: "Weider Casein", kcal: "374", kohlenhydrate: "3,2", protein: "88", fett: "1")
         addFoodEntry(named: "Test", amount: "35", inSection: 0, withFoodItemNamed: "Kölln - Köln Flocken" )
+        addFoodEntry(named: "Test", amount: "35", inSection: 0, withFoodItemNamed: "Hy-Pro 85 Vanille" )
         addFoodEntry(named: "Test", amount: "100", inSection: 0, withFoodItemNamed: "Heidelbeeren TK"  )
-        addFoodEntry(named: "Test", amount: "", inSection: 1  )
+        addFoodEntry(named: "Test", amount: "30", inSection: 1, withFoodItemNamed: "Nusskernmischung Seeberger"   )
         addFoodEntry(named: "Test", amount: "", inSection: 1  )
         addFoodEntry(named: "Test", amount: "", inSection: 1 )
 
@@ -267,7 +267,7 @@ class JournalViewController: UITableViewController {
         let fetchRequest = NSFetchRequest(entityName: "FoodEntry")
         let sectionSort = NSSortDescriptor(key: "section", ascending: true)
         let sortOrder = NSSortDescriptor(key: "sortOrder", ascending: true)
-        fetchRequest.sortDescriptors = [sortOrder]
+        fetchRequest.sortDescriptors = [sectionSort, sortOrder]
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: managedObjectContext, sectionNameKeyPath: "section", cacheName: nil)
         try! fetchedResultsController.performFetch()
         
