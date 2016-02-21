@@ -45,11 +45,11 @@ class JournalViewControllerTests: XCTestCase {
     
     // MARK: Helper Methods
     
-    private func createFoodEntry(timeString: String? = nil, unit: String? = nil, amount: String? = nil, foodItem: FoodItem? = nil) -> FoodEntry {
+    private func createFoodEntry(inSection section: Int? = 0, unit: String? = nil, amount: String? = nil, foodItem: FoodItem? = nil) -> FoodEntry {
         let foodEntry = NSEntityDescription.insertNewObjectForEntityForName("FoodEntry", inManagedObjectContext: managedObjectContext) as! FoodEntry
-        if let timeString = timeString {
-            foodEntry.timeString = timeString
-        }
+
+        foodEntry.section = section!
+        
         if let unit = unit {
             foodEntry.unit = unit
         }
@@ -75,13 +75,13 @@ class JournalViewControllerTests: XCTestCase {
     }
     
     private func createTwoFoodEntriesInTwoSections() {
-        let _ = createFoodEntry("A")
-        let _ = createFoodEntry("B")
+        createFoodEntry(inSection: 0)
+        createFoodEntry(inSection: 1)
     }
     
     private func createTwoFoodEntriesInOneSections() {
-        let _ = createFoodEntry("A")
-        let _ = createFoodEntry("A")
+        createFoodEntry(inSection: 0)
+        createFoodEntry(inSection: 0)
     }
     
     // MARK: Tests
@@ -113,7 +113,7 @@ class JournalViewControllerTests: XCTestCase {
     func testThatTableViewCellReturnsNameUnitOfFoodItem() {
         
         let foodItem = createFoodItem(name: "TestName", kcal: "150")
-        let _ = createFoodEntry("08:00", unit: "g", amount: "50", foodItem: foodItem)
+        createFoodEntry(inSection: 0, unit: "g", amount: "50", foodItem: foodItem)
         let _ = sut.view
         sut.tableView.reloadData()
         let cell = sut.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! JournalCell
@@ -124,7 +124,7 @@ class JournalViewControllerTests: XCTestCase {
     func testThatTableViewCellReturnsCaloriesOfFoodItem() {
 
         let foodItem = createFoodItem(name: "TestName", kcal: "150")
-        let _ = createFoodEntry("08:00", unit: "g", amount: "50", foodItem: foodItem)
+        let _ = createFoodEntry(inSection: 0, unit: "g", amount: "50", foodItem: foodItem)
         let _ = sut.view
         sut.tableView.reloadData()
         let cell = sut.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! JournalCell
@@ -187,9 +187,13 @@ class JournalViewControllerTests: XCTestCase {
         XCTAssertFalse(sut.tableView(sut.tableView, canEditRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 2)),"Add Section should not be deleted")
     }
     
-    func testThatSelectingAnEntryInEditModePushesEditEntry() {
+    private func navigationControllerWithSut() -> UINavigationController {
         let navController = UINavigationController()
         navController.viewControllers = [sut]
+        return navController
+    }
+    func testThatSelectingAnEntryInEditModePushesEditEntry() {
+        let navController = navigationControllerWithSut()
         createTwoFoodEntriesInTwoSections()
         let _ = sut.view
         sut.editing = true
@@ -199,8 +203,7 @@ class JournalViewControllerTests: XCTestCase {
     }
     
     func testThatSelectingAnEntryInNotEditModePushesShowEntry() {
-        let navController = UINavigationController()
-        navController.viewControllers = [sut]
+        let navController = navigationControllerWithSut()
         createTwoFoodEntriesInTwoSections()
         let _ = sut.view
         sut.editing = false
@@ -211,37 +214,17 @@ class JournalViewControllerTests: XCTestCase {
     
     
     func testThatFooterContainsSumOfCalories() {
-        let navController = UINavigationController()
-        navController.viewControllers = [sut]
-        let foodEntry = NSEntityDescription.insertNewObjectForEntityForName("FoodEntry", inManagedObjectContext: managedObjectContext) as! FoodEntry
-        let foodEntry1 = NSEntityDescription.insertNewObjectForEntityForName("FoodEntry", inManagedObjectContext: managedObjectContext) as! FoodEntry
-        foodEntry.timeString = "08:00"
-        foodEntry.amount = "80"
-        foodEntry1.timeString = "08:00"
-        foodEntry1.amount = "90"
-        let foodItem = NSEntityDescription.insertNewObjectForEntityForName("FoodItem", inManagedObjectContext: managedObjectContext) as! FoodItem
-        foodItem.kcal = "100"
-        foodEntry.foodItemRel = foodItem
-        foodEntry1.foodItemRel = foodItem
-        try!foodEntry.managedObjectContext?.save()
+        let foodItem = createFoodItem(name: nil, kcal: "100")
+        createFoodEntry(inSection: 0, unit: nil, amount: "80", foodItem: foodItem)
+        createFoodEntry(inSection: 0, unit: nil, amount: "90", foodItem: foodItem)
         let _ = sut.view
         let footer = sut.tableView(sut.tableView, titleForFooterInSection:  0)
         XCTAssertEqual(footer,"Summe: 170 kcal", "Summe: 170 kcal should be footer of first section")
     }
     func testThatFooterCopesWithNilValues() {
-        let navController = UINavigationController()
-        navController.viewControllers = [sut]
-        let foodEntry = NSEntityDescription.insertNewObjectForEntityForName("FoodEntry", inManagedObjectContext: managedObjectContext) as! FoodEntry
-        let foodEntry1 = NSEntityDescription.insertNewObjectForEntityForName("FoodEntry", inManagedObjectContext: managedObjectContext) as! FoodEntry
-        foodEntry.timeString = "08:00"
-        foodEntry.amount = nil
-        foodEntry1.timeString = "08:00"
-        foodEntry1.amount = nil
-        let foodItem = NSEntityDescription.insertNewObjectForEntityForName("FoodItem", inManagedObjectContext: managedObjectContext) as! FoodItem
-        foodItem.kcal = nil
-        foodEntry.foodItemRel = foodItem
-        foodEntry1.foodItemRel = foodItem
-        try!foodEntry.managedObjectContext?.save()
+        let foodItem = createFoodItem(name: nil, kcal: "100")
+        createFoodEntry(inSection: 0, unit: nil, amount: "0", foodItem: foodItem)
+        createFoodEntry(inSection: 0, unit: nil, amount: "0", foodItem: foodItem)
         let _ = sut.view
         let footer = sut.tableView(sut.tableView, titleForFooterInSection:  0)
         XCTAssertEqual(footer,"Summe: 0 kcal", "Summe: 0 kcal should be footer of first section")
@@ -271,11 +254,7 @@ class JournalViewControllerTests: XCTestCase {
         XCTAssertEqual(testDate, sut.selectedDateOnDatepicker, "When changing date on Datepicker, the Class must be notified.")
     }
     
-    func testThatSelectingDateThatAlreadyContainsValuesShowsTheseValues() {
-        let foodEntry = NSEntityDescription.insertNewObjectForEntityForName("FoodEntry", inManagedObjectContext: managedObjectContext) as! FoodEntry
-        foodEntry.timeString = "08:00"
-        foodEntry.amount = "80"
-    }
+
     
     private func titleInSection(section: Int) -> String {
         return sut.tableView(sut.tableView, titleForHeaderInSection: section)!
@@ -335,12 +314,12 @@ class JournalViewControllerTests: XCTestCase {
         XCTAssertEqual(sut.fetchedResultsController.fetchedObjects?.count, 5, "First there should be no objects in database")
     }
     
-//    func testThatFoodEntriesHaveCorrectValues() {
-//        sut.loadDefaults(self)
-//        sut.fetch()
-//        let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! FoodEntry
-//        XCTAssertEqual(foodEntry.amount,"35")
-//    }
+    func testThatFoodEntriesHaveCorrectValues() {
+        sut.loadDefaults(self)
+        sut.fetch()
+        let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! FoodEntry
+        XCTAssertEqual(foodEntry.amount,"35")
+    }
 
 }
 

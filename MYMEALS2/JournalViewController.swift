@@ -151,9 +151,9 @@ class JournalViewController: UITableViewController {
         if sourceIndexPath.section != destinationIndexPath.section {
             let destinationSection = destinationIndexPath.section
             let objectInDestinationSection = fetchedResultsController.sections![destinationSection].objects![0] as! FoodEntry
-            let newTimeString = objectInDestinationSection.timeString
+            let newSection = objectInDestinationSection.section
             let movedObject = fetchedResultsController.objectAtIndexPath(sourceIndexPath) as! FoodEntry
-            movedObject.timeString = newTimeString
+            movedObject.section = newSection
             try!managedObjectContext.save()
             fetch()
             print(fetchedResultsController.sections?.count)
@@ -184,7 +184,7 @@ class JournalViewController: UITableViewController {
             let kcalOfEntry = entryInSection.foodItemRel?.kcal?.toInt() ?? 0
             calories = calories + (amountInt * kcalOfEntry)/100
         }
-        return "Summe: \(calories) kcal"// fetchedResultsController.sectionNameKeyPath  // == timeString
+        return "Summe: \(calories) kcal"
     }
 
     // not used
@@ -218,10 +218,10 @@ class JournalViewController: UITableViewController {
     
     func fetch() {
         let fetchRequest = NSFetchRequest(entityName: "FoodEntry")
-        let sectionSort = NSSortDescriptor(key: "timeString", ascending: true)
+        let sectionSort = NSSortDescriptor(key: "section", ascending: true)
         let nameSort = NSSortDescriptor(key: "name", ascending: true)
         fetchRequest.sortDescriptors = [nameSort, sectionSort]
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: managedObjectContext, sectionNameKeyPath: "timeString", cacheName: nil)
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: managedObjectContext, sectionNameKeyPath: "section", cacheName: nil)
         try! fetchedResultsController.performFetch()
     }
     
