@@ -23,5 +23,6 @@ extension FoodEntry {
     @NSManaged var section: NSNumber?
     @NSManaged var sortOrder: NSNumber?
     @NSManaged var foodItemRel: FoodItem?
+    
 
 }
