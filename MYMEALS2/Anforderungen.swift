@@ -36,6 +36,8 @@ Allgemein:
 
 2) sethelvetica neue via CustomUI
 
+3) testThatNewEntryIsInsertedIntoCorrectSection
 
+4) testThatItemsCanbeDeleted
 
 */

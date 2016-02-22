@@ -92,6 +92,7 @@ class FoodItemsViewController: UITableViewController,AddFoodItemDelegate,AddAmou
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let viewController = storyboard.instantiateViewControllerWithIdentifier("AddAmountViewController") as! AddAmountViewController
             viewController.foodItem = foodItem
+        viewController.delegate = self
         self.navigationController?.pushViewController(viewController, animated: false)
         
 
@@ -107,36 +108,28 @@ class FoodItemsViewController: UITableViewController,AddFoodItemDelegate,AddAmou
     
     
     func configureCell(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) {
+        
         var foodItem: FoodItem!
         if let foodDatabaseSearchFoodItems = foodDatabaseSearchFoodItems {
             foodItem = foodDatabaseSearchFoodItems[indexPath.row]
         } else {
             foodItem = fetchedResultsController.objectAtIndexPath(indexPath) as! FoodItem
         }
-        
         cell.textLabel?.text = foodItem.name
         if let bodyFont = bodyFont {
              cell.textLabel?.font = bodyFont
         } else {
             fatalError("wrong font.")
         }
-        
-        
-        
+
     }
     
    
 
 
-    func fetch() {
-        let fetchRequest = NSFetchRequest(entityName: "FoodItem")
-        let nameSort = NSSortDescriptor(key: "lastUsed", ascending: false)
-        fetchRequest.sortDescriptors = [nameSort]
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
-        try! fetchedResultsController.performFetch()
-    }
+
     
-    func fetch(searchText:String?) {
+    func fetch(searchText:String? = nil) {
         let fetchRequest = NSFetchRequest(entityName: "FoodItem")
         let nameSort = NSSortDescriptor(key: "lastUsed", ascending: false)
         fetchRequest.sortDescriptors = [nameSort]
@@ -162,25 +155,16 @@ class FoodItemsViewController: UITableViewController,AddFoodItemDelegate,AddAmou
         if segue.identifier == kSegue.AddFoodItem {
             let navController = segue.destinationViewController as! UINavigationController
             let destVC = navController.topViewController as! AddFoodItemViewController
-            // I dont know how to verify this by a test.
-            let foodItem = NSEntityDescription.insertNewObjectForEntityForName("FoodItem", inManagedObjectContext: managedObjectContext) as! FoodItem
-            destVC.foodItem = foodItem
             destVC.delegate = self
+            destVC.foodItem = CoreDataHelper.createFoodItem(inManagedObjectContext: managedObjectContext)
+            
         }
         if segue.identifier == kSegue.ShowDetailsOfFoodItem {
             if let destVC = segue.destinationViewController as? ShowFoodItemViewController {
                 destVC.foodItem = selectedFoodItem
             }
         }
-        if segue.identifier == kSegue.AddAmount {
-            if let navController = segue.destinationViewController as? UINavigationController {
-            let destVC = navController.topViewController as! AddAmountViewController
-            
-                destVC.foodItem = selectedFoodItem
-                destVC.delegate = self // der scanner ruft ja dann wiederum addAdmount auf. Dafür braucht er uns.
-            }
-            
-        }
+
         if segue.identifier == kSegue.ScanFoodItem {
             if let destVC = segue.destinationViewController as? ScanFoodItemViewController {
                 destVC.foodItem = selectedFoodItem

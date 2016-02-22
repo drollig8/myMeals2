@@ -14,12 +14,26 @@ protocol AddAmountDelegate {
 }
 
 class AddAmountViewController: UITableViewController {
-    @IBOutlet weak var amount: UITextField!
+    @IBOutlet var amount: UITextField!
+    
+    @IBOutlet weak var name: UILabel!
+    
+    var managedObjectContext: NSManagedObjectContext!
     var foodItem : FoodItem!
     var delegate : AddAmountDelegate!
     override func viewDidLoad() {
-        print("ViewDidLoad AddAmountViewController")
-
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "done:")
     }
    
+    func done(sender:AnyObject) {
+        if amount.text!.isEmpty {
+            let alertController = UIAlertController(title: "Error", message: "Entry is empty", preferredStyle: .Alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+            presentViewController(alertController, animated: true, completion: nil)
+        }
+        else {
+            CoreDataHelper.createFoodEntry(inSection: 0, unit: nil, amount: amount.text!, foodItem: foodItem, inManagedObjectContext: managedObjectContext)
+        }
+    }
+    
 }

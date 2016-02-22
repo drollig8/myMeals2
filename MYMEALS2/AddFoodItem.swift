@@ -24,9 +24,14 @@ class AddFoodItemViewController: UITableViewController {
     
     var delegate: AddFoodItemDelegate?
     var managedObjectContext: NSManagedObjectContext!
+    
     override func viewDidLoad() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "cancel:")
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "done:")
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        assert(delegate != nil)
     }
     
     func cancel(sender: AnyObject) {

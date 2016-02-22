@@ -189,7 +189,7 @@ class FoodItemsViewControllerTests: XCTestCase {
         
         sut.tableView(sut.tableView, didSelectRowAtIndexPath: indexPath)
         XCTAssertTrue(navController.viewControllers.count == 2, "Should push viewcontroller")
-  //      XCTAssertNotNil((navController.viewControllers.last as? AddAmountViewController)?.managedObjectContext, "Should set MOC")
+
     }
     
     private func initSut() {
@@ -284,30 +284,20 @@ class FoodItemsViewControllerTests: XCTestCase {
         XCTAssertEqual(destVC.foodItem, foodItem, "Destination View Controller requires Food Item")
     }
     
-    func testThatAddAmountProvidesDestinationViewControllerWithSelectedFoodItem() {
-        let navVC = UINavigationController()
-        let destVC = AddAmountViewController()
-        navVC.viewControllers.append(destVC)
-        let segue = UIStoryboardSegue(identifier: kSegue.AddAmount, source: sut, destination: navVC)
-        let foodItem = FoodItem()
-        try!foodItem.managedObjectContext?.save()
-        let _ = sut.view
-        sut.selectedFoodItem = foodItem
-        sut.prepareForSegue(segue, sender: sut)
-        XCTAssertEqual(destVC.foodItem, foodItem, "Destination View Controller requires Food Item")
-    }
-    
+
     func testThatAddAmountProvidesDestinationViewControllerWithDelegate() {
-        let navVC = UINavigationController()
-        let destVC = AddAmountViewController()
-        navVC.viewControllers.append(destVC)
-        let segue = UIStoryboardSegue(identifier: kSegue.AddAmount, source: sut, destination: navVC)
-        let foodItem = FoodItem()
-        try!foodItem.managedObjectContext?.save()
-        let _ = sut.view
-        sut.selectedFoodItem = foodItem
-        sut.prepareForSegue(segue, sender: sut)
-        XCTAssertNotNil(destVC.delegate, "Destination View Controller requires delegate")
+        CoreDataHelper.createFoodItem(inManagedObjectContext: managedObjectContext)
+        let navigationController = UINavigationController()
+        navigationController.viewControllers.append(sut)
+        
+        print(navigationController.topViewController)
+        
+        sut.tableView(sut.tableView, didSelectRowAtIndexPath: ZeroIndexPath)
+        print(navigationController.topViewController)
+        let destVC = navigationController.topViewController as! AddAmountViewController
+        
+        XCTAssertNotNil(destVC.delegate)
+        XCTAssertNotNil(destVC.foodItem)
     }
     
     // MARK: - SearchTests
@@ -408,7 +398,7 @@ class FoodItemsViewControllerTests: XCTestCase {
     func testThatFoodItemsNameIsHelveticaNeue() {
         CoreDataHelper.createFoodItem(inManagedObjectContext: managedObjectContext)
         let cell = sut.tableView(sut.tableView, cellForRowAtIndexPath: ZeroIndexPath)
-        XCTAssertEqual(cell.textLabel!.font, UIFont(name: "Helvetica-Neue", size: 15))
+        XCTAssertEqual(cell.textLabel!.font, bodyFont)
     }
     
     

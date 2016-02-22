@@ -45,6 +45,7 @@ class JournalViewControllerTests: XCTestCase {
     
     // MARK: Helper Methods
     
+    // TODO DUBLICATE MOVE TO CoreDataHelper
     private func createFoodEntry(inSection section: Int? = 0, unit: String? = nil, amount: String? = nil, foodItem: FoodItem? = nil) -> FoodEntry {
         let foodEntry = NSEntityDescription.insertNewObjectForEntityForName("FoodEntry", inManagedObjectContext: managedObjectContext) as! FoodEntry
 
@@ -303,7 +304,7 @@ class JournalViewControllerTests: XCTestCase {
         XCTAssertEqual(button.action.description, "loadDefaults:", "There should be one Button in Toolbar with action Load Default")
     }
     
-    
+    //DUBLICATE
     private func getAllFoodItems() -> [FoodItem] {
         
         let fetchRequest = NSFetchRequest(entityName: "FoodItem")
@@ -313,6 +314,7 @@ class JournalViewControllerTests: XCTestCase {
         return foodItems
         
     }
+    
     func testThatFoodItemsCanBeCreated() {
         
         sut.addFoodItem(named: "Test", kcal: "100", kohlenhydrate: "100", protein: "100", fett: "10")
