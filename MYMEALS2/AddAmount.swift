@@ -13,11 +13,13 @@ protocol AddAmountDelegate {
     func addAmountViewController(addAmountViewController:AddAmountViewController, didAddAmount foodEntry: FoodEntry)
 }
 
-class AddAmountViewController: UIViewController {
+class AddAmountViewController: UITableViewController {
+    @IBOutlet weak var amount: UITextField!
     var foodItem : FoodItem!
     var delegate : AddAmountDelegate!
     override func viewDidLoad() {
         print("ViewDidLoad AddAmountViewController")
 
     }
+   
 }

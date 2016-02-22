@@ -25,17 +25,28 @@ class FoodItemsViewController: UITableViewController,AddFoodItemDelegate,AddAmou
     var performSegueHasBeenCalled = false // because we cannot mock storyboard viewcontrollers that implement a tableview. maybe we want to do it programmatically
 
     @IBOutlet var searchBar: UISearchBar!  // wegen Unit Test darf das nicht weak sein.
-    @IBOutlet var addFoodItemButton: UIButton!
+    @IBOutlet var addFoodItemBarButton: UIBarButtonItem!
     @IBOutlet weak var scanButton: UIButton!
     
     let cellIdentifier = "Cell"
     
+    private func setTitle(title: String) {
+        self.navigationItem.title = title
+    }
+    
+    func addToolBarButton() {
+        
+        self.toolbarItems = [UIBarButtonItem(title: "addFoodItem", style: UIBarButtonItemStyle.Plain, target: self, action: "addFoodItem:")]
+        self.navigationController?.toolbarHidden = false
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        addFoodItemButton?.addTarget(self, action: "addFoodItem:", forControlEvents: .TouchUpInside)
-        scanButton?.addTarget(self, action: "scanFoodItem:", forControlEvents: .TouchUpInside)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "scan", style: .Plain, target: self, action: "scanFoodItem:")
+        addToolBarButton()
         searchBar?.delegate = self
         searchBar?.returnKeyType = .Search
+        setTitle("Eintrag hinzufügen")
         self.fetch()
     }
     
@@ -66,13 +77,24 @@ class FoodItemsViewController: UITableViewController,AddFoodItemDelegate,AddAmou
         return cell
     }
     
+    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if let foodDatabaseSearchFoodItems = foodDatabaseSearchFoodItems {
-            selectedFoodItem = foodDatabaseSearchFoodItems[indexPath.row]
-        } else {
-            selectedFoodItem = fetchedResultsController.objectAtIndexPath(indexPath) as! FoodItem
+        
+        let foodItem: FoodItem!
+        if !fetchedResultsController.hasObjectAtIndexPath(indexPath) {
+            fatalError("Object not found.")
         }
-        performSegueWithIdentifier(kSegue.AddAmount, sender: self)
+        if let foodDatabaseSearchFoodItems = foodDatabaseSearchFoodItems {
+            foodItem = foodDatabaseSearchFoodItems[indexPath.row]
+        } else {
+            foodItem = fetchedResultsController.objectAtIndexPath(indexPath) as! FoodItem
+        }
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let viewController = storyboard.instantiateViewControllerWithIdentifier("AddAmountViewController") as! AddAmountViewController
+            viewController.foodItem = foodItem
+        self.navigationController?.pushViewController(viewController, animated: false)
+        
+
     }
     override func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
         if let foodDatabaseSearchFoodItems = foodDatabaseSearchFoodItems {
@@ -93,7 +115,17 @@ class FoodItemsViewController: UITableViewController,AddFoodItemDelegate,AddAmou
         }
         
         cell.textLabel?.text = foodItem.name
+        if let bodyFont = bodyFont {
+             cell.textLabel?.font = bodyFont
+        } else {
+            fatalError("wrong font.")
+        }
+        
+        
+        
     }
+    
+   
 
 
     func fetch() {
@@ -175,6 +207,18 @@ class FoodItemsViewController: UITableViewController,AddFoodItemDelegate,AddAmou
     
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
         tableView.reloadData()
+    }
+}
+
+extension NSFetchedResultsController {
+
+    func hasObjectAtIndexPath(indexPath: NSIndexPath) -> Bool {
+        if self.sections?.count > indexPath.section {
+            if self.sections![indexPath.section].objects?.count > indexPath.row {
+                return true
+            }
+        }
+        return false
     }
 }
 

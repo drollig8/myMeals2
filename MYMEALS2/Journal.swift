@@ -14,8 +14,11 @@ class JournalViewController: UITableViewController {
     var managedObjectContext    : NSManagedObjectContext!
     var fetchedResultsController: NSFetchedResultsController!
     let cellIdentifier = "Cell"
+    var editMode = false
+    @IBOutlet var calendar: DIDatepicker!
+    var selectedDateString: String!
     
-    @IBOutlet weak var calendar: DIDatepicker!
+    
     var selectedDateOnDatepicker: NSDate = NSDate() {
         didSet {
             calendar?.selectDate(selectedDateOnDatepicker)
@@ -29,7 +32,16 @@ class JournalViewController: UITableViewController {
         calendar.selectDate(selectedDateOnDatepicker)
         fetch()
         addToolBarButton()
+        self.tableView.editing = true
+        self.tableView.allowsSelectionDuringEditing = true
+        self.calendar.addTarget(self, action: "updateSelectedDate", forControlEvents: UIControlEvents.ValueChanged)
 
+    }
+    
+    func updateSelectedDate() {
+        let date = calendar.selectedDate
+        selectedDateString = "\(date.toDayMonthYear())"
+        self.fetch()
     }
     
     // MARK: Helper Methods
@@ -51,8 +63,7 @@ class JournalViewController: UITableViewController {
     }
     
      func getLastSortOrderForSection(section: Int) -> Int {
-        // TODO and Date
-        let dateString = "01.01.2016"
+       
         let fetchRequest = NSFetchRequest(entityName: "FoodEntry")
         let predicate = NSPredicate(format: "section = %d ", section)
         fetchRequest.predicate = predicate
@@ -61,14 +72,14 @@ class JournalViewController: UITableViewController {
         
     }
     
-    func addFoodEntry(named name: String, amount: String? = nil, inSection section: Int, withFoodItemNamed foodItemName: String?=nil) -> FoodEntry {
+    func addFoodEntry(dateString dateString: String, amount: String? = nil, inSection section: Int, withFoodItemNamed foodItemName: String?=nil) -> FoodEntry {
         
         var foodItem : FoodItem?
         if let foodItemName = foodItemName {
             foodItem = getFoodItem(named: foodItemName)
         }
         let foodEntry = NSEntityDescription.insertNewObjectForEntityForName("FoodEntry", inManagedObjectContext: managedObjectContext) as! FoodEntry
-        foodEntry.name = name
+        foodEntry.dateString = dateString
         if let amount = amount {
             foodEntry.amount = amount
             foodEntry.section = NSNumber(integer: section)
@@ -92,6 +103,7 @@ class JournalViewController: UITableViewController {
             foodItem.kohlenhydrate = kohlenhydrate
             foodItem.protein = protein
             foodItem.fett = fett
+            foodItem.kcal = kcal
         
         }
     }
@@ -110,70 +122,96 @@ class JournalViewController: UITableViewController {
         addFoodItem(named: "Seeberger milde Pinienkerne", kcal: "735", kohlenhydrate: "5,8", protein: "17", fett: "71")
         addFoodItem(named: "Harry Ciabatta", kcal: "249", kohlenhydrate: "48,7", protein: "8,4", fett: "1,5")
         addFoodItem(named: "Weider Casein", kcal: "374", kohlenhydrate: "3,2", protein: "88", fett: "1")
-        addFoodEntry(named: "Test", amount: "35", inSection: 0, withFoodItemNamed: "Kölln - Köln Flocken" )
-        addFoodEntry(named: "Test", amount: "35", inSection: 0, withFoodItemNamed: "Hy-Pro 85 Vanille" )
-        addFoodEntry(named: "Test", amount: "100", inSection: 0, withFoodItemNamed: "Heidelbeeren TK"  )
-        addFoodEntry(named: "Test", amount: "30", inSection: 1, withFoodItemNamed: "Nusskernmischung Seeberger"   )
-        addFoodEntry(named: "Test", amount: "", inSection: 1  )
-        addFoodEntry(named: "Test", amount: "", inSection: 1 )
-
+        addFoodEntry(dateString: "22.02.16", amount: "35", inSection: 0, withFoodItemNamed: "Kölln - Köln Flocken" )
+        addFoodEntry(dateString: "22.02.16", amount: "35", inSection: 0, withFoodItemNamed: "Hy-Pro 85 Vanille" )
+        addFoodEntry(dateString: "22.02.16", amount: "100", inSection: 0, withFoodItemNamed: "Heidelbeeren TK"  )
+        addFoodEntry(dateString: "22.02.16", amount: "30", inSection: 1, withFoodItemNamed: "Nusskernmischung Seeberger"   )
+        addFoodEntry(dateString: "22.02.16", amount: "30", inSection: 1, withFoodItemNamed: "Körniger Frischkäse Fitline 0.8%"  )
+        addFoodEntry(dateString: "22.02.16", amount: "200", inSection: 2, withFoodItemNamed: "Hänchenbrust Filet" )
+        addFoodEntry(dateString: "22.02.16", amount: "40", inSection: 3, withFoodItemNamed: "ESN Designer Whey Vanille" )
+        addFoodEntry(dateString: "22.02.16", amount: "8", inSection: 4, withFoodItemNamed: "Bertolli Olivenöl" )
+        addFoodEntry(dateString: "22.02.16", amount: "8", inSection: 4, withFoodItemNamed: "Seeberger milde Pinienkerne" )
+        addFoodEntry(dateString: "22.02.16", amount: "60", inSection: 4, withFoodItemNamed: "Harry Ciabatta" )
+        addFoodEntry(dateString: "22.02.16", amount: "40", inSection: 5, withFoodItemNamed: "Weider Casein" )
         try!self.managedObjectContext.save()
-        
-        self.tableView.reloadData()
+        self.fetch()
+
     }
     
 
     // MARK: - UITableView
     
+    let kNumberOfSection = 6
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return  fetchedResultsController.sections!.count + 1
+        return  kNumberOfSection
     }
+    
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == fetchedResultsController.sections!.count {
-            return 1  // + section
+        
+        if fetchedResultsController.sections?.count > section {
+            if fetchedResultsController.sections![section].objects?.count > 0 {
+                return (fetchedResultsController.sections![section].objects?.count)! + 1
+            }
         }
-        return fetchedResultsController.sections![section].objects!.count
+        return 1
     }
+
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if indexPath.section == fetchedResultsController.sections!.count {
-            let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! JournalCell
-            cell.name.text = "                  add Entry" // TODO das ist nicht schön so !!!
-            cell.kcal.text = ""
-            cell.imageView?.image = UIImage(named: "add-icon")
-            return cell
-        }
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! JournalCell
         configureCell(cell, atIndexPath: indexPath)
         return cell
     }
     
+    
+    private func numberOfObjectsInSection(section: Int) -> Int {
+        if fetchedResultsController.sections?.count > section {
+            return fetchedResultsController.sections![section].objects!.count
+        }
+        return 0
+    }
+    
     func configureCell(cell: JournalCell, atIndexPath indexPath: NSIndexPath) {
         
-        let foodEntry = fetchedResultsController.objectAtIndexPath(indexPath) as! FoodEntry
-        if foodEntry.foodItemRel != nil {
-            let foodItem = foodEntry.foodItemRel! as FoodItem
-            let name = foodItem.name
-            let kalories = foodItem.kcal?.toInt() ?? 0
-            let amount = foodEntry.amount?.toInt() ?? 0
-            let unit = foodEntry.unit
-            let kcalOfEntry = kalories * amount / 100
-            let kcalOfEntryString = "\(kcalOfEntry)"
+        let numberOfRowsInSection = numberOfObjectsInSection(indexPath.section)
 
-            let nameString = name ?? ""
-            let unitString = unit ?? ""
-            
-            cell.name.text = "\(nameString) \(amount)\(unitString)"
-            cell.kcal.text = "\(kcalOfEntryString) kcal"
+        if indexPath.row == numberOfRowsInSection {
+            cell.name.text = "Eintrag hinzufügen"
+            cell.kcal.text = ""
         } else {
-            print("Internal Error")
+        
+            if !fetchedResultsController.hasObjectAtIndexPath(indexPath) { fatalError("WARNING") } else {
+        
+
+        let foodEntry = fetchedResultsController.objectAtIndexPath(indexPath) as? FoodEntry
+        if let foodEntry = foodEntry {
+            
+            if foodEntry.foodItemRel != nil {
+                let foodItem = foodEntry.foodItemRel! as FoodItem
+                let name = foodItem.name
+                let kalories = foodItem.kcal?.toInt() ?? 0
+                let amount = foodEntry.amount?.toInt() ?? 0
+                let unit = foodEntry.unit
+                print(foodItem.kcal)
+                let kcalOfEntry = kalories * amount / 100
+                let kcalOfEntryString = "\(kcalOfEntry)"
+
+                let nameString = name ?? ""
+                let unitString = unit ?? ""
+                
+                cell.name.text = "\(nameString) \(amount)\(unitString)"
+                cell.kcal.text = "\(kcalOfEntryString) kcal"
+            } else {
+                print("Internal Error")
+            }
+         }
+        }
         }
         
+       
     }
     
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        if indexPath.section == fetchedResultsController.sections?.count {
-            return false
-        }
         return true
     }
     
@@ -181,11 +219,16 @@ class JournalViewController: UITableViewController {
         if indexPath.section == fetchedResultsController.sections?.count {
             return false
         }
+        if !self.editMode { return false }
         return true
     }
     
+    private func isAddEntry(indexPath:NSIndexPath) -> Bool {
+        return indexPath.row == numberOfObjectsInSection(indexPath.section)
+    }
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == fetchedResultsController.sections?.count {
+        
+        if isAddEntry(indexPath) {
             addEntry(self)
         } else {
     
@@ -200,9 +243,19 @@ class JournalViewController: UITableViewController {
                 self.navigationController?.pushViewController(showFoodItemViewController, animated: false) // true not possible for unit testing
             }
         }
-
     }
     
+    
+    override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+        let numberOfRowsInSection = numberOfObjectsInSection(indexPath.section)
+        
+        if indexPath.row == numberOfRowsInSection && !self.editMode {
+            return UITableViewCellEditingStyle.Insert
+        }
+
+        return UITableViewCellEditingStyle.None
+    }
+
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         
         if editingStyle == .Delete {
@@ -210,6 +263,10 @@ class JournalViewController: UITableViewController {
             managedObjectContext?.deleteObject(object)
             try!object.managedObjectContext?.save()
             self.fetch()
+        }
+        
+        if editingStyle == .Insert {
+            addEntry(self)
         }
         
     }
@@ -246,18 +303,30 @@ class JournalViewController: UITableViewController {
         
     }
     
+    private func getFoodEntriesForSection(section: Int) -> [FoodEntry] {
+        if fetchedResultsController.sections?.count > section {
+            if let foodEntries = fetchedResultsController.sections![section].objects as? [FoodEntry] {
+                return foodEntries
+            }
+        }
+        return [FoodEntry]()
+    }
+    
     override func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        
         if section == fetchedResultsController.sections!.count {
             return nil
         }
-        let entriesInSection = fetchedResultsController.sections![section].objects as! [FoodEntry]
+        
+
+        
         var calories = 0
-        for entryInSection in entriesInSection {
-            let amountInt = entryInSection.amount?.toInt() ?? 0
-            let kcalOfEntry = entryInSection.foodItemRel?.kcal?.toInt() ?? 0
-            calories = calories + (amountInt * kcalOfEntry)/100
-        }
+        let foodEntries = getFoodEntriesForSection(section)
+            for entryInSection in foodEntries {
+                let amountInt = entryInSection.amount?.toInt() ?? 0
+                let kcalOfEntry = entryInSection.foodItemRel?.kcal?.toInt() ?? 0
+                calories = calories + (amountInt * kcalOfEntry)/100
+            }
+        
         return "Summe: \(calories) kcal"
     }
 
@@ -266,15 +335,19 @@ class JournalViewController: UITableViewController {
     
     // MARK: - Actions
     
-    func fetch() {
+    func fetch(forDateString dateString: String? = nil) {
         
         let fetchRequest = NSFetchRequest(entityName: "FoodEntry")
         let sectionSort = NSSortDescriptor(key: "section", ascending: true)
         let sortOrder = NSSortDescriptor(key: "sortOrder", ascending: true)
         fetchRequest.sortDescriptors = [sectionSort, sortOrder]
+        if let dateString = selectedDateString {
+            let predicate = NSPredicate(format: "dateString == %@", dateString)
+            fetchRequest.predicate = predicate
+        }
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: managedObjectContext, sectionNameKeyPath: "section", cacheName: nil)
         try! fetchedResultsController.performFetch()
-        
+        self.tableView.reloadData()
     }
     
     func addEntry(sender:AnyObject) {
@@ -287,13 +360,14 @@ class JournalViewController: UITableViewController {
     }
     
     func edit(sender:AnyObject)  {
-        if self.editing {
-            self.editing = false
+        if self.editMode {
+            self.editMode = false
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Edit, target: self, action: "edit:")
         } else {
-            self.editing = true
+            self.editMode = true
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "edit:")
         }
+        tableView.reloadData()
     }
 }
 

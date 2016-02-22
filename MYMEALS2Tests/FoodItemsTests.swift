@@ -117,19 +117,22 @@ class FoodItemsViewControllerTests: XCTestCase {
     func testThatAllSegueNamesExist() {
         sut.performSegueWithIdentifier(kSegue.AddFoodItem, sender: self)
         sut.performSegueWithIdentifier(kSegue.ShowDetailsOfFoodItem, sender: self)
-        sut.performSegueWithIdentifier(kSegue.AddAmount, sender: self)
+  //      sut.performSegueWithIdentifier(kSegue.AddAmount, sender: self)
         sut.performSegueWithIdentifier(kSegue.ScanFoodItem, sender: self)
     }
     
     func testThatAddFoodItemButtonIsConnected() {
         let _ = sut.view
-        XCTAssertNotNil(sut.addFoodItemButton,"Button should exist")
+        let toolbarButton = (sut.toolbarItems?.first)! as UIBarButtonItem
+        XCTAssertNotNil(toolbarButton,"Button should exist")
     }
     
     func testThatAddFoodItemButtonHasAction() {
         let _ = sut.view
-        let actions = sut.addFoodItemButton.actionsForTarget(sut, forControlEvent: .TouchUpInside)
-        XCTAssertEqual(actions![0], "addFoodItem:","Button should have action")
+        let toolbarButton = (sut.toolbarItems?.first)! as UIBarButtonItem
+        let actions = toolbarButton.action.description
+        XCTAssertEqual(actions,"addFoodItem:","Button should have action")
+
     }
     
     func testThatAddFoodItemButtonPerformsSegue() {
@@ -158,7 +161,7 @@ class FoodItemsViewControllerTests: XCTestCase {
         XCTAssertTrue(cell!.accessoryType == .DetailDisclosureButton,"Cell should have DetailButton")
     }
     
-    let NSZeroIndexPath = NSIndexPath(forRow: 0, inSection: 0)
+    
     func testThatInfoButtonPerformsSegue() {
         let foodItem = NSEntityDescription.insertNewObjectForEntityForName("FoodItem", inManagedObjectContext: managedObjectContext) as! FoodItem
         foodItem.name = "TestName"
@@ -169,41 +172,47 @@ class FoodItemsViewControllerTests: XCTestCase {
         XCTAssertTrue(sut.performSegueHasBeenCalled,"Button should perform Segue")
     }
     
+    
+    private func initSutWithNavigationController() ->  UINavigationController {
+        let navigationController = UINavigationController()
+        navigationController.viewControllers = [sut]
+        let _ = sut.view
+        return navigationController
+    }
+    
     func testThatDidSelectPerformsSegue() {
 
-        let foodItem = NSEntityDescription.insertNewObjectForEntityForName("FoodItem", inManagedObjectContext: managedObjectContext) as! FoodItem
-        foodItem.name = "TestName"
-        try!foodItem.managedObjectContext?.save()
-        let _ = sut.view
-        sut.tableView.reloadData()
+        CoreDataHelper.createFoodItem(inManagedObjectContext: managedObjectContext)
+        let navController = initSutWithNavigationController()
+        XCTAssertTrue(navController.viewControllers.count == 1, "Should push viewcontroller")
+        let indexPath =  NSIndexPath(forRow: 0, inSection: 0)
         
-        let _ = sut.view
-        let cell = sut.tableView.cellForRowAtIndexPath(NSZeroIndexPath)
-        print(cell)
-        
-        let testNav = UINavigationController()
-        testNav.viewControllers.append(sut)
-        
-        /*
-        print(testNav.topViewController?.isKindOfClass(UITableViewController))
-        testNav.viewControllers.append(UIViewController())
-        print(testNav.topViewController?.isKindOfClass(UITableViewController))
-        */
-        sut.tableView(sut.tableView, didSelectRowAtIndexPath: NSZeroIndexPath)
-        
-        // there should now be our
-        XCTAssertTrue(sut.performSegueHasBeenCalled,"Button should perform Segue")
+        sut.tableView(sut.tableView, didSelectRowAtIndexPath: indexPath)
+        XCTAssertTrue(navController.viewControllers.count == 2, "Should push viewcontroller")
+  //      XCTAssertNotNil((navController.viewControllers.last as? AddAmountViewController)?.managedObjectContext, "Should set MOC")
     }
+    
+    private func initSut() {
+        let _ = sut.view
+    }
+    func testThatTitelIsEintragHinzufügen() {
+        initSut()
+        XCTAssertEqual(sut.navigationItem.title, "Eintrag hinzufügen")
+    }
+    
+    
+
     
     func testThatScanButtonIsConnected() {
         let _ = sut.view
-        XCTAssertNotNil(sut.scanButton,"Button should exist")
+        XCTAssertNotNil(sut.navigationItem.rightBarButtonItem ,"Button should exist")
     }
     
     func testThatScanButtonHasAction() {
-        let _ = sut.view
-        let actions = sut.scanButton.actionsForTarget(sut, forControlEvent: .TouchUpInside)
-        XCTAssertEqual(actions![0], "scanFoodItem:","Button should have action")
+        initSut()
+        let toolbarButton = sut.navigationItem.rightBarButtonItem! as UIBarButtonItem
+        let actions = toolbarButton.action.description
+        XCTAssertEqual(actions,"scanFoodItem:","Button should have action")
     }
     
     func testThatScanPerformsSegue() {
@@ -388,23 +397,19 @@ class FoodItemsViewControllerTests: XCTestCase {
         XCTAssertTrue(searchBarMock.resignFirstResponderHasBeenCalled, "Performing Search dismisses Keyboard")
     }
     
-    func testWhenAddingFoodItemAnEmptyFoodItemIsSetToAddFootItemViewController() {
-        
+    
+    func testThatToolBarIsVisible() {
+        let navigationController = UINavigationController()
+        navigationController.viewControllers = [sut]
+        initSut()
+        XCTAssertFalse(navigationController.toolbarHidden, "")
     }
-    
-    func testThatAddedFoodItemGetsShownInTable() {
-        // Add Food Item
-        // Update Table
-        // Assert Cell contains Food Item
-    }
-    
-    // Layout tests
-    
-    func testThatTitleColorIsRed() {
-        
-    }
-    
 
+    func testThatFoodItemsNameIsHelveticaNeue() {
+        CoreDataHelper.createFoodItem(inManagedObjectContext: managedObjectContext)
+        let cell = sut.tableView(sut.tableView, cellForRowAtIndexPath: ZeroIndexPath)
+        XCTAssertEqual(cell.textLabel!.font, UIFont(name: "Helvetica-Neue", size: 15))
+    }
     
     
 

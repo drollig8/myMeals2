@@ -9,18 +9,33 @@
 
 /*
 
+Journal:
+
+1) DONE: beim Eintrag Frühstück fehlt das + Zeichen
+
+2) DONE: das Wählen eines Datums hat keinen Effekt
+
+3) DONE: Die Kalorien Einzel-Summe wird nicht berechnet
+
+4) DONE: Die Kaloriengesamtsumme wird nciht berechnet.
+
+5) DONE: Die Schrift bitte deutlich kleiner wählen
 
 
-Anforderung 1:
+Eintrag hinzufügen
 
-Jede Section hat eine Zeile mit einem (+) Eintrag hinzufügen. Dort kann zur Section ein Lebensmittel hinzugefügt werden.
+1) DONE: Überschrift soll "Eintrag hinzufügen lauten"
 
-Anfoderung 2:
+2) DONE: Position der Knöpfe in die Toolbar / Navbar
 
-Mit "plus" kommt man in die Liste der Lebensmittel und nach klicken des Lebensmittels auf die Liste des Amounts.
+3) Add Item Cancel crashes
 
-Anforderung 3:
+Allgemein: 
 
-Beim Amount hat man eine Liste von Standard-Amaounts (wieder gruppiert) und eine Liste von recently used with this Lebensmittel.
+1) remove kSegue Contants
+
+2) sethelvetica neue via CustomUI
+
+
 
 */

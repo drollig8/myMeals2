@@ -8,10 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		6E03C6E41C7ADECF009BF8E9 /* Anforderungen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E03C6E31C7ADECF009BF8E9 /* Anforderungen.swift */; };
-		6E23D2FD1C637DDD00D0F622 /* EditFoodItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E23D2FC1C637DDC00D0F622 /* EditFoodItemViewController.swift */; };
-		6E68C2811C654A9200CD50BA /* AddFootItemViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E68C2801C654A9200CD50BA /* AddFootItemViewControllerTests.swift */; };
-		6E70B52E1C60E6AA00AA47C0 /* JournalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E70B52D1C60E6AA00AA47C0 /* JournalViewController.swift */; };
-		6E70B5301C60E6BE00AA47C0 /* JournalViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E70B52F1C60E6BE00AA47C0 /* JournalViewControllerTests.swift */; };
+		6E23D2FD1C637DDD00D0F622 /* EditFoodItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E23D2FC1C637DDC00D0F622 /* EditFoodItem.swift */; };
+		6E5BDDC01C7B168600C03115 /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5BDDBF1C7B168600C03115 /* CoreDataHelper.swift */; };
+		6E5BDDC21C7B208E00C03115 /* AddAmountTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5BDDC11C7B208E00C03115 /* AddAmountTests.swift */; };
+		6E5BDDC61C7B300E00C03115 /* Extension+NSDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5BDDC51C7B300E00C03115 /* Extension+NSDate.swift */; };
+		6E68C2811C654A9200CD50BA /* AddFootItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E68C2801C654A9200CD50BA /* AddFootItemTests.swift */; };
+		6E70B52E1C60E6AA00AA47C0 /* Journal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E70B52D1C60E6AA00AA47C0 /* Journal.swift */; };
+		6E70B5301C60E6BE00AA47C0 /* JournalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E70B52F1C60E6BE00AA47C0 /* JournalTests.swift */; };
 		6E9BDE1D1C706D0F008CD1AE /* DIDatepicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E9BDE1A1C706D0F008CD1AE /* DIDatepicker.m */; };
 		6E9BDE1E1C706D0F008CD1AE /* DIDatepickerDateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E9BDE1C1C706D0F008CD1AE /* DIDatepickerDateView.m */; };
 		6EB506851C5D512C00CF0589 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB506841C5D512C00CF0589 /* AppDelegate.swift */; };
@@ -19,16 +22,16 @@
 		6EB5068D1C5D512C00CF0589 /* MYMEALS2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6EB5068B1C5D512C00CF0589 /* MYMEALS2.xcdatamodeld */; };
 		6EB5068F1C5D512C00CF0589 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6EB5068E1C5D512C00CF0589 /* Assets.xcassets */; };
 		6EB506921C5D512C00CF0589 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6EB506901C5D512C00CF0589 /* LaunchScreen.storyboard */; };
-		6EB506A81C5D513700CF0589 /* FoodItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB506A71C5D513700CF0589 /* FoodItemsViewController.swift */; };
+		6EB506A81C5D513700CF0589 /* FoodItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB506A71C5D513700CF0589 /* FoodItems.swift */; };
 		6EB506AA1C5D513F00CF0589 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB506A91C5D513F00CF0589 /* CoreDataStack.swift */; };
-		6EB506AC1C5D514A00CF0589 /* FoodItemsViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB506AB1C5D514A00CF0589 /* FoodItemsViewControllerTests.swift */; };
+		6EB506AC1C5D514A00CF0589 /* FoodItemsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB506AB1C5D514A00CF0589 /* FoodItemsTests.swift */; };
 		6EB506C81C5DF48F00CF0589 /* FoodEntry+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB506C01C5DF45D00CF0589 /* FoodEntry+CoreDataProperties.swift */; };
 		6EB506C91C5DF48F00CF0589 /* FoodEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB506C11C5DF45D00CF0589 /* FoodEntry.swift */; };
 		6EB506CA1C5DF48F00CF0589 /* FoodItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB506C21C5DF45D00CF0589 /* FoodItem+CoreDataProperties.swift */; };
 		6EB506CB1C5DF48F00CF0589 /* FoodItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB506C31C5DF45D00CF0589 /* FoodItem.swift */; };
 		6EDE59EE1C5E0C6800F33544 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDE59ED1C5E0C6800F33544 /* Constants.swift */; };
-		6EDE59F01C5E39DB00F33544 /* AddAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDE59EF1C5E39DB00F33544 /* AddAmountViewController.swift */; };
-		6EDE59F21C5E4A0A00F33544 /* AddFoodItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDE59F11C5E4A0A00F33544 /* AddFoodItemViewController.swift */; };
+		6EDE59F01C5E39DB00F33544 /* AddAmount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDE59EF1C5E39DB00F33544 /* AddAmount.swift */; };
+		6EDE59F21C5E4A0A00F33544 /* AddFoodItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDE59F11C5E4A0A00F33544 /* AddFoodItem.swift */; };
 		6EDE59F41C5E537500F33544 /* ScanFoodItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDE59F31C5E537500F33544 /* ScanFoodItemViewController.swift */; };
 		6EDE59F61C5E576A00F33544 /* ShowFoodItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDE59F51C5E576A00F33544 /* ShowFoodItemViewController.swift */; };
 		6EDE59F81C5E85DC00F33544 /* FoodDatabaseSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDE59F71C5E85DC00F33544 /* FoodDatabaseSearchController.swift */; };
@@ -47,10 +50,13 @@
 
 /* Begin PBXFileReference section */
 		6E03C6E31C7ADECF009BF8E9 /* Anforderungen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Anforderungen.swift; sourceTree = "<group>"; };
-		6E23D2FC1C637DDC00D0F622 /* EditFoodItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditFoodItemViewController.swift; sourceTree = "<group>"; };
-		6E68C2801C654A9200CD50BA /* AddFootItemViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFootItemViewControllerTests.swift; sourceTree = "<group>"; };
-		6E70B52D1C60E6AA00AA47C0 /* JournalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalViewController.swift; sourceTree = "<group>"; };
-		6E70B52F1C60E6BE00AA47C0 /* JournalViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JournalViewControllerTests.swift; path = MYMEALS2Tests/JournalViewControllerTests.swift; sourceTree = SOURCE_ROOT; };
+		6E23D2FC1C637DDC00D0F622 /* EditFoodItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditFoodItem.swift; sourceTree = "<group>"; };
+		6E5BDDBF1C7B168600C03115 /* CoreDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
+		6E5BDDC11C7B208E00C03115 /* AddAmountTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddAmountTests.swift; path = MYMEALS2Tests/AddAmountTests.swift; sourceTree = SOURCE_ROOT; };
+		6E5BDDC51C7B300E00C03115 /* Extension+NSDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+NSDate.swift"; sourceTree = "<group>"; };
+		6E68C2801C654A9200CD50BA /* AddFootItemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddFootItemTests.swift; path = MYMEALS2Tests/AddFootItemTests.swift; sourceTree = SOURCE_ROOT; };
+		6E70B52D1C60E6AA00AA47C0 /* Journal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Journal.swift; sourceTree = "<group>"; };
+		6E70B52F1C60E6BE00AA47C0 /* JournalTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JournalTests.swift; path = MYMEALS2Tests/JournalTests.swift; sourceTree = SOURCE_ROOT; };
 		6E9BDE191C706D0F008CD1AE /* DIDatepicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIDatepicker.h; sourceTree = "<group>"; };
 		6E9BDE1A1C706D0F008CD1AE /* DIDatepicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIDatepicker.m; sourceTree = "<group>"; };
 		6E9BDE1B1C706D0F008CD1AE /* DIDatepickerDateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIDatepickerDateView.h; sourceTree = "<group>"; };
@@ -65,16 +71,16 @@
 		6EB506931C5D512C00CF0589 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6EB506981C5D512C00CF0589 /* MYMEALS2Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MYMEALS2Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EB5069E1C5D512C00CF0589 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6EB506A71C5D513700CF0589 /* FoodItemsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = FoodItemsViewController.swift; sourceTree = "<group>"; tabWidth = 4; };
+		6EB506A71C5D513700CF0589 /* FoodItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = FoodItems.swift; sourceTree = "<group>"; tabWidth = 4; };
 		6EB506A91C5D513F00CF0589 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
-		6EB506AB1C5D514A00CF0589 /* FoodItemsViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FoodItemsViewControllerTests.swift; path = MYMEALS2Tests/FoodItemsViewControllerTests.swift; sourceTree = SOURCE_ROOT; };
+		6EB506AB1C5D514A00CF0589 /* FoodItemsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FoodItemsTests.swift; path = MYMEALS2Tests/FoodItemsTests.swift; sourceTree = SOURCE_ROOT; };
 		6EB506C01C5DF45D00CF0589 /* FoodEntry+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "FoodEntry+CoreDataProperties.swift"; path = "../FoodEntry+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		6EB506C11C5DF45D00CF0589 /* FoodEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FoodEntry.swift; path = ../FoodEntry.swift; sourceTree = "<group>"; };
 		6EB506C21C5DF45D00CF0589 /* FoodItem+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "FoodItem+CoreDataProperties.swift"; path = "../FoodItem+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		6EB506C31C5DF45D00CF0589 /* FoodItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FoodItem.swift; path = ../FoodItem.swift; sourceTree = "<group>"; };
 		6EDE59ED1C5E0C6800F33544 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		6EDE59EF1C5E39DB00F33544 /* AddAmountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAmountViewController.swift; sourceTree = "<group>"; };
-		6EDE59F11C5E4A0A00F33544 /* AddFoodItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFoodItemViewController.swift; sourceTree = "<group>"; };
+		6EDE59EF1C5E39DB00F33544 /* AddAmount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAmount.swift; sourceTree = "<group>"; };
+		6EDE59F11C5E4A0A00F33544 /* AddFoodItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFoodItem.swift; sourceTree = "<group>"; };
 		6EDE59F31C5E537500F33544 /* ScanFoodItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanFoodItemViewController.swift; sourceTree = "<group>"; };
 		6EDE59F51C5E576A00F33544 /* ShowFoodItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowFoodItemViewController.swift; sourceTree = "<group>"; };
 		6EDE59F71C5E85DC00F33544 /* FoodDatabaseSearchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodDatabaseSearchController.swift; sourceTree = "<group>"; };
@@ -140,10 +146,26 @@
 		6EB506831C5D512C00CF0589 /* MYMEALS2 */ = {
 			isa = PBXGroup;
 			children = (
+				6EB506881C5D512C00CF0589 /* Main.storyboard */,
+				6EB5068B1C5D512C00CF0589 /* MYMEALS2.xcdatamodeld */,
+				6EB506841C5D512C00CF0589 /* AppDelegate.swift */,
+				6E03C6E31C7ADECF009BF8E9 /* Anforderungen.swift */,
+				6E70B52D1C60E6AA00AA47C0 /* Journal.swift */,
+				6E70B52F1C60E6BE00AA47C0 /* JournalTests.swift */,
+				6E23D2FC1C637DDC00D0F622 /* EditFoodItem.swift */,
+				6EB506A71C5D513700CF0589 /* FoodItems.swift */,
+				6EB506AB1C5D514A00CF0589 /* FoodItemsTests.swift */,
+				6EDE59EF1C5E39DB00F33544 /* AddAmount.swift */,
+				6E5BDDC11C7B208E00C03115 /* AddAmountTests.swift */,
+				6EDE59F11C5E4A0A00F33544 /* AddFoodItem.swift */,
+				6E68C2801C654A9200CD50BA /* AddFootItemTests.swift */,
+				6EDE59F31C5E537500F33544 /* ScanFoodItemViewController.swift */,
+				6EDE59F51C5E576A00F33544 /* ShowFoodItemViewController.swift */,
+				6E5BDDC51C7B300E00C03115 /* Extension+NSDate.swift */,
+				6EB506B11C5D520200CF0589 /* ViewController */,
 				6E70B5211C60E64700AA47C0 /* TKDatepicker */,
 				6EB506B31C5D520F00CF0589 /* Model */,
 				6EB506CC1C5DF83C00CF0589 /* Supporting Files */,
-				6EB506B11C5D520200CF0589 /* ViewController */,
 			);
 			path = MYMEALS2;
 			sourceTree = "<group>";
@@ -160,18 +182,6 @@
 		6EB506B11C5D520200CF0589 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				6EB506841C5D512C00CF0589 /* AppDelegate.swift */,
-				6EB506881C5D512C00CF0589 /* Main.storyboard */,
-				6E70B52D1C60E6AA00AA47C0 /* JournalViewController.swift */,
-				6E70B52F1C60E6BE00AA47C0 /* JournalViewControllerTests.swift */,
-				6E23D2FC1C637DDC00D0F622 /* EditFoodItemViewController.swift */,
-				6EB506A71C5D513700CF0589 /* FoodItemsViewController.swift */,
-				6EB506AB1C5D514A00CF0589 /* FoodItemsViewControllerTests.swift */,
-				6EDE59EF1C5E39DB00F33544 /* AddAmountViewController.swift */,
-				6EDE59F11C5E4A0A00F33544 /* AddFoodItemViewController.swift */,
-				6EDE59F31C5E537500F33544 /* ScanFoodItemViewController.swift */,
-				6EDE59F51C5E576A00F33544 /* ShowFoodItemViewController.swift */,
-				6E03C6E31C7ADECF009BF8E9 /* Anforderungen.swift */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -183,7 +193,6 @@
 				6EB506C11C5DF45D00CF0589 /* FoodEntry.swift */,
 				6EB506C21C5DF45D00CF0589 /* FoodItem+CoreDataProperties.swift */,
 				6EB506C31C5DF45D00CF0589 /* FoodItem.swift */,
-				6EB5068B1C5D512C00CF0589 /* MYMEALS2.xcdatamodeld */,
 				6EB506A91C5D513F00CF0589 /* CoreDataStack.swift */,
 				6EDE59F71C5E85DC00F33544 /* FoodDatabaseSearchController.swift */,
 			);
@@ -198,6 +207,7 @@
 				6EB506901C5D512C00CF0589 /* LaunchScreen.storyboard */,
 				6EB506931C5D512C00CF0589 /* Info.plist */,
 				6EDE59ED1C5E0C6800F33544 /* Constants.swift */,
+				6E5BDDBF1C7B168600C03115 /* CoreDataHelper.swift */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -205,7 +215,6 @@
 		6EB506CD1C5DF86700CF0589 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				6E68C2801C654A9200CD50BA /* AddFootItemViewControllerTests.swift */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -311,10 +320,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6EDE59F01C5E39DB00F33544 /* AddAmountViewController.swift in Sources */,
+				6EDE59F01C5E39DB00F33544 /* AddAmount.swift in Sources */,
 				6EDE59F61C5E576A00F33544 /* ShowFoodItemViewController.swift in Sources */,
 				6EB506C81C5DF48F00CF0589 /* FoodEntry+CoreDataProperties.swift in Sources */,
-				6E70B52E1C60E6AA00AA47C0 /* JournalViewController.swift in Sources */,
+				6E5BDDC01C7B168600C03115 /* CoreDataHelper.swift in Sources */,
+				6E70B52E1C60E6AA00AA47C0 /* Journal.swift in Sources */,
 				6EB506C91C5DF48F00CF0589 /* FoodEntry.swift in Sources */,
 				6EDE59F81C5E85DC00F33544 /* FoodDatabaseSearchController.swift in Sources */,
 				6E9BDE1E1C706D0F008CD1AE /* DIDatepickerDateView.m in Sources */,
@@ -324,12 +334,13 @@
 				6EB506AA1C5D513F00CF0589 /* CoreDataStack.swift in Sources */,
 				6EB506CB1C5DF48F00CF0589 /* FoodItem.swift in Sources */,
 				6E03C6E41C7ADECF009BF8E9 /* Anforderungen.swift in Sources */,
-				6EB506A81C5D513700CF0589 /* FoodItemsViewController.swift in Sources */,
-				6E23D2FD1C637DDD00D0F622 /* EditFoodItemViewController.swift in Sources */,
+				6EB506A81C5D513700CF0589 /* FoodItems.swift in Sources */,
+				6E23D2FD1C637DDD00D0F622 /* EditFoodItem.swift in Sources */,
 				6EB506851C5D512C00CF0589 /* AppDelegate.swift in Sources */,
 				6EB5068D1C5D512C00CF0589 /* MYMEALS2.xcdatamodeld in Sources */,
 				6EDE59EE1C5E0C6800F33544 /* Constants.swift in Sources */,
-				6EDE59F21C5E4A0A00F33544 /* AddFoodItemViewController.swift in Sources */,
+				6EDE59F21C5E4A0A00F33544 /* AddFoodItem.swift in Sources */,
+				6E5BDDC61C7B300E00C03115 /* Extension+NSDate.swift in Sources */,
 				6EDE59FA1C5E8CF300F33544 /* Extensions+String.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -338,9 +349,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E68C2811C654A9200CD50BA /* AddFootItemViewControllerTests.swift in Sources */,
-				6E70B5301C60E6BE00AA47C0 /* JournalViewControllerTests.swift in Sources */,
-				6EB506AC1C5D514A00CF0589 /* FoodItemsViewControllerTests.swift in Sources */,
+				6E5BDDC21C7B208E00C03115 /* AddAmountTests.swift in Sources */,
+				6E68C2811C654A9200CD50BA /* AddFootItemTests.swift in Sources */,
+				6E70B5301C60E6BE00AA47C0 /* JournalTests.swift in Sources */,
+				6EB506AC1C5D514A00CF0589 /* FoodItemsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
