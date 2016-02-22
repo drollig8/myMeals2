@@ -150,19 +150,23 @@ class JournalViewController: UITableViewController {
     func configureCell(cell: JournalCell, atIndexPath indexPath: NSIndexPath) {
         
         let foodEntry = fetchedResultsController.objectAtIndexPath(indexPath) as! FoodEntry
-        let foodItem = foodEntry.foodItemRel! as FoodItem
-        let name = foodItem.name
-        let kalories = foodItem.kcal?.toInt() ?? 0
-        let amount = foodEntry.amount?.toInt() ?? 0
-        let unit = foodEntry.unit
-        let kcalOfEntry = kalories * amount / 100
-        let kcalOfEntryString = "\(kcalOfEntry)"
+        if foodEntry.foodItemRel != nil {
+            let foodItem = foodEntry.foodItemRel! as FoodItem
+            let name = foodItem.name
+            let kalories = foodItem.kcal?.toInt() ?? 0
+            let amount = foodEntry.amount?.toInt() ?? 0
+            let unit = foodEntry.unit
+            let kcalOfEntry = kalories * amount / 100
+            let kcalOfEntryString = "\(kcalOfEntry)"
 
-        let nameString = name ?? ""
-        let unitString = unit ?? ""
-        
-        cell.name.text = "\(nameString) \(amount)\(unitString)"
-        cell.kcal.text = "\(kcalOfEntryString) kcal"
+            let nameString = name ?? ""
+            let unitString = unit ?? ""
+            
+            cell.name.text = "\(nameString) \(amount)\(unitString)"
+            cell.kcal.text = "\(kcalOfEntryString) kcal"
+        } else {
+            print("Internal Error")
+        }
         
     }
     

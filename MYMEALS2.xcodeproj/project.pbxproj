@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6E03C6E41C7ADECF009BF8E9 /* Anforderungen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E03C6E31C7ADECF009BF8E9 /* Anforderungen.swift */; };
 		6E23D2FD1C637DDD00D0F622 /* EditFoodItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E23D2FC1C637DDC00D0F622 /* EditFoodItemViewController.swift */; };
 		6E68C2811C654A9200CD50BA /* AddFootItemViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E68C2801C654A9200CD50BA /* AddFootItemViewControllerTests.swift */; };
 		6E70B52E1C60E6AA00AA47C0 /* JournalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E70B52D1C60E6AA00AA47C0 /* JournalViewController.swift */; };
@@ -45,6 +46,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6E03C6E31C7ADECF009BF8E9 /* Anforderungen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Anforderungen.swift; sourceTree = "<group>"; };
 		6E23D2FC1C637DDC00D0F622 /* EditFoodItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditFoodItemViewController.swift; sourceTree = "<group>"; };
 		6E68C2801C654A9200CD50BA /* AddFootItemViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFootItemViewControllerTests.swift; sourceTree = "<group>"; };
 		6E70B52D1C60E6AA00AA47C0 /* JournalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalViewController.swift; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 				6EDE59F11C5E4A0A00F33544 /* AddFoodItemViewController.swift */,
 				6EDE59F31C5E537500F33544 /* ScanFoodItemViewController.swift */,
 				6EDE59F51C5E576A00F33544 /* ShowFoodItemViewController.swift */,
+				6E03C6E31C7ADECF009BF8E9 /* Anforderungen.swift */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -320,6 +323,7 @@
 				6E9BDE1D1C706D0F008CD1AE /* DIDatepicker.m in Sources */,
 				6EB506AA1C5D513F00CF0589 /* CoreDataStack.swift in Sources */,
 				6EB506CB1C5DF48F00CF0589 /* FoodItem.swift in Sources */,
+				6E03C6E41C7ADECF009BF8E9 /* Anforderungen.swift in Sources */,
 				6EB506A81C5D513700CF0589 /* FoodItemsViewController.swift in Sources */,
 				6E23D2FD1C637DDD00D0F622 /* EditFoodItemViewController.swift in Sources */,
 				6EB506851C5D512C00CF0589 /* AppDelegate.swift in Sources */,
