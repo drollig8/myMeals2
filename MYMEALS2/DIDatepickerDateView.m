@@ -139,7 +139,7 @@ const CGFloat kDIDatepickerSelectionLineWidth = 51.;
 
 - (BOOL)isWeekday:(NSDate *)date
 {
-    NSInteger day = [[[NSCalendar currentCalendar] components:NSWeekdayCalendarUnit fromDate:date] weekday];
+    NSInteger day = [[[NSCalendar currentCalendar] components:NSCalendarUnitWeekday fromDate:date] weekday];
     
     const NSInteger kSunday = 1;
     const NSInteger kSaturday = 7;

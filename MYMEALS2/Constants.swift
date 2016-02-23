@@ -18,4 +18,8 @@ struct kSegue {
 
 let NSZeroIndexPath = NSIndexPath(forRow: 0, inSection: 0)
 let ZeroIndexPath = NSIndexPath(forRow: 0, inSection: 0)
- let bodyFont = UIFont(name: "HelveticaNeue-Light", size: 15)
+let bodyFont = UIFont(name: "HelveticaNeue-Light", size: 15)
+
+//func ZeroIndexPath() -> NSIndexPath {
+//    return NSIndexPath(forRow: 0, inSection: 0)
+//}

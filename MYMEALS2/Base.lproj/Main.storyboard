@@ -14,14 +14,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="4gq-kR-Njr" customClass="DIDatepicker">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="51"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="4gq-kR-Njr">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="71"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KMb-jR-4em" customClass="DIDatepicker">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="51"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </view>
+                            </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="TLT-5v-d89" customClass="JournalCell" customModule="MYMEALS2" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="101" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="121" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TLT-5v-d89" id="41X-vM-oad">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -66,7 +72,7 @@
                     </tableView>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
-                        <outlet property="calendar" destination="4gq-kR-Njr" id="ja8-jW-V1a"/>
+                        <outlet property="calendar" destination="KMb-jR-4em" id="W5J-zk-Q9a"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5ba-ZF-BrC" userLabel="First Responder" sceneMemberID="firstResponder"/>

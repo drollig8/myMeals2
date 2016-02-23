@@ -47,20 +47,64 @@ class CoreDataHelper {
         
     }
     
-    class func createFoodEntry(inSection section: Int? = 0, unit: String? = nil, amount: String? = nil, foodItem: FoodItem? = nil,inManagedObjectContext managedObjectContext: NSManagedObjectContext) -> FoodEntry {
-        let foodEntry = NSEntityDescription.insertNewObjectForEntityForName("FoodEntry", inManagedObjectContext: managedObjectContext) as! FoodEntry
+
+    
+    private class func getFoodItem(named name: String,inManagedObjectContext managedObjectContext: NSManagedObjectContext) -> FoodItem? {
         
-        foodEntry.section = section!
+        let fetchRequest = NSFetchRequest(entityName: "FoodItem")
+        let predicate = NSPredicate(format: "name =%@", name)
+        fetchRequest.predicate = predicate
+        let foodItems = try!managedObjectContext.executeFetchRequest(fetchRequest) as! [FoodItem]
+        return foodItems.first
         
-        if let unit = unit {
-            foodEntry.unit = unit
+    }
+    
+    class func getLastSortOrderForSection(section: Int,inManagedObjectContext managedObjectContext: NSManagedObjectContext) -> Int {
+        
+        let fetchRequest = NSFetchRequest(entityName: "FoodEntry")
+        let predicate = NSPredicate(format: "section = %d ", section)
+        fetchRequest.predicate = predicate
+        let foodItems = try!managedObjectContext.executeFetchRequest(fetchRequest) as! [FoodEntry]
+        return foodItems.count
+        
+    }
+    
+    class func addFoodEntry(dateString dateString: String, amount: String? = nil, inSection section: Int, withFoodItemNamed foodItemName: String?=nil,inManagedObjectContext managedObjectContext: NSManagedObjectContext) -> FoodEntry {
+        
+        var foodItem : FoodItem?
+        if let foodItemName = foodItemName {
+            foodItem = getFoodItem(named: foodItemName,inManagedObjectContext: managedObjectContext)
         }
+        let foodEntry = NSEntityDescription.insertNewObjectForEntityForName("FoodEntry", inManagedObjectContext: managedObjectContext) as! FoodEntry
+        foodEntry.dateString = dateString
         if let amount = amount {
             foodEntry.amount = amount
-        }
-        if let foodItem = foodItem {
+            foodEntry.section = NSNumber(integer: section)
             foodEntry.foodItemRel = foodItem
+            foodEntry.sortOrder = NSNumber(integer: getLastSortOrderForSection(section,inManagedObjectContext: managedObjectContext))
         }
+        return foodEntry
+    }
+    
+    // CONSOLIDIEREN mit ADD FOOD ENTRY
+    class func createFoodEntry(inSection section: Int? = 0, atDateString dateString: String? = nil, unit: String? = nil, amount: String? = nil, foodItem: FoodItem? = nil,inManagedObjectContext managedObjectContext: NSManagedObjectContext) -> FoodEntry {
+        
+        
+  //      var foodItem : FoodItem?
+        /*
+        if let foodItemName = foodItem?.name {
+            foodItem = getFoodItem(named: foodItemName,inManagedObjectContext: managedObjectContext)
+        }
+*/
+        let foodEntry = NSEntityDescription.insertNewObjectForEntityForName("FoodEntry", inManagedObjectContext: managedObjectContext) as! FoodEntry
+        foodEntry.dateString = dateString
+       
+            foodEntry.amount = amount
+        foodEntry.unit = unit
+            foodEntry.section = NSNumber(integer: section!)
+            foodEntry.foodItemRel = foodItem
+            foodEntry.sortOrder = NSNumber(integer: getLastSortOrderForSection(section!,inManagedObjectContext: managedObjectContext))
+        
         return foodEntry
     }
     

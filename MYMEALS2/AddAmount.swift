@@ -14,13 +14,14 @@ protocol AddAmountDelegate {
 }
 
 class AddAmountViewController: UITableViewController {
-    @IBOutlet var amount: UITextField!
     
+    @IBOutlet var amount: UITextField!
     @IBOutlet weak var name: UILabel!
     
     var managedObjectContext: NSManagedObjectContext!
     var foodItem : FoodItem!
     var delegate : AddAmountDelegate!
+    
     override func viewDidLoad() {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "done:")
     }

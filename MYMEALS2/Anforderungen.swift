@@ -9,35 +9,15 @@
 
 /*
 
-Journal:
+TAGEBUCH
+========
 
-1) DONE: beim Eintrag Frühstück fehlt das + Zeichen
+Anforderung 1:
+"Im EditMode kann man die Reihenfolge der Elemente verändern und auch in eine andere Seciton verschieben"
 
-2) DONE: das Wählen eines Datums hat keinen Effekt
+1) DONE: Hinzufügen Eintrag darf nicht verschiebbar sein.
+2) Neue Reihenfolge wird nicht gespeichert.
+3) Verschieben in eine andere Section ist nicht möglich.
 
-3) DONE: Die Kalorien Einzel-Summe wird nicht berechnet
-
-4) DONE: Die Kaloriengesamtsumme wird nciht berechnet.
-
-5) DONE: Die Schrift bitte deutlich kleiner wählen
-
-
-Eintrag hinzufügen
-
-1) DONE: Überschrift soll "Eintrag hinzufügen lauten"
-
-2) DONE: Position der Knöpfe in die Toolbar / Navbar
-
-3) Add Item Cancel crashes
-
-Allgemein: 
-
-1) remove kSegue Contants
-
-2) sethelvetica neue via CustomUI
-
-3) testThatNewEntryIsInsertedIntoCorrectSection
-
-4) testThatItemsCanbeDeleted
 
 */
