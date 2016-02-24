@@ -88,9 +88,22 @@ class CoreDataHelper {
         return foodEntry
     }
     
-    class func getNumberOfFoodEntriesInSection(inSection section: Int, inmanagedObjectContext managedObjectContext: NSManagedObjectContext)  -> [FoodEntry]
+    
+    // TODO Hier mü+ssen wir dringend refactorisieren !!!
+
+    
+    class func getFoodEntries(inSection section: Int, inmanagedObjectContext managedObjectContext: NSManagedObjectContext)  -> [FoodEntry]
     {
         let predicate = NSPredicate(format: "section = %d", section)
+        let fetchRequest = NSFetchRequest(entityName: "FoodEntry")
+        fetchRequest.predicate = predicate
+        let objects = try!managedObjectContext.executeFetchRequest(fetchRequest)
+        return objects as! [FoodEntry]
+    }
+    
+    class func getFoodEntries(forDateString dateString: String, inmanagedObjectContext managedObjectContext: NSManagedObjectContext)  -> [FoodEntry]
+    {
+        let predicate = NSPredicate(format: "dateString = %@", dateString)
         let fetchRequest = NSFetchRequest(entityName: "FoodEntry")
         fetchRequest.predicate = predicate
         let objects = try!managedObjectContext.executeFetchRequest(fetchRequest)

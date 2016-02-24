@@ -40,7 +40,7 @@
                                         <constraint firstAttribute="height" constant="21" id="Cpy-z6-M9y"/>
                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="jut-Nj-85t"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="totalCarbLabel" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MD5-dD-Wkt">
@@ -58,7 +58,7 @@
                                         <constraint firstAttribute="height" constant="21" id="07m-ya-1Kr"/>
                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="T76-NV-HSh"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="totalProteinLabel" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2z6-dd-Yji">
@@ -76,7 +76,7 @@
                                         <constraint firstAttribute="height" constant="21" id="OqB-TK-qHy"/>
                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="uW6-wH-VLL"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="totalFatLabel" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M54-OF-W9i">
@@ -94,7 +94,7 @@
                                         <constraint firstAttribute="height" constant="21" id="588-JA-AKA"/>
                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="oEa-Zf-DcM"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
@@ -182,9 +182,13 @@
                     <connections>
                         <outlet property="calendar" destination="KMb-jR-4em" id="W5J-zk-Q9a"/>
                         <outlet property="totalCaloriesLabel" destination="oIa-L2-Jkf" id="yWS-pz-HYu"/>
+                        <outlet property="totalCaloriesValue" destination="2LB-Cr-J2r" id="nZj-g0-ItO"/>
                         <outlet property="totalCarbLabel" destination="MD5-dD-Wkt" id="GzJ-Yg-8Hc"/>
+                        <outlet property="totalCarbValue" destination="VE8-LT-fF2" id="vhj-pF-8tE"/>
                         <outlet property="totalFatLabel" destination="M54-OF-W9i" id="kvx-lQ-vBB"/>
+                        <outlet property="totalFatValue" destination="2ST-ny-4hG" id="vbM-Dm-vUM"/>
                         <outlet property="totalProteinLabel" destination="2z6-dd-Yji" id="tnI-qW-XTR"/>
+                        <outlet property="totalProteinValue" destination="yYi-vO-Gjr" id="N6c-Uf-Tkm"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5ba-ZF-BrC" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -343,39 +343,49 @@ class JournalViewControllerTests: XCTestCase {
         XCTAssertEqual(sut.totalFatLabel.text,"Fett")
     }
     
-    func testThatTotalCaloriesLabelHasCorrectFont()
+    func testThatTotalLabelHasCorrectFont()
     {
         initSut()
-        XCTAssertEqual(sut.totalCaloriesLabel.font, UIFont(name: "HelveticaNeue-Light", size: 12))
+        XCTAssertEqual(sut.totalCaloriesLabel.font, UIFont.customSummaryLabels())
+        XCTAssertEqual(sut.totalCarbLabel.font, UIFont.customSummaryLabels())
+        XCTAssertEqual(sut.totalProteinLabel.font, UIFont.customSummaryLabels())
+        XCTAssertEqual(sut.totalFatLabel.font, UIFont.customSummaryLabels())
     }
     
-    func testThatTotalCarbLabelHasCorrectFont()
-    {
-        initSut()
-        XCTAssertEqual(sut.totalCarbLabel.font, UIFont(name: "HelveticaNeue-Light", size: 12))
-    }
     
-    func testThatTotalProteinLabelHasCorrectFont()
+    func testThatTotalCalorieValueIsCorrect()
     {
         initSut()
-        XCTAssertEqual(sut.totalProteinLabel.font, UIFont(name: "HelveticaNeue-Light", size: 12))
+        sut.loadDefaults()
+        sut.selectedDateString = "22.02.16"
+        XCTAssertEqual(sut.totalCaloriesValue.text,"1263")
+        
     }
-    
-    func testThatTotalFatLabelHasCorrectFont()
-    {
-        initSut()
-        XCTAssertEqual(sut.totalFatLabel.font, UIFont(name: "HelveticaNeue-Light", size: 12))
-    }
+
     
     // MARK: Anforderung 5: Über den Summary Labels wird die Summe der Tageswerte angezeigt in HelveticaNeue-Light 12, Farbe 000000
     
-    func testThatTotalCalorieValueExists()
+    func testThatTotalValueFieldsExists()
     {
         initSut()
         XCTAssertNotNil(sut.totalCaloriesValue)
-        
+        XCTAssertNotNil(sut.totalCarbValue)
+        XCTAssertNotNil(sut.totalProteinValue)
+        XCTAssertNotNil(sut.totalFatValue)
     }
     
+
+    
+    func testThatTotalValuesHaveCorrectFont()
+    {
+        initSut()
+        XCTAssertEqual(sut.totalCaloriesValue.font, UIFont.customSummaryValues())
+        XCTAssertEqual(sut.totalCarbValue.font, UIFont.customSummaryValues())
+        XCTAssertEqual(sut.totalProteinValue.font, UIFont.customSummaryValues())
+        XCTAssertEqual(sut.totalFatValue.font, UIFont.customSummaryValues())
+
+
+    }
     // MARK: Tests
     
     func testThatOneFoodEntryReturnsOneRow()

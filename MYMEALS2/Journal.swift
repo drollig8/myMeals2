@@ -16,27 +16,34 @@ class JournalViewController: UITableViewController {
     let cellIdentifier = "Cell"
     var editMode = false
     @IBOutlet var calendar: DIDatepicker!
-    var selectedDateString: String!
+    var selectedDateString: String! {
+        didSet {
+            if totalCaloriesValue != nil {
+                totalCaloriesValue.text = "\(calculateTotalCalories(forselectedDate: selectedDateString))"
+            }
+        }
+    }
     var isMovingItem : Bool = false
     
-    @IBOutlet weak var totalProteinLabel: UILabel!
-    @IBOutlet weak var totalFatLabel: UILabel!
-    @IBOutlet weak var totalCarbLabel: UILabel!
-    @IBOutlet weak var totalCaloriesLabel: UILabel!
+    @IBOutlet var totalProteinLabel: UILabel!
+    @IBOutlet var totalFatLabel: UILabel!
+    @IBOutlet var totalCarbLabel: UILabel!
+    @IBOutlet var totalCaloriesLabel: UILabel!
     
-    @IBOutlet weak var totalProteinValue: UILabel!
-    @IBOutlet weak var totalFatValue: UILabel!
-    @IBOutlet weak var totalCarbValue: UILabel!
-    @IBOutlet weak var totalCaloriesValue: UILabel!
+    @IBOutlet var totalProteinValue: UILabel!
+    @IBOutlet var totalFatValue: UILabel!
+    @IBOutlet var totalCarbValue: UILabel!
+    @IBOutlet var totalCaloriesValue: UILabel!
     
     var selectedDateOnDatepicker: NSDate = NSDate()
 
-    func setSummaryLabels()
+    private func setSummaryLabels()
     {
         totalCaloriesLabel.text = "Kalorien"
         totalCarbLabel.text = "KH"
         totalProteinLabel.text = "Protein"
         totalFatLabel.text = "Fett"
+        totalCaloriesValue.text = " -- "
     }
     
     override func viewDidLoad()
@@ -51,7 +58,9 @@ class JournalViewController: UITableViewController {
         self.tableView.allowsSelectionDuringEditing = true
         self.calendar.addTarget(self, action: "updateSelectedDate", forControlEvents: UIControlEvents.ValueChanged)
         setSummaryLabels()
-
+        
+        // wenn Werte in der Datenbank sind, dann zeige sie auch an
+       // selectedDateString = "23.02.2016"
     }
     
     func updateSelectedDate()
@@ -157,7 +166,7 @@ class JournalViewController: UITableViewController {
     
     func getNumberOfFoodEntries(inSection section: Int) -> Int
     {
-        let foodEntries = CoreDataHelper.getNumberOfFoodEntriesInSection(inSection: section, inmanagedObjectContext: managedObjectContext)
+        let foodEntries = CoreDataHelper.getFoodEntries(inSection: section, inmanagedObjectContext: managedObjectContext)
         return foodEntries.count
     }
     
@@ -378,37 +387,37 @@ class JournalViewController: UITableViewController {
     
     private func getFoodEntriesForSection(section: Int) -> [FoodEntry]
     {
-        if fetchedResultsController.sections?.count > section {
-            if let foodEntries = fetchedResultsController.sections![section].objects as? [FoodEntry]
-            {
-                return foodEntries
-            }
+        return CoreDataHelper.getFoodEntries(inSection: section, inmanagedObjectContext: managedObjectContext)
+    }
+    
+    private func getCaloriesFromFoodEntries(foodEntries:[FoodEntry]) -> Int
+    {
+        var totalCalories = 0
+        for foodEntry in foodEntries {
+
+            let amountInt = foodEntry.amount?.toInt() ?? 0
+            let kcalOfEntry = foodEntry.foodItemRel?.kcal?.toInt() ?? 0
+            totalCalories += (amountInt * kcalOfEntry)/100
         }
-        return [FoodEntry]()
+        return totalCalories
+    }
+
+    private func calculateTotalCalories(forselectedDate selectedDateString: String) -> Int
+    {
+        
+        let foodEntries = CoreDataHelper.getFoodEntries(forDateString: selectedDateString, inmanagedObjectContext: managedObjectContext)
+        let totalCalories = getCaloriesFromFoodEntries(foodEntries)
+        return totalCalories
     }
     
     override func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String?
     {
-        if section == fetchedResultsController.sections!.count {
-            return nil
-        }
-        
-
-        
-        var calories = 0
         let foodEntries = getFoodEntriesForSection(section)
-            for entryInSection in foodEntries {
-                let amountInt = entryInSection.amount?.toInt() ?? 0
-                let kcalOfEntry = entryInSection.foodItemRel?.kcal?.toInt() ?? 0
-                calories = calories + (amountInt * kcalOfEntry)/100
-            }
-        
-        return "Summe: \(calories) kcal"
+        let totalCalories = getCaloriesFromFoodEntries(foodEntries)
+        return "Summe: \(totalCalories) kcal"
     }
 
-
-    
-    
+   
     // MARK: - Actions
     
     func fetch(forDateString dateString: String? = nil)
