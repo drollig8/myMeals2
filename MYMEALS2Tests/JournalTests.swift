@@ -366,6 +366,16 @@ class JournalViewControllerTests: XCTestCase {
         initSut()
         XCTAssertEqual(sut.totalFatLabel.font, UIFont(name: "HelveticaNeue-Light", size: 12))
     }
+    
+    // MARK: Anforderung 5: Über den Summary Labels wird die Summe der Tageswerte angezeigt in HelveticaNeue-Light 12, Farbe 000000
+    
+    func testThatTotalCalorieValueExists()
+    {
+        initSut()
+        XCTAssertNotNil(sut.totalCaloriesValue)
+        
+    }
+    
     // MARK: Tests
     
     func testThatOneFoodEntryReturnsOneRow()
@@ -374,6 +384,7 @@ class JournalViewControllerTests: XCTestCase {
         XCTAssertEqual(sut.tableView(sut.tableView, numberOfRowsInSection: 0),2,"There should be one two Rows (add Item) in this test")
     }
     
+
 
     
     func testThatTwoFoodEntrysReturnTwoRows()

@@ -24,7 +24,12 @@ class JournalViewController: UITableViewController {
     @IBOutlet weak var totalCarbLabel: UILabel!
     @IBOutlet weak var totalCaloriesLabel: UILabel!
     
-    var selectedDateOnDatepicker: NSDate = NSDate() 
+    @IBOutlet weak var totalProteinValue: UILabel!
+    @IBOutlet weak var totalFatValue: UILabel!
+    @IBOutlet weak var totalCarbValue: UILabel!
+    @IBOutlet weak var totalCaloriesValue: UILabel!
+    
+    var selectedDateOnDatepicker: NSDate = NSDate()
 
     func setSummaryLabels()
     {
