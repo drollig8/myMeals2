@@ -15,6 +15,7 @@ protocol AddAmountDelegate {
 
 class AddAmountViewController: UITableViewController {
     
+    // TODO: rename amount!
     @IBOutlet var amount: UITextField!
     @IBOutlet weak var name: UILabel!
     
@@ -22,12 +23,25 @@ class AddAmountViewController: UITableViewController {
     var managedObjectContext: NSManagedObjectContext!
     var foodItem : FoodItem!
     var delegate : AddAmountDelegate!
+    var dateString: String!
+    var section : Int!
     
-    override func viewDidLoad() {
+    private func addDoneButton()
+    {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "done:")
     }
+    
+    override func viewDidLoad()
+    {
+        addDoneButton()
+        // TODO : Es macht sinn, das nicht hierher übergeben wird und asserted werden muss, sondern dass der foodEntry schon vorher creeiert wird und diese Informationen schon enthält. Das ist eine Reduktion von Schnittstellen !!!
+   //     assert(dateString != nil)
+   //     assert(section != 0)
+
+    }
    
-    func done(sender:AnyObject) {
+    func done(sender:AnyObject)
+    {
         if amount.text!.isEmpty {
             let alertController = UIAlertController(title: "Error", message: "Entry is empty", preferredStyle: .Alert)
             alertController.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
@@ -35,11 +49,13 @@ class AddAmountViewController: UITableViewController {
         }
         else {
             // TODO DateString und Sectino fehlen !!!
-            var name = ""
+            var foodName = ""
             if foodItem != nil {
-                name = foodItem.name ?? ""
+                foodName = foodItem.name ?? ""
             }
-            CoreDataHelper.createFoodEntry(inSection: 0, unit: nil, amount: amount.text!, foodItemName: name, inManagedObjectContext: managedObjectContext)
+            let amount1 = amount.text ?? ""
+            let unit = "g"
+            //CoreDataHelper.addFoodEntry(dateString: dateString, inSection: section, amount: amount1, unit: unit, withFoodItemNamed: foodName, inManagedObjectContext: managedObjectContext)
         }
     }
     

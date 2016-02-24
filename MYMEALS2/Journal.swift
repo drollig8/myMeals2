@@ -103,16 +103,13 @@ class JournalViewController: UITableViewController {
     }
     
     
-    func getLastSortOrderForSection(section: Int) -> Int
-    {
-       return CoreDataHelper.getLastSortOrderForSection(section, inManagedObjectContext: managedObjectContext)
-    }
+
     
     
-    private func addFoodEntry(amount amount: String? = nil, inSection section: Int, withFoodItemNamed foodItemName: String?=nil) -> FoodEntry
+    private func addFoodEntry(amount amount: String? = nil, inSection section: Int, withFoodItemNamed foodName: String) -> FoodEntry
     {
-        let currentDateString = NSDate().toDayMonthYear()
-        return CoreDataHelper.addFoodEntry(dateString: currentDateString, amount: amount, inSection: section, withFoodItemNamed: foodItemName, inManagedObjectContext: managedObjectContext)
+        let dateString = NSDate().toDayMonthYear()
+        return CoreDataHelper.addFoodEntry(dateString: dateString, inSection: section, amount: amount, unit: nil, withFoodItemNamed: foodName, inManagedObjectContext: managedObjectContext)
     }
 
     private func hasFoodItem(named name:String) -> Bool

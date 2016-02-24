@@ -41,7 +41,6 @@ class AddAmountViewControllerTests: XCTestCase {
     }
     func testThatWeHaveDoneButton() {
         initSut()
-        print(sut.navigationItem.rightBarButtonItem)
         XCTAssertNotNil(sut.navigationItem.rightBarButtonItem)
     }
     
@@ -63,8 +62,9 @@ class AddAmountViewControllerTests: XCTestCase {
     func testThatDoneCreatesNewEntry() {
         initSut()
         sut.amount.text = "127"
+        sut.dateString = "01.01.15"
         sut.done(self)
-        let objects = CoreDataHelper.getAllFoodEntries(inManagedObjectContext: managedObjectContext)
+        let objects = CoreDataHelper.getFoodEntries(forDateString: "01.01.15", inmanagedObjectContext: managedObjectContext)
         XCTAssertTrue(objects.count != 0)
     }
 }

@@ -69,13 +69,15 @@ class JournalViewControllerTests: XCTestCase {
         XCTAssertFalse(sut.tableView(sut.tableView, canMoveRowAtIndexPath: ZeroIndexPath))
     }
 
+   
     
     func testThatAddEntryRowCanNotBeMovedOnNotEmptySection()
     {
-        CoreDataHelper.createFoodEntry(inSection: 0, atDateString: todayDateString, inManagedObjectContext: managedObjectContext)
+        createSampleFoodEntry()
         sut.editMode = true
         let indexPath = NSIndexPath(forRow: 1, inSection: 0)
-        sut.selectedDateString = NSDate().toDayMonthYear();        XCTAssertTrue(sut.tableView(sut.tableView, canMoveRowAtIndexPath: ZeroIndexPath))
+        sut.selectedDateString = todayDateString
+        XCTAssertTrue(sut.tableView(sut.tableView, canMoveRowAtIndexPath: ZeroIndexPath))
         XCTAssertFalse(sut.tableView(sut.tableView, canMoveRowAtIndexPath: indexPath))
     }
     
@@ -415,7 +417,8 @@ class JournalViewControllerTests: XCTestCase {
     
     func testThatOneFoodEntryReturnsOneRow()
     {
-        CoreDataHelper.createFoodEntry(inSection: 0, inManagedObjectContext: managedObjectContext)
+        createSampleFoodEntry()
+        sut.selectedDateString = todayDateString
         XCTAssertEqual(sut.tableView(sut.tableView, numberOfRowsInSection: 0),2,"There should be one two Rows (add Item) in this test")
     }
     
@@ -430,7 +433,7 @@ class JournalViewControllerTests: XCTestCase {
     private func createSampleFoodEntry()
     {
         CoreDataHelper.createFoodItem(name: "TestName", kcal: "150", carbs: "10", protein: "40", fat: "8", inManagedObjectContext: managedObjectContext)
-        CoreDataHelper.createFoodEntry(inSection: 0, atDateString: todayDateString, unit: "g", amount: "50", foodItemName: "TestName", inManagedObjectContext: managedObjectContext)
+        CoreDataHelper.addFoodEntry(dateString: todayDateString, inSection: 0, amount: "50", unit: "g",  withFoodItemNamed: "TestName", inManagedObjectContext: managedObjectContext)
         
     }
 
@@ -537,9 +540,10 @@ class JournalViewControllerTests: XCTestCase {
         XCTAssertTrue(navController.viewControllers.count == 2, "Should push viewcontroller")
     }
     
-    private func createTestFoodItemWithAmount(amount:Int)
+    private func createTestFoodItemWithAmount(amount:Int) -> FoodEntry
     {
-       CoreDataHelper.createFoodEntry(inSection: 0, unit: "g", amount: "\(amount)", foodItemName: "Test", inManagedObjectContext: managedObjectContext)
+        return CoreDataHelper.addFoodEntry(dateString: todayDateString, inSection: 0, amount: "\(amount)", unit: "g", withFoodItemNamed: "Test", inManagedObjectContext: managedObjectContext)
+
     }
     
     
@@ -692,21 +696,21 @@ class JournalViewControllerTests: XCTestCase {
     
     func testThatFirstItemInSectionGetsSortOrderZero()
     {
-        XCTAssertEqual(sut.getLastSortOrderForSection(0), 0)
+        XCTAssertEqual(CoreDataHelper.getLastEntry(dateString: todayDateString, inSection: 0, inManagedObjectContext: managedObjectContext),0)
     }
     
     
     func testThatSecondItemInSectionGetsSortOrderOne() {
-        CoreDataHelper.createFoodEntry(inManagedObjectContext: managedObjectContext)
-        XCTAssertEqual(sut.getLastSortOrderForSection(0), 1)
+        createSampleFoodEntry()
+        XCTAssertEqual(CoreDataHelper.getLastEntry(dateString: todayDateString, inSection: 0, inManagedObjectContext: managedObjectContext),1)
     }
     
     func testThatSortOrderWorks()
     {
-        let foodEntry1 = CoreDataHelper.createFoodEntry(inSection: 0, amount: "10", inManagedObjectContext: managedObjectContext)
+        let foodEntry1 = createTestFoodItemWithAmount(10)
         
         foodEntry1.sortOrder = NSNumber(integer: 0)
-        let foodEntry2 =  CoreDataHelper.createFoodEntry(inSection: 0, amount: "20", inManagedObjectContext: managedObjectContext)
+        let foodEntry2 =  createTestFoodItemWithAmount(20)
         foodEntry2.sortOrder = NSNumber(integer: 1)
         sut.fetch()
         let result = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))
@@ -924,7 +928,7 @@ class JournalViewControllerTests: XCTestCase {
     
     func testThatFetchingForDateReturnsCorrectValue()
     {
-        CoreDataHelper.createFoodEntry(atDateString: todayDateString, inManagedObjectContext: managedObjectContext)
+        createSampleFoodEntry()
         sut.selectedDateString = todayDateString
         initSut()
         XCTAssertTrue(sut.fetchedResultsController.hasObjectAtIndexPath(ZeroIndexPath))
@@ -954,14 +958,16 @@ class JournalViewControllerTests: XCTestCase {
     
     private func createTwoFoodEntriesInTwoSections()
     {
-        CoreDataHelper.createFoodEntry(inSection: 0, atDateString: NSDate().toDayMonthYear(),  inManagedObjectContext: managedObjectContext)
-        CoreDataHelper.createFoodEntry(inSection: 1, atDateString: NSDate().toDayMonthYear(), inManagedObjectContext: managedObjectContext)
+        CoreDataHelper.addFoodEntry(dateString: todayDateString, inSection: 0, inManagedObjectContext: managedObjectContext)
+        CoreDataHelper.addFoodEntry(dateString: todayDateString, inSection: 1, inManagedObjectContext: managedObjectContext)
+        
+        
     }
     
     private func createTwoFoodEntriesInSectionZero()
     {
-        CoreDataHelper.createFoodEntry(inSection: 0, atDateString: NSDate().toDayMonthYear(), inManagedObjectContext: managedObjectContext)
-        CoreDataHelper.createFoodEntry(inSection: 0, atDateString: NSDate().toDayMonthYear(), inManagedObjectContext: managedObjectContext)
+        CoreDataHelper.addFoodEntry(dateString: todayDateString, inSection: 0, inManagedObjectContext: managedObjectContext)
+        CoreDataHelper.addFoodEntry(dateString: todayDateString, inSection: 0, inManagedObjectContext: managedObjectContext)
     }
 }
 
