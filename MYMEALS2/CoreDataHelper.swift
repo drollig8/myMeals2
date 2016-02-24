@@ -59,7 +59,8 @@ class CoreDataHelper {
         
     }
     
-    class func getLastSortOrderForSection(section: Int,inManagedObjectContext managedObjectContext: NSManagedObjectContext) -> Int {
+    class func getLastSortOrderForSection(section: Int,inManagedObjectContext managedObjectContext: NSManagedObjectContext) -> Int
+    {
         
         let fetchRequest = NSFetchRequest(entityName: "FoodEntry")
         let predicate = NSPredicate(format: "section = %d ", section)
@@ -69,7 +70,8 @@ class CoreDataHelper {
         
     }
     
-    class func addFoodEntry(dateString dateString: String, amount: String? = nil, inSection section: Int, withFoodItemNamed foodItemName: String?=nil,inManagedObjectContext managedObjectContext: NSManagedObjectContext) -> FoodEntry {
+    class func addFoodEntry(dateString dateString: String, amount: String? = nil, inSection section: Int, withFoodItemNamed foodItemName: String?=nil,inManagedObjectContext managedObjectContext: NSManagedObjectContext) -> FoodEntry
+    {
         
         var foodItem : FoodItem?
         if let foodItemName = foodItemName {
@@ -86,8 +88,18 @@ class CoreDataHelper {
         return foodEntry
     }
     
+    class func getNumberOfFoodEntriesInSection(inSection section: Int, inmanagedObjectContext managedObjectContext: NSManagedObjectContext)  -> [FoodEntry]
+    {
+        let predicate = NSPredicate(format: "section = %d", section)
+        let fetchRequest = NSFetchRequest(entityName: "FoodEntry")
+        fetchRequest.predicate = predicate
+        let objects = try!managedObjectContext.executeFetchRequest(fetchRequest)
+        return objects as! [FoodEntry]
+    }
+    
     // CONSOLIDIEREN mit ADD FOOD ENTRY
-    class func createFoodEntry(inSection section: Int? = 0, atDateString dateString: String? = nil, unit: String? = nil, amount: String? = nil, foodItem: FoodItem? = nil,inManagedObjectContext managedObjectContext: NSManagedObjectContext) -> FoodEntry {
+    class func createFoodEntry(inSection section: Int? = 0, atDateString dateString: String? = nil, unit: String? = nil, amount: String? = nil, foodItem: FoodItem? = nil,inManagedObjectContext managedObjectContext: NSManagedObjectContext) -> FoodEntry
+    {
         
         
   //      var foodItem : FoodItem?

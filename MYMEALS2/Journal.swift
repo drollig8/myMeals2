@@ -19,8 +19,20 @@ class JournalViewController: UITableViewController {
     var selectedDateString: String!
     var isMovingItem : Bool = false
     
+    @IBOutlet weak var totalProteinLabel: UILabel!
+    @IBOutlet weak var totalFatLabel: UILabel!
+    @IBOutlet weak var totalCarbLabel: UILabel!
+    @IBOutlet weak var totalCaloriesLabel: UILabel!
+    
     var selectedDateOnDatepicker: NSDate = NSDate() 
 
+    func setSummaryLabels()
+    {
+        totalCaloriesLabel.text = "Kalorien"
+        totalCarbLabel.text = "KH"
+        totalProteinLabel.text = "Protein"
+        totalFatLabel.text = "Fett"
+    }
     
     override func viewDidLoad()
     {
@@ -33,6 +45,7 @@ class JournalViewController: UITableViewController {
         self.tableView.editing = true
         self.tableView.allowsSelectionDuringEditing = true
         self.calendar.addTarget(self, action: "updateSelectedDate", forControlEvents: UIControlEvents.ValueChanged)
+        setSummaryLabels()
 
     }
     
@@ -47,7 +60,7 @@ class JournalViewController: UITableViewController {
     
     func addToolBarButton()
     {
-        self.toolbarItems = [UIBarButtonItem(title: "Load Default", style: UIBarButtonItemStyle.Plain, target: self, action: "loadDefaults:")]
+        self.toolbarItems = [UIBarButtonItem(title: "Load Default", style: UIBarButtonItemStyle.Plain, target: self, action: "loadDefaults")]
         self.navigationController?.toolbarHidden = false
     }
     
@@ -98,7 +111,7 @@ class JournalViewController: UITableViewController {
     }
     
 
-    func loadDefaults(sender: AnyObject)
+    func loadDefaults()
     {
 
         addFoodItem(named: "Kölln - Köln Flocken", kcal: "361", kohlenhydrate: "55.8", protein: "13.8", fett: "6.7")
@@ -137,40 +150,22 @@ class JournalViewController: UITableViewController {
         return  kNumberOfSection
     }
     
+    func getNumberOfFoodEntries(inSection section: Int) -> Int
+    {
+        let foodEntries = CoreDataHelper.getNumberOfFoodEntriesInSection(inSection: section, inmanagedObjectContext: managedObjectContext)
+        return foodEntries.count
+    }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
      
-        return 1
-        
-        var returnValue = 0
+        let numberOfRowsInSection = getNumberOfFoodEntries(inSection: section)
         if editMode {
-            returnValue = fetchedResultsController.sections![section].objects!.count
-        } else {
-            returnValue = fetchedResultsController.sections![section].objects!.count + 1
+            return numberOfRowsInSection }
+        else {
+            return numberOfRowsInSection + 1
         }
-        print("for Section: \(section)...")
-        return returnValue
-    
-    
-        /*
-        var returnvalue = 0
-        var addNumber = 1
-        if editMode { addNumber = 0 }
-        
-        returnvalue = addNumber
-        
-        if fetchedResultsController.sections?.count > section {
-            if fetchedResultsController.sections![section].objects?.count > 0 {
 
-                returnvalue = (fetchedResultsController.sections![section].objects?.count)! + addNumber
-            } else {
-                returnvalue = addNumber
-            }
-        }
-*/
-        
-       
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
@@ -273,14 +268,9 @@ class JournalViewController: UITableViewController {
     {
         
         if editingStyle == .Delete {
-            let object = fetchedResultsController.objectAtIndexPath(indexPath) as! FoodEntry
      
-         
+            let object = fetchedResultsController.objectAtIndexPath(indexPath) as! FoodEntry
             managedObjectContext?.deleteObject(object)
-            try!managedObjectContext.save()
-            let object1 = fetchedResultsController.objectAtIndexPath(indexPath) as! FoodEntry
-       
-            
             try!managedObjectContext?.save()
             self.fetch()
         }

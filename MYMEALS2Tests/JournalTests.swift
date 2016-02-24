@@ -94,7 +94,7 @@ class JournalViewControllerTests: XCTestCase {
    
     func testThatMovingExampleDataChangesSortOrder() {
         
-        sut.loadDefaults(self)
+        sut.loadDefaults()
         let startIndexPath = NSIndexPath(forRow: 2, inSection: 0)
         let endIndexPath = NSIndexPath(forRow: 1, inSection: 0)
 
@@ -107,7 +107,7 @@ class JournalViewControllerTests: XCTestCase {
     
     func testThatMovingOntoAddSectionIsInhibited()
     {
-        sut.loadDefaults(self)
+        sut.loadDefaults()
         let startIndexPath = NSIndexPath(forRow: 2, inSection: 0)
         let endIndexPath = NSIndexPath(forRow: 3, inSection: 0)
         
@@ -120,7 +120,7 @@ class JournalViewControllerTests: XCTestCase {
     
     func testThatMovingExampleAcrossSection()
     {
-        sut.loadDefaults(self)
+        sut.loadDefaults()
         let startIndexPath = NSIndexPath(forRow: 2, inSection: 0)
         let endIndexPath = NSIndexPath(forRow: 1, inSection: 1)
         
@@ -129,6 +129,17 @@ class JournalViewControllerTests: XCTestCase {
         sut.tableView(sut.tableView, moveRowAtIndexPath: startIndexPath, toIndexPath: endIndexPath)
         
         XCTAssertEqual(getFoodItemInFoodEntryTable(atIndexPath: endIndexPath).name, "Heidelbeeren TK")
+    }
+    
+    // MARK: Table View Tests
+    
+    func testThatgetNumberOfFoodEntriesInSection()
+    {
+        sut.loadDefaults()
+        XCTAssertEqual(sut.getNumberOfFoodEntries(inSection: 0), 3)
+        XCTAssertEqual(sut.getNumberOfFoodEntries(inSection: 1), 2)
+        XCTAssertEqual(sut.getNumberOfFoodEntries(inSection: 2), 1)
+        XCTAssertEqual(sut.getNumberOfFoodEntries(inSection: 3), 1)
     }
     
     // MARK: - Anforderung 2 (Im EditMode können Einträge gelöscht werden)
@@ -140,6 +151,7 @@ class JournalViewControllerTests: XCTestCase {
         sut.editMode = true
         XCTAssertTrue(sut.tableView(sut.tableView, editingStyleForRowAtIndexPath: ZeroIndexPath) == .Delete)
     }
+    
     
     func testThatCellsCanBeDeleted()
     {
@@ -162,6 +174,7 @@ class JournalViewControllerTests: XCTestCase {
         XCTAssertFalse(sut.tableView(sut.tableView, editingStyleForRowAtIndexPath: ZeroIndexPath) == .Delete)
     }
 
+    
     private func getNumberOfFoodEntriesInSection(section: Int) -> Int {
         return sut.fetchedResultsController.sections![0].objects!.count
     }
@@ -199,11 +212,11 @@ class JournalViewControllerTests: XCTestCase {
         XCTAssertEqual(sut.tableView(sut.tableView, numberOfRowsInSection: 1), 0)
     }
 
-    
-    // TROUBLE SHOOTING
-    // TODO nimm das self raus
+ 
+
+
     func testThatDefaultValuesAreCorrectlyInSections() {
-        sut.loadDefaults(self)
+        sut.loadDefaults()
         sut.editMode = true
         XCTAssertEqual(sut.tableView(sut.tableView, numberOfRowsInSection: 0), 3)
         XCTAssertEqual(sut.tableView(sut.tableView, numberOfRowsInSection: 1), 2)
@@ -216,7 +229,7 @@ class JournalViewControllerTests: XCTestCase {
     }
     
     func testThatDeletinginFirstSectionRemovesOneEntryInFirstSectionOnly() {
-        sut.loadDefaults(self)
+        sut.loadDefaults()
         sut.editMode = true
         sut.tableView(sut.tableView, commitEditingStyle: .Delete, forRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
         XCTAssertEqual(sut.tableView(sut.tableView, numberOfRowsInSection: 0), 2)
@@ -230,7 +243,7 @@ class JournalViewControllerTests: XCTestCase {
     }
     
     func testThatDeletingTWOinFirstSectionRemovesOneEntryInFirstSectionOnly() {
-        sut.loadDefaults(self)
+        sut.loadDefaults()
         sut.editMode = true
         sut.tableView(sut.tableView, commitEditingStyle: .Delete, forRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
         sut.tableView(sut.tableView, commitEditingStyle: .Delete, forRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
@@ -244,25 +257,15 @@ class JournalViewControllerTests: XCTestCase {
         XCTAssertEqual(getTotalNumberOfFoodEntries(), 9)
     }
     
-    private func dumpAllEntries() {
-        let allObjects = CoreDataHelper.getAllFoodEntries(inManagedObjectContext: managedObjectContext)
-        for entry in allObjects {
-            print("Section: \(entry.section!.integerValue) Row: \(entry.sortOrder!.integerValue) \((entry.foodItemRel! as FoodItem).name) ")
-        }
-    }
-    
     func testThatAllEntriesInSectionZeroCanBeDeleted() {
-        sut.loadDefaults(self)
+        sut.loadDefaults()
         sut.editMode = true
-        dumpAllEntries()
         sut.tableView(sut.tableView, commitEditingStyle: .Delete, forRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
         sut.tableView(sut.tableView, commitEditingStyle: .Delete, forRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
         sut.tableView(sut.tableView, commitEditingStyle: .Delete, forRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
     
         XCTAssertEqual(getTotalNumberOfFoodEntries(), 8)
-        print("***")
-        dumpAllEntries()
-        
+
         XCTAssertEqual(sut.tableView(sut.tableView, numberOfRowsInSection: 0), 0)
         XCTAssertEqual(sut.tableView(sut.tableView, numberOfRowsInSection: 1), 2)
         XCTAssertEqual(sut.tableView(sut.tableView, numberOfRowsInSection: 2), 1)
@@ -277,7 +280,7 @@ class JournalViewControllerTests: XCTestCase {
         // Es gibt ja keine leeren Sections. dann würde einfach die darauffolgende Nachrücken!
         // Wir müssen sagen: Wenn es section nicht gibt, dann gib nur zurück. Ich habe aber nur die Gesamtzahld er Seciton uns weiß nicht, ob 2 oder 3 oder 1 "fehlt". Ich weiß NUR, dass ich 5 statt 6 sections habe!
     }
-    
+
     // MARK: - Anforderung 3 (Im EditMode können keine Einträge hinzugefügt werden)
     
     func testThatInEditingModeAddRowDisappears()
@@ -290,12 +293,79 @@ class JournalViewControllerTests: XCTestCase {
         
     }
     
-    // MARK: - Anforderung 4 (In der ersten Zeile wird die Summe der Kalorien und die Nährwerte aufsummiert.)
+    // MARK: - Anforderung 4 (Es gibt SummaryLabels KCAL, KH, PROTEIN und FETT in HelveticaNeue-Light 12)
     
-//    func testThatViewContainsTotalCaloriesLabel() {
-//        XCTAssertNotNil(sut.view.totalCaloriesLabel)
-//    }
+    func testThatViewContainsTotalCaloriesLabel()
+    {
+        initSut()
+        XCTAssertNotNil(sut.totalCaloriesLabel)
+    }
     
+    func testThatViewContainsTotalCarbsLabel()
+    {
+        initSut()
+        XCTAssertNotNil(sut.totalCarbLabel)
+    }
+    
+    func testThatViewContainsTotalProteinLabel()
+    {
+        initSut()
+        XCTAssertNotNil(sut.totalProteinLabel)
+    }
+    
+    func testThatViewContainsTotalFatsLabel()
+    {
+        initSut()
+        XCTAssertNotNil(sut.totalFatLabel)
+    }
+    
+    func testThatTotalCaloriesLabelHasCorrectText()
+    {
+        initSut()
+        XCTAssertEqual(sut.totalCaloriesLabel.text,"Kalorien")
+    }
+    
+    func testThatTotalCarbLabelHasCorrectText()
+    {
+        initSut()
+        XCTAssertEqual(sut.totalCarbLabel.text,"KH")
+    }
+    
+    func testThatTotalProteinLabelHasCorrectText()
+    {
+        initSut()
+        XCTAssertEqual(sut.totalProteinLabel.text,"Protein")
+    }
+    
+    func testThatTotalFatLabelHasCorrectText()
+    {
+        initSut()
+        XCTAssertEqual(sut.totalFatLabel.text,"Fett")
+    }
+    
+    func testThatTotalCaloriesLabelHasCorrectFont()
+    {
+        initSut()
+        XCTAssertEqual(sut.totalCaloriesLabel.font, UIFont(name: "HelveticaNeue-Light", size: 12))
+    }
+    
+    func testThatTotalCarbLabelHasCorrectFont()
+    {
+        initSut()
+        XCTAssertEqual(sut.totalCarbLabel.font, UIFont(name: "HelveticaNeue-Light", size: 12))
+    }
+    
+    func testThatTotalProteinLabelHasCorrectFont()
+    {
+        initSut()
+        XCTAssertEqual(sut.totalProteinLabel.font, UIFont(name: "HelveticaNeue-Light", size: 12))
+    }
+    
+    func testThatTotalFatLabelHasCorrectFont()
+    {
+        initSut()
+        XCTAssertEqual(sut.totalFatLabel.font, UIFont(name: "HelveticaNeue-Light", size: 12))
+    }
     // MARK: Tests
     
     func testThatOneFoodEntryReturnsOneRow()
@@ -528,18 +598,12 @@ class JournalViewControllerTests: XCTestCase {
     func testThatToolbarButtonHasAction()
     {
         let button = initSutWithNavigationControllerAndGetButton()
-        XCTAssertEqual(button.action.description, "loadDefaults:", "There should be one Button in Toolbar with action Load Default")
+        XCTAssertEqual(button.action.description, "loadDefaults", "There should be one Button in Toolbar with action Load Default")
     }
     
-    //DUBLICATE
-    private func getAllFoodItems() -> [FoodItem] {
-        
-        let fetchRequest = NSFetchRequest(entityName: "FoodItem")
-        let nameSort = NSSortDescriptor(key: "name", ascending: true)
-        fetchRequest.sortDescriptors = [nameSort]
-        let foodItems = try!managedObjectContext.executeFetchRequest(fetchRequest) as! [FoodItem]
-        return foodItems
-        
+    private func getAllFoodItems() -> [FoodItem]
+    {
+        return CoreDataHelper.getAllFoodItems(inManagedObjectContext: managedObjectContext)
     }
     
     func testThatFoodItemsCanBeCreated()
@@ -566,7 +630,7 @@ class JournalViewControllerTests: XCTestCase {
     
     func testThatWeHaveAllFoodItems()
     {
-        sut.loadDefaults(self)
+        sut.loadDefaults()
         let fetchRequest = NSFetchRequest(entityName: "FoodItem")
         let nameSort = NSSortDescriptor(key: "name", ascending: true)
         fetchRequest.sortDescriptors = [nameSort]
@@ -602,7 +666,7 @@ class JournalViewControllerTests: XCTestCase {
     
     func testThatFoodEntryFrühstück1HasCorrectValues()
     {
-        sut.loadDefaults(self)
+        sut.loadDefaults()
         sut.fetch()
         let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! FoodEntry
         XCTAssertEqual(foodEntry.amount,"35")
@@ -612,7 +676,7 @@ class JournalViewControllerTests: XCTestCase {
 
     func testThatFoodEntryFrühstück2HasCorrectValues()
     {
-        sut.loadDefaults(self)
+        sut.loadDefaults()
         sut.fetch()
         let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as! FoodEntry
         XCTAssertEqual(foodEntry.amount,"35")
@@ -622,7 +686,7 @@ class JournalViewControllerTests: XCTestCase {
     
     func testThatFoodEntryFrühstück3HasCorrectValues()
     {
-        sut.loadDefaults(self)
+        sut.loadDefaults()
         sut.fetch()
         let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 2, inSection: 0)) as! FoodEntry
         XCTAssertEqual(foodEntry.amount,"100")
@@ -632,7 +696,7 @@ class JournalViewControllerTests: XCTestCase {
     
     func testThatFoodEntry2Frühstück1HasCorrectValues()
     {
-        sut.loadDefaults(self)
+        sut.loadDefaults()
         sut.fetch()
         let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as! FoodEntry
         XCTAssertEqual(foodEntry.amount,"30")
@@ -642,7 +706,7 @@ class JournalViewControllerTests: XCTestCase {
     
     func testThatFoodEntry2Frühstück2HasCorrectValues()
     {
-        sut.loadDefaults(self)
+        sut.loadDefaults()
         sut.fetch()
         let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 1, inSection: 1)) as! FoodEntry
         XCTAssertEqual(foodEntry.amount,"30")
@@ -652,7 +716,7 @@ class JournalViewControllerTests: XCTestCase {
     
     func testThatFoodEntryMittag1HasCorrectValues()
     {
-        sut.loadDefaults(self)
+        sut.loadDefaults()
         sut.fetch()
         let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 2)) as! FoodEntry
         XCTAssertEqual(foodEntry.amount,"200")
@@ -662,7 +726,7 @@ class JournalViewControllerTests: XCTestCase {
     
     func testThatFoodEntryPWS1HasCorrectValues()
     {
-        sut.loadDefaults(self)
+        sut.loadDefaults()
         sut.fetch()
         let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 3)) as! FoodEntry
         XCTAssertEqual(foodEntry.amount,"40")
@@ -672,7 +736,7 @@ class JournalViewControllerTests: XCTestCase {
     
     func testThatFoodEntryAbendbrot1HasCorrectValues()
     {
-        sut.loadDefaults(self)
+        sut.loadDefaults()
         sut.fetch()
         let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 4)) as! FoodEntry
         XCTAssertEqual(foodEntry.amount,"8")
@@ -682,7 +746,7 @@ class JournalViewControllerTests: XCTestCase {
     
     func testThatFoodEntryAbendbrot2HasCorrectValues()
     {
-        sut.loadDefaults(self)
+        sut.loadDefaults()
         sut.fetch()
         let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 1, inSection: 4)) as! FoodEntry
         XCTAssertEqual(foodEntry.amount,"8")
@@ -692,7 +756,7 @@ class JournalViewControllerTests: XCTestCase {
     
     func testThatFoodEntryAbendbrot3HasCorrectValues()
     {
-        sut.loadDefaults(self)
+        sut.loadDefaults()
         let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 2, inSection: 4)) as! FoodEntry
         XCTAssertEqual(foodEntry.amount,"60")
         let foodItem = foodEntry.foodItemRel! as FoodItem
@@ -701,7 +765,7 @@ class JournalViewControllerTests: XCTestCase {
     
     func testThatFoodEntryNachtisch1HasCorrectValues()
     {
-        sut.loadDefaults(self)
+        sut.loadDefaults()
         let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 5)) as! FoodEntry
         XCTAssertEqual(foodEntry.amount,"40")
         let foodItem = foodEntry.foodItemRel! as FoodItem
@@ -822,7 +886,7 @@ class JournalViewControllerTests: XCTestCase {
     
     func testThatTestDataIsForDate010116()
     {
-        sut.loadDefaults(self)
+        sut.loadDefaults()
         sut.fetch()
         let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! FoodEntry
         XCTAssertEqual(foodEntry.dateString,"22.02.16")
@@ -830,7 +894,7 @@ class JournalViewControllerTests: XCTestCase {
     
     func testThatFoodItemKaloriesNotNil()
     {
-        sut.loadDefaults(self)
+        sut.loadDefaults()
         sut.fetch()
         let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! FoodEntry
         let foodItem = foodEntry.foodItemRel! as FoodItem

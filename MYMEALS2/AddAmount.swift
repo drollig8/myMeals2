@@ -18,6 +18,7 @@ class AddAmountViewController: UITableViewController {
     @IBOutlet var amount: UITextField!
     @IBOutlet weak var name: UILabel!
     
+
     var managedObjectContext: NSManagedObjectContext!
     var foodItem : FoodItem!
     var delegate : AddAmountDelegate!

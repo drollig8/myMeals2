@@ -9,140 +9,12 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MYMEALS2/FoodItemsViewController.swift"
-            timestampString = "477739719.792768"
+            filePath = "MYMEALS2/FoodItems.swift"
+            timestampString = "477842842.034054"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "63"
-            endingLineNumber = "63"
-            landmarkName = "tableView(_:cellForRowAtIndexPath:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MYMEALS2/FoodItemsViewController.swift"
-            timestampString = "477739719.792768"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "45"
-            endingLineNumber = "45"
-            landmarkName = "searchBarSearchButtonClicked(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MYMEALS2/FoodItemsViewController.swift"
-            timestampString = "476113169.178657"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "33"
-            endingLineNumber = "33"
-            landmarkName = "viewDidLoad()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MYMEALS2Tests/@@@@+FoodItemsViewControllerTests.swift"
-            timestampString = "475941231.096328"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "210"
-            endingLineNumber = "210"
-            landmarkName = "testThatScanPerformsSegue()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MYMEALS2/####FoodItemsViewController.swift"
-            timestampString = "475944502.523945"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
-            landmarkName = "prepareForSegue(_:sender:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MYMEALS2/FoodItemsViewController.swift"
-            timestampString = "477831498.815865"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "123"
-            endingLineNumber = "123"
-            landmarkName = "fetch(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MYMEALS2/FoodItemsViewController.swift"
-            timestampString = "477739719.792768"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "50"
-            endingLineNumber = "50"
-            landmarkName = "searchBarSearchButtonClicked(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MYMEALS2/JournalViewController.swift"
-            timestampString = "477829788.702974"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "334"
-            endingLineNumber = "334"
-            landmarkName = "fetch()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MYMEALS2/JournalViewController.swift"
-            timestampString = "477829788.702974"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "232"
-            endingLineNumber = "232"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
             landmarkName = "tableView(_:didSelectRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -153,13 +25,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MYMEALS2/JournalViewController.swift"
-            timestampString = "477829788.702974"
+            filePath = "MYMEALS2Tests/FoodItemsTests.swift"
+            timestampString = "477843096.405531"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "233"
-            endingLineNumber = "233"
-            landmarkName = "tableView(_:didSelectRowAtIndexPath:)"
+            startingLineNumber = "293"
+            endingLineNumber = "293"
+            landmarkName = "testThatAddAmountProvidesDestinationViewControllerWithDelegate()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -169,13 +41,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MYMEALS2Tests/AddFootItemViewControllerTests.swift"
-            timestampString = "476436518.368856"
+            filePath = "MYMEALS2Tests/FoodItemsTests.swift"
+            timestampString = "477843096.405531"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "91"
-            endingLineNumber = "91"
-            landmarkName = "addFoodItemViewController(_:didAddFoodItem:)"
+            startingLineNumber = "297"
+            endingLineNumber = "297"
+            landmarkName = "testThatAddAmountProvidesDestinationViewControllerWithDelegate()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -185,13 +57,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MYMEALS2Tests/AddFootItemViewControllerTests.swift"
-            timestampString = "476438345.803177"
+            filePath = "MYMEALS2Tests/AddAmountTests.swift"
+            timestampString = "477845592.088746"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
-            landmarkName = "presentViewController(_:animated:completion:)"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
+            landmarkName = "testThatWeHaveDoneButton()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -201,29 +73,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MYMEALS2/FoodItemsViewController.swift"
-            timestampString = "477831498.815865"
+            filePath = "MYMEALS2Tests/AddAmountTests.swift"
+            timestampString = "477846203.694804"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "146"
-            endingLineNumber = "146"
-            landmarkName = "prepareForSegue(_:sender:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MYMEALS2/DIDatepicker.swift"
-            timestampString = "477129726.12343"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "86"
-            endingLineNumber = "86"
-            landmarkName = "fillDatesWithCalendarUnit(_:)"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
+            landmarkName = "testThatWeHaveDoneButton()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -233,13 +89,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MYMEALS2/JournalViewController.swift"
-            timestampString = "477826994.864493"
+            filePath = "MYMEALS2Tests/JournalTests.swift"
+            timestampString = "477920898.692359"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
-            landmarkName = "getLastSortOrderForSection(_:)"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
+            landmarkName = "testThatAddEntryRowCanNotBeMovedOnNotEmptySection()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -249,77 +105,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MYMEALS2Tests/JournalViewControllerTests.swift"
-            timestampString = "477822197.940856"
+            filePath = "MYMEALS2/CoreDataHelper.swift"
+            timestampString = "477992112.262281"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "102"
-            endingLineNumber = "102"
-            landmarkName = "testThatTableViewCellReturnsNameUnitOfFoodItem()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MYMEALS2/JournalViewController.swift"
-            timestampString = "477829788.702974"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "220"
-            endingLineNumber = "220"
-            landmarkName = "tableView(_:didSelectRowAtIndexPath:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MYMEALS2Tests/FoodItemsViewControllerTests.swift"
-            timestampString = "477830021.052537"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "189"
-            endingLineNumber = "189"
-            landmarkName = "testThatDidSelectPerformsSegue()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MYMEALS2/FoodItemsViewController.swift"
-            timestampString = "477831498.815865"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "81"
-            endingLineNumber = "81"
-            landmarkName = "tableView(_:didSelectRowAtIndexPath:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MYMEALS2/JournalViewController.swift"
-            timestampString = "477831489.560511"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "224"
-            endingLineNumber = "224"
-            landmarkName = "tableView(_:didSelectRowAtIndexPath:)"
+            startingLineNumber = "115"
+            endingLineNumber = "115"
+            landmarkName = "createFoodEntry(inSection:atDateString:unit:amount:foodItem:inManagedObjectContext:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -330,12 +122,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MYMEALS2/Journal.swift"
-            timestampString = "477987067.130442"
+            timestampString = "478001443.103855"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "316"
-            endingLineNumber = "316"
-            landmarkName = "tableView(_:moveRowAtIndexPath:toIndexPath:)"
+            startingLineNumber = "291"
+            endingLineNumber = "291"
+            landmarkName = "indexIsOutOfRange(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -346,12 +138,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MYMEALS2/Journal.swift"
-            timestampString = "477837524.939305"
+            timestampString = "478001443.103855"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "43"
-            endingLineNumber = "43"
-            landmarkName = "updateSelectedDate()"
+            startingLineNumber = "270"
+            endingLineNumber = "270"
+            landmarkName = "tableView(_:commitEditingStyle:forRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -362,13 +154,448 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MYMEALS2/Journal.swift"
-            timestampString = "477987067.130442"
+            timestampString = "478001443.103855"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "376"
-            endingLineNumber = "376"
-            landmarkName = "tableView(_:titleForHeaderInSection:)"
+            startingLineNumber = "271"
+            endingLineNumber = "271"
+            landmarkName = "tableView(_:commitEditingStyle:forRowAtIndexPath:)"
             landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MYMEALS2/Journal.swift"
+            timestampString = "477929942.275842"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "18"
+            endingLineNumber = "18"
+            landmarkName = "JournalViewController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MYMEALS2.JournalViewController.calendar.setter : Swift.ImplicitlyUnwrappedOptional&lt;__ObjC.DIDatepicker&gt;"
+                  moduleName = "MYMEALS2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/marcfelden/Documents/DEVLOCAL/myMeals2/MYMEALS2/Journal.swift"
+                  timestampString = "477929965.909951"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MYMEALS2.JournalViewController.calendar.materializeForSet : Swift.ImplicitlyUnwrappedOptional&lt;__ObjC.DIDatepicker&gt;"
+                  moduleName = "MYMEALS2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/marcfelden/Documents/DEVLOCAL/myMeals2/MYMEALS2/Journal.swift"
+                  timestampString = "477929965.910217"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "12">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MYMEALS2.JournalViewController.init (MYMEALS2.JournalViewController.Type)(style : __C.UITableViewStyle) -&gt; MYMEALS2.JournalViewController"
+                  moduleName = "MYMEALS2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/marcfelden/Documents/DEVLOCAL/myMeals2/MYMEALS2/Journal.swift"
+                  timestampString = "477929965.910475"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "18"
+                  endingLineNumber = "18"
+                  offsetFromSymbolStart = "150">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MYMEALS2.JournalViewController.init (MYMEALS2.JournalViewController.Type)(nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;__ObjC.NSBundle&gt;) -&gt; MYMEALS2.JournalViewController"
+                  moduleName = "MYMEALS2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/marcfelden/Documents/DEVLOCAL/myMeals2/MYMEALS2/Journal.swift"
+                  timestampString = "477929965.910826"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "18"
+                  endingLineNumber = "18"
+                  offsetFromSymbolStart = "232">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MYMEALS2.JournalViewController.init (MYMEALS2.JournalViewController.Type)(coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;MYMEALS2.JournalViewController&gt;"
+                  moduleName = "MYMEALS2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/marcfelden/Documents/DEVLOCAL/myMeals2/MYMEALS2/Journal.swift"
+                  timestampString = "477929965.911282"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "18"
+                  endingLineNumber = "18"
+                  offsetFromSymbolStart = "153">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MYMEALS2/Journal.swift"
+            timestampString = "477929944.083599"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "17"
+            endingLineNumber = "17"
+            landmarkName = "JournalViewController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MYMEALS2.JournalViewController.editMode.getter : Swift.Bool"
+                  moduleName = "MYMEALS2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/marcfelden/Documents/DEVLOCAL/myMeals2/MYMEALS2/Journal.swift"
+                  timestampString = "477929944.088013"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "8">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MYMEALS2.JournalViewController.editMode.setter : Swift.Bool"
+                  moduleName = "MYMEALS2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/marcfelden/Documents/DEVLOCAL/myMeals2/MYMEALS2/Journal.swift"
+                  timestampString = "477929944.08831"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "19">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MYMEALS2.JournalViewController.editMode.materializeForSet : Swift.Bool"
+                  moduleName = "MYMEALS2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/marcfelden/Documents/DEVLOCAL/myMeals2/MYMEALS2/Journal.swift"
+                  timestampString = "477929944.088598"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "12">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MYMEALS2.JournalViewController.init (MYMEALS2.JournalViewController.Type)(style : __C.UITableViewStyle) -&gt; MYMEALS2.JournalViewController"
+                  moduleName = "MYMEALS2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/marcfelden/Documents/DEVLOCAL/myMeals2/MYMEALS2/Journal.swift"
+                  timestampString = "477929944.088851"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "127">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MYMEALS2.JournalViewController.init (MYMEALS2.JournalViewController.Type)(nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;__ObjC.NSBundle&gt;) -&gt; MYMEALS2.JournalViewController"
+                  moduleName = "MYMEALS2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/marcfelden/Documents/DEVLOCAL/myMeals2/MYMEALS2/Journal.swift"
+                  timestampString = "477929944.08912"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "209">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MYMEALS2.JournalViewController.init (MYMEALS2.JournalViewController.Type)(coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;MYMEALS2.JournalViewController&gt;"
+                  moduleName = "MYMEALS2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/marcfelden/Documents/DEVLOCAL/myMeals2/MYMEALS2/Journal.swift"
+                  timestampString = "477929944.089478"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "130">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MYMEALS2Tests/JournalTests.swift"
+            timestampString = "477993129.007074"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "269"
+            endingLineNumber = "269"
+            landmarkName = "testThatAllEntriesInSectionZeroCanBeDeleted()"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MYMEALS2Tests.JournalViewControllerTests.testThatAllEntriesInSectionZeroCanBeDeleted (MYMEALS2Tests.JournalViewControllerTests)() -&gt; ()"
+                  moduleName = "MYMEALS2Tests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/marcfelden/Documents/DEVLOCAL/myMeals2/MYMEALS2Tests/JournalTests.swift"
+                  timestampString = "477932210.47069"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "266"
+                  endingLineNumber = "266"
+                  offsetFromSymbolStart = "2722">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MYMEALS2Tests.JournalViewControllerTests.(testThatAllEntriesInSectionZeroCanBeDeleted (MYMEALS2Tests.JournalViewControllerTests) -&gt; () -&gt; ()).(implicit closure #3)"
+                  moduleName = "MYMEALS2Tests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/marcfelden/Documents/DEVLOCAL/myMeals2/MYMEALS2Tests/JournalTests.swift"
+                  timestampString = "477932210.470909"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "266"
+                  endingLineNumber = "266"
+                  offsetFromSymbolStart = "43">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MYMEALS2Tests.JournalViewControllerTests.(testThatAllEntriesInSectionZeroCanBeDeleted (MYMEALS2Tests.JournalViewControllerTests) -&gt; () -&gt; ()).(implicit closure #4)"
+                  moduleName = "MYMEALS2Tests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/marcfelden/Documents/DEVLOCAL/myMeals2/MYMEALS2Tests/JournalTests.swift"
+                  timestampString = "477932210.471173"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "266"
+                  endingLineNumber = "266"
+                  offsetFromSymbolStart = "27">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MYMEALS2Tests/JournalTests.swift"
+            timestampString = "477993129.007074"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "270"
+            endingLineNumber = "270"
+            landmarkName = "testThatAllEntriesInSectionZeroCanBeDeleted()"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MYMEALS2Tests.JournalViewControllerTests.testThatAllEntriesInSectionZeroCanBeDeleted (MYMEALS2Tests.JournalViewControllerTests)() -&gt; ()"
+                  moduleName = "MYMEALS2Tests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/marcfelden/Documents/DEVLOCAL/myMeals2/MYMEALS2Tests/JournalTests.swift"
+                  timestampString = "477932308.726747"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "267"
+                  endingLineNumber = "267"
+                  offsetFromSymbolStart = "3205">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MYMEALS2Tests.JournalViewControllerTests.(testThatAllEntriesInSectionZeroCanBeDeleted (MYMEALS2Tests.JournalViewControllerTests) -&gt; () -&gt; ()).(implicit closure #5)"
+                  moduleName = "MYMEALS2Tests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/marcfelden/Documents/DEVLOCAL/myMeals2/MYMEALS2Tests/JournalTests.swift"
+                  timestampString = "477932308.727062"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "267"
+                  endingLineNumber = "267"
+                  offsetFromSymbolStart = "43">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MYMEALS2Tests.JournalViewControllerTests.(testThatAllEntriesInSectionZeroCanBeDeleted (MYMEALS2Tests.JournalViewControllerTests) -&gt; () -&gt; ()).(implicit closure #6)"
+                  moduleName = "MYMEALS2Tests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/marcfelden/Documents/DEVLOCAL/myMeals2/MYMEALS2Tests/JournalTests.swift"
+                  timestampString = "477932308.727248"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "267"
+                  endingLineNumber = "267"
+                  offsetFromSymbolStart = "32">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MYMEALS2/Journal.swift"
+            timestampString = "478001048.855391"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "22"
+            endingLineNumber = "22"
+            landmarkName = "JournalViewController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MYMEALS2.JournalViewController.totalProteinLabel.getter : weak Swift.ImplicitlyUnwrappedOptional&lt;__ObjC.UILabel&gt;"
+                  moduleName = "MYMEALS2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/marcfelden/Documents/DEVLOCAL/myMeals2/MYMEALS2/Journal.swift"
+                  timestampString = "478001048.874031"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "12">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MYMEALS2.JournalViewController.totalProteinLabel.setter : weak Swift.ImplicitlyUnwrappedOptional&lt;__ObjC.UILabel&gt;"
+                  moduleName = "MYMEALS2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/marcfelden/Documents/DEVLOCAL/myMeals2/MYMEALS2/Journal.swift"
+                  timestampString = "478001048.874287"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MYMEALS2.JournalViewController.totalProteinLabel.materializeForSet : weak Swift.ImplicitlyUnwrappedOptional&lt;__ObjC.UILabel&gt;"
+                  moduleName = "MYMEALS2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/marcfelden/Documents/DEVLOCAL/myMeals2/MYMEALS2/Journal.swift"
+                  timestampString = "478001048.874423"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MYMEALS2.JournalViewController.init (MYMEALS2.JournalViewController.Type)(style : __C.UITableViewStyle) -&gt; MYMEALS2.JournalViewController"
+                  moduleName = "MYMEALS2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/marcfelden/Documents/DEVLOCAL/myMeals2/MYMEALS2/Journal.swift"
+                  timestampString = "478001048.874563"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "22"
+                  endingLineNumber = "22"
+                  offsetFromSymbolStart = "267">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MYMEALS2.JournalViewController.init (MYMEALS2.JournalViewController.Type)(nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;__ObjC.NSBundle&gt;) -&gt; MYMEALS2.JournalViewController"
+                  moduleName = "MYMEALS2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/marcfelden/Documents/DEVLOCAL/myMeals2/MYMEALS2/Journal.swift"
+                  timestampString = "478001048.874695"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "22"
+                  endingLineNumber = "22"
+                  offsetFromSymbolStart = "343">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MYMEALS2.JournalViewController.init (MYMEALS2.JournalViewController.Type)(coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;MYMEALS2.JournalViewController&gt;"
+                  moduleName = "MYMEALS2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/marcfelden/Documents/DEVLOCAL/myMeals2/MYMEALS2/Journal.swift"
+                  timestampString = "478001048.874827"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "22"
+                  endingLineNumber = "22"
+                  offsetFromSymbolStart = "267">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
