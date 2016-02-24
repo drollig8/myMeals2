@@ -54,7 +54,6 @@ struct DateRange : SequenceType {
     }
 }
 
-//TODO
 extension NSDate {
     
     func toDayMonthYear1() -> String {

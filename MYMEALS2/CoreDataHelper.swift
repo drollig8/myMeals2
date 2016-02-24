@@ -11,18 +11,22 @@ import CoreData
 
 class CoreDataHelper {
     
-    
-    class func test() {
-        print("Test")
-    }
-    
-    class func createFoodItem(name name: String? = nil, kcal: String? = nil, inManagedObjectContext managedObjectContext: NSManagedObjectContext) -> FoodItem {
+    class func createFoodItem(name name: String? = nil, kcal: String? = nil, carbs: String? = nil, protein: String?=nil, fat:String?=nil, inManagedObjectContext managedObjectContext: NSManagedObjectContext) -> FoodItem {
         let foodItem = NSEntityDescription.insertNewObjectForEntityForName("FoodItem", inManagedObjectContext: managedObjectContext) as! FoodItem
         if let name = name {
             foodItem.name = name
         }
         if let kcal = kcal {
             foodItem.kcal = kcal
+        }
+        if let carbs = carbs {
+            foodItem.kohlenhydrate = carbs
+        }
+        if let protein = protein {
+            foodItem.protein = protein
+        }
+        if let fat = fat {
+            foodItem.fett = fat
         }
         
         return foodItem
@@ -89,7 +93,6 @@ class CoreDataHelper {
             foodEntry.unit = unit
         }
         foodEntry.sortOrder = NSNumber(integer: getLastSortOrderForSection(section,inManagedObjectContext: managedObjectContext))
-        print(foodEntry.sortOrder)
         return foodEntry
     }
     

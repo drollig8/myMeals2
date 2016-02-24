@@ -49,7 +49,17 @@ class JournalViewControllerTests: XCTestCase {
         XCTAssertNotNil(sut.tableView.delegate)
     }
     
+    func testThatgetNumberOfFoodEntriesInSection()
+    {
+        sut.loadDefaults()
+        XCTAssertEqual(sut.getNumberOfFoodEntries(inSection: 0), 3)
+        XCTAssertEqual(sut.getNumberOfFoodEntries(inSection: 1), 2)
+        XCTAssertEqual(sut.getNumberOfFoodEntries(inSection: 2), 1)
+        XCTAssertEqual(sut.getNumberOfFoodEntries(inSection: 3), 1)
+    }
+    
     // MARK: - Anforderung 1 (Verschieben von Einträgen)
+    
     // http://lattejed.com/a-simple-todo-app-in-swift
     
     func testThatAddEntryRowCanNotBeMovedOnEmptySection()
@@ -58,16 +68,7 @@ class JournalViewControllerTests: XCTestCase {
         initSut()
         XCTAssertFalse(sut.tableView(sut.tableView, canMoveRowAtIndexPath: ZeroIndexPath))
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    // MARC
+
     
     func testThatAddEntryRowCanNotBeMovedOnNotEmptySection()
     {
@@ -78,24 +79,8 @@ class JournalViewControllerTests: XCTestCase {
         XCTAssertFalse(sut.tableView(sut.tableView, canMoveRowAtIndexPath: indexPath))
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     func testThatMovingEntryChangesSortOrder()
     {
-        
-        
-        // TODO ist nicht sinnvoll, wenn wir das öfter machen.
         
         let entryAt0 = CoreDataHelper.addFoodEntry(dateString: todayDateString, inSection: 0, inManagedObjectContext: managedObjectContext)
         let entryAt1 = CoreDataHelper.addFoodEntry(dateString: todayDateString, inSection: 0, inManagedObjectContext: managedObjectContext)
@@ -158,17 +143,6 @@ class JournalViewControllerTests: XCTestCase {
         XCTAssertEqual(getFoodItemInFoodEntryTable(atIndexPath: endIndexPath).name, "Heidelbeeren TK")
     }
     
-    // MARK: Table View Tests
-    
-    func testThatgetNumberOfFoodEntriesInSection()
-    {
-        sut.loadDefaults()
-        XCTAssertEqual(sut.getNumberOfFoodEntries(inSection: 0), 3)
-        XCTAssertEqual(sut.getNumberOfFoodEntries(inSection: 1), 2)
-        XCTAssertEqual(sut.getNumberOfFoodEntries(inSection: 2), 1)
-        XCTAssertEqual(sut.getNumberOfFoodEntries(inSection: 3), 1)
-    }
-    
     // MARK: - Anforderung 2 (Im EditMode können Einträge gelöscht werden)
     
     func testThatCallsCanCommitEditingStyleDelete() {
@@ -201,11 +175,6 @@ class JournalViewControllerTests: XCTestCase {
         XCTAssertFalse(sut.tableView(sut.tableView, editingStyleForRowAtIndexPath: ZeroIndexPath) == .Delete)
     }
 
-    
-    private func getNumberOfFoodEntriesInSection(section: Int) -> Int {
-        return sut.fetchedResultsController.sections![0].objects!.count
-    }
-  
     private func getTotalNumberOfFoodEntries() -> Int {
         return sut.fetchedResultsController.fetchedObjects!.count
     }
@@ -380,16 +349,6 @@ class JournalViewControllerTests: XCTestCase {
     }
     
     
-    func testThatTotalCalorieValueIsCorrect()
-    {
-        initSut()
-        sut.loadDefaults()
-        sut.selectedDateString = todayDateString
-        XCTAssertEqual(sut.totalCaloriesValue.text,"1263")
-        
-    }
-
-    
     // MARK: Anforderung 5: Über den Summary Labels wird die Summe der Tageswerte angezeigt in HelveticaNeue-Light 12, Farbe 000000
     
     func testThatTotalValueFieldsExists()
@@ -401,8 +360,6 @@ class JournalViewControllerTests: XCTestCase {
         XCTAssertNotNil(sut.totalFatValue)
     }
     
-
-    
     func testThatTotalValuesHaveCorrectFont()
     {
         initSut()
@@ -411,9 +368,50 @@ class JournalViewControllerTests: XCTestCase {
         XCTAssertEqual(sut.totalProteinValue.font, UIFont.customSummaryValues())
         XCTAssertEqual(sut.totalFatValue.font, UIFont.customSummaryValues())
 
-
     }
-    // MARK: Tests
+    
+    func testThatTotalCalorieValueIsCorrect()
+    {
+        initSut()
+        sut.loadDefaults()
+        sut.selectedDateString = todayDateString
+        XCTAssertEqual(sut.totalCaloriesValue.text,"1263")
+        
+    }
+    
+    func testThatTotalCarbsValueIsCorrect()
+    {
+        initSut()
+        sut.loadDefaults()
+        sut.selectedDateString = todayDateString
+        XCTAssertEqual(sut.totalCarbValue.text,"4")
+    }
+    
+    func testThatTotalProteinsValueIsCorrect()
+    {
+        initSut()
+        sut.loadDefaults()
+        sut.selectedDateString = todayDateString
+        XCTAssertEqual(sut.totalProteinValue.text,"122")
+    }
+    
+    // MARK: Debug Test that we might not need
+    
+    func testThatCarbsAndProteinsAreShownInCell()
+    {
+        createSampleFoodEntry()
+        initSut()
+        sut.tableView.reloadData()
+        let cell = sut.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! JournalCell
+        let name = cell.details?.text
+        XCTAssertEqual(name,"KH: 5g, Protein: 20g, Fett: 4g","Cell should return formatted content.")
+    }
+    
+    // MARK: other Tests
+    
+    // TODO ARBEITE MEHR MIT OBSERVERN, DAMIT SICH ZUM BEISPIEL DIE SUMMENZEILE AUTOMATISCH AKTUALISIERT
+    // TODO AU?ERDEM GIBT ES UNSAUBERKEINTEN IN TDER HELPER METHODE COREDATA
+    // TODO AU?ERDEM WOLLEN WIR OBJECT DSCRIPTION AN CORE DATA HABEN
     
     func testThatOneFoodEntryReturnsOneRow()
     {
@@ -422,8 +420,6 @@ class JournalViewControllerTests: XCTestCase {
     }
     
 
-
-    
     func testThatTwoFoodEntrysReturnTwoRows()
     {
         createTwoFoodEntriesInSectionZero()
@@ -433,7 +429,7 @@ class JournalViewControllerTests: XCTestCase {
     
     private func createSampleFoodEntry()
     {
-        CoreDataHelper.createFoodItem(name: "TestName", kcal: "150", inManagedObjectContext: managedObjectContext)
+        CoreDataHelper.createFoodItem(name: "TestName", kcal: "150", carbs: "10", protein: "40", fat: "8", inManagedObjectContext: managedObjectContext)
         CoreDataHelper.createFoodEntry(inSection: 0, atDateString: todayDateString, unit: "g", amount: "50", foodItemName: "TestName", inManagedObjectContext: managedObjectContext)
         
     }
@@ -764,7 +760,7 @@ class JournalViewControllerTests: XCTestCase {
         let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 1, inSection: 1)) as! FoodEntry
         XCTAssertEqual(foodEntry.amount,"30")
         let foodItem = foodEntry.foodItemRel! as FoodItem
-        XCTAssertEqual(foodItem.name, "Körniger Frischkäse Fitline 0.8%")
+        XCTAssertEqual(foodItem.name, "Körniger Frischkäse Fitline 0,8%")
     }
     
     func testThatFoodEntryMittag1HasCorrectValues()

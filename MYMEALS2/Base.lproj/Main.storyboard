@@ -142,9 +142,15 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IS1-Kn-W4i">
-                                            <rect key="frame" x="8" y="13" width="219" height="18"/>
+                                            <rect key="frame" x="8" y="6" width="219" height="18"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lx4-VM-atB">
+                                            <rect key="frame" x="8" y="20" width="219" height="18"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UbY-Qj-tZM">
@@ -159,7 +165,7 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="UbY-Qj-tZM" firstAttribute="centerY" secondItem="41X-vM-oad" secondAttribute="centerY" id="FcK-9U-HfX"/>
-                                        <constraint firstItem="IS1-Kn-W4i" firstAttribute="centerY" secondItem="41X-vM-oad" secondAttribute="centerY" id="N8d-bj-bxI"/>
+                                        <constraint firstItem="IS1-Kn-W4i" firstAttribute="centerY" secondItem="41X-vM-oad" secondAttribute="centerY" constant="-6.5" id="N8d-bj-bxI"/>
                                         <constraint firstItem="UbY-Qj-tZM" firstAttribute="leading" secondItem="IS1-Kn-W4i" secondAttribute="trailing" id="OZR-UW-h62"/>
                                         <constraint firstAttribute="leadingMargin" secondItem="IS1-Kn-W4i" secondAttribute="leading" id="jxb-3a-jyM"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="UbY-Qj-tZM" secondAttribute="trailing" id="rJ7-sl-c4D"/>
@@ -167,6 +173,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="details" destination="lx4-VM-atB" id="cSz-f3-wax"/>
                                     <outlet property="kcal" destination="UbY-Qj-tZM" id="bdr-EI-j3Z"/>
                                     <outlet property="name" destination="IS1-Kn-W4i" id="WNq-Ac-2Hp"/>
                                     <outlet property="textLabel" destination="IS1-Kn-W4i" id="Dwd-RN-yDa"/>

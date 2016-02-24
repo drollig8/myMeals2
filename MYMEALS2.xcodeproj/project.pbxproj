@@ -232,6 +232,7 @@
 				6EB5067D1C5D512C00CF0589 /* Sources */,
 				6EB5067E1C5D512C00CF0589 /* Frameworks */,
 				6EB5067F1C5D512C00CF0589 /* Resources */,
+				6E59F16A1C7E03F600924006 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -317,6 +318,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6E59F16A1C7E03F600924006 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "TAGS=\"TODO|FIXME\"\nfind \"${SRCROOT}\" \\( -name \"*.h\" -or -name \"*.m\" -or -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		6EB5067D1C5D512C00CF0589 /* Sources */ = {

@@ -9,6 +9,8 @@
 import UIKit
 import CoreData
 
+
+
 class JournalViewController: UITableViewController {
     
     var managedObjectContext    : NSManagedObjectContext!
@@ -19,7 +21,7 @@ class JournalViewController: UITableViewController {
     var selectedDateString: String! {
         didSet {
             if totalCaloriesValue != nil {
-                totalCaloriesValue.text = "\(calculateTotalCalories(forselectedDate: selectedDateString))"
+                updateSummaryValues()
             }
         }
     }
@@ -37,6 +39,12 @@ class JournalViewController: UITableViewController {
     
     var selectedDateOnDatepicker: NSDate = NSDate()
 
+    private func updateSummaryValues()
+    {
+        totalCaloriesValue.text = "\(calculateTotalCalories(forselectedDate: selectedDateString))"
+        totalCarbValue.text = "\(calculateTotalCarbs(forselectedDate: selectedDateString))"
+        totalProteinValue.text = "\(calculateTotalProteins(forselectedDate: selectedDateString))"
+    }
     private func setSummaryLabels()
     {
         totalCaloriesLabel.text = "Kalorien"
@@ -44,6 +52,9 @@ class JournalViewController: UITableViewController {
         totalProteinLabel.text = "Protein"
         totalFatLabel.text = "Fett"
         totalCaloriesValue.text = " -- "
+        totalCarbValue.text = " -- "
+        totalProteinValue.text = " -- "
+        totalFatValue.text = " -- "
     }
     
     override func viewDidLoad()
@@ -78,7 +89,8 @@ class JournalViewController: UITableViewController {
         self.navigationController?.toolbarHidden = false
     }
     
-    // OBSOLET
+    // OBSOLET so etwas gehört hier definitiv nicht hin 
+    // TODO:
     private func getFoodItem(named name: String) -> FoodItem?
     {
         
@@ -97,7 +109,7 @@ class JournalViewController: UITableViewController {
     }
     
     
-    private func addFoodEntry(dateString dateString: String, amount: String? = nil, inSection section: Int, withFoodItemNamed foodItemName: String?=nil) -> FoodEntry
+    private func addFoodEntry(amount amount: String? = nil, inSection section: Int, withFoodItemNamed foodItemName: String?=nil) -> FoodEntry
     {
         let currentDateString = NSDate().toDayMonthYear()
         return CoreDataHelper.addFoodEntry(dateString: currentDateString, amount: amount, inSection: section, withFoodItemNamed: foodItemName, inManagedObjectContext: managedObjectContext)
@@ -109,7 +121,6 @@ class JournalViewController: UITableViewController {
         
     }
     
-    // OBSOLET
     func addFoodItem(named name: String, kcal: String, kohlenhydrate: String, protein: String, fett: String)
     {
         
@@ -129,28 +140,28 @@ class JournalViewController: UITableViewController {
     func loadDefaults()
     {
 
-        addFoodItem(named: "Kölln - Köln Flocken", kcal: "361", kohlenhydrate: "55.8", protein: "13.8", fett: "6.7")
-        addFoodItem(named: "Hy-Pro 85 Vanille", kcal: "351", kohlenhydrate: "0.8", protein: "84.1", fett: "1.1")
-        addFoodItem(named: "Heidelbeeren TK", kcal: "32", kohlenhydrate: "6.1", protein: "0.6", fett: "0.6")
+        addFoodItem(named: "Kölln - Köln Flocken", kcal: "361", kohlenhydrate: "55,8", protein: "13,8", fett: "6,7")
+        addFoodItem(named: "Hy-Pro 85 Vanille", kcal: "351", kohlenhydrate: "0,8", protein: "84,1", fett: "1,1")
+        addFoodItem(named: "Heidelbeeren TK", kcal: "32", kohlenhydrate: "6,1", protein: "0,6", fett: "0,6")
         addFoodItem(named: "Nusskernmischung Seeberger", kcal: "634", kohlenhydrate: "15", protein: "17", fett: "54")
-        addFoodItem(named: "Körniger Frischkäse Fitline 0.8%", kcal: "63", kohlenhydrate: "1", protein: "13", fett: "0,8")
+        addFoodItem(named: "Körniger Frischkäse Fitline 0,8%", kcal: "63", kohlenhydrate: "1", protein: "13", fett: "0,8")
         addFoodItem(named: "Hänchenbrust Filet", kcal: "99", kohlenhydrate: "0", protein: "23", fett: "0,8")
         addFoodItem(named: "ESN Designer Whey Vanille", kcal: "390", kohlenhydrate: "5,3", protein: "80", fett: "5,5")
         addFoodItem(named: "Bertolli Olivenöl", kcal: "819", kohlenhydrate: "0", protein: "0", fett: "91")
         addFoodItem(named: "Seeberger milde Pinienkerne", kcal: "735", kohlenhydrate: "5,8", protein: "17", fett: "71")
         addFoodItem(named: "Harry Ciabatta", kcal: "249", kohlenhydrate: "48,7", protein: "8,4", fett: "1,5")
         addFoodItem(named: "Weider Casein", kcal: "374", kohlenhydrate: "3,2", protein: "88", fett: "1")
-        addFoodEntry(dateString: "22.02.16", amount: "35", inSection: 0, withFoodItemNamed: "Kölln - Köln Flocken" )
-        addFoodEntry(dateString: "22.02.16", amount: "35", inSection: 0, withFoodItemNamed: "Hy-Pro 85 Vanille" )
-        addFoodEntry(dateString: "22.02.16", amount: "100", inSection: 0, withFoodItemNamed: "Heidelbeeren TK"  )
-        addFoodEntry(dateString: "22.02.16", amount: "30", inSection: 1, withFoodItemNamed: "Nusskernmischung Seeberger"   )
-        addFoodEntry(dateString: "22.02.16", amount: "30", inSection: 1, withFoodItemNamed: "Körniger Frischkäse Fitline 0.8%"  )
-        addFoodEntry(dateString: "22.02.16", amount: "200", inSection: 2, withFoodItemNamed: "Hänchenbrust Filet" )
-        addFoodEntry(dateString: "22.02.16", amount: "40", inSection: 3, withFoodItemNamed: "ESN Designer Whey Vanille" )
-        addFoodEntry(dateString: "22.02.16", amount: "8", inSection: 4, withFoodItemNamed: "Bertolli Olivenöl" )
-        addFoodEntry(dateString: "22.02.16", amount: "8", inSection: 4, withFoodItemNamed: "Seeberger milde Pinienkerne" )
-        addFoodEntry(dateString: "22.02.16", amount: "60", inSection: 4, withFoodItemNamed: "Harry Ciabatta" )
-        addFoodEntry(dateString: "22.02.16", amount: "40", inSection: 5, withFoodItemNamed: "Weider Casein" )
+        addFoodEntry(amount: "35", inSection: 0, withFoodItemNamed: "Kölln - Köln Flocken" )
+        addFoodEntry(amount: "35", inSection: 0, withFoodItemNamed: "Hy-Pro 85 Vanille" )
+        addFoodEntry(amount: "100", inSection: 0, withFoodItemNamed: "Heidelbeeren TK"  )
+        addFoodEntry(amount: "30", inSection: 1, withFoodItemNamed: "Nusskernmischung Seeberger"   )
+        addFoodEntry(amount: "30", inSection: 1, withFoodItemNamed: "Körniger Frischkäse Fitline 0,8%"  )
+        addFoodEntry(amount: "200", inSection: 2, withFoodItemNamed: "Hänchenbrust Filet" )
+        addFoodEntry(amount: "40", inSection: 3, withFoodItemNamed: "ESN Designer Whey Vanille" )
+        addFoodEntry(amount: "8", inSection: 4, withFoodItemNamed: "Bertolli Olivenöl" )
+        addFoodEntry(amount: "8", inSection: 4, withFoodItemNamed: "Seeberger milde Pinienkerne" )
+        addFoodEntry(amount: "60", inSection: 4, withFoodItemNamed: "Harry Ciabatta" )
+        addFoodEntry(amount: "40", inSection: 5, withFoodItemNamed: "Weider Casein" )
         try!self.managedObjectContext.save()
         self.fetch()
 
@@ -165,7 +176,6 @@ class JournalViewController: UITableViewController {
         return  kNumberOfSection
     }
     
-    // TODO Reihenfolge umdrehen. Diese Funktion braucht den Datestring eigentlich nicht!
     func getNumberOfFoodEntries(inSection section: Int) -> Int
     {
         let foodEntries = CoreDataHelper.getFoodEntries(forDateString: selectedDateString, inSection: section, inmanagedObjectContext: managedObjectContext)
@@ -198,26 +208,42 @@ class JournalViewController: UITableViewController {
     func configureCell(cell: JournalCell, atIndexPath indexPath: NSIndexPath)
     {
         let numberOfRowsInSection = getNumberOfFoodEntries(inSection: indexPath.section)
-        
-        print(indexPath.row)
+
         if indexPath.row == numberOfRowsInSection {
+            
             cell.name.text = "Eintrag hinzufügen"
             cell.kcal.text = ""
+            
         } else {
+            
             let foodEntry = fetchedResultsController.objectAtIndexPath(indexPath) as? FoodEntry
             if let foodEntry = foodEntry {
+                
+                // TODO: Diesen Teil hier raus nehmen
                 if foodEntry.foodItemRel != nil {
                     let foodItem = foodEntry.foodItemRel! as FoodItem
                     let name = foodItem.name
+                    
                     let kalories = foodItem.kcal?.toInt() ?? 0
+                    let carbs = foodItem.kohlenhydrate?.toInt() ?? 0
+                    let proteins = foodItem.protein?.toInt() ?? 0
+                    let fats = foodItem.fett?.toInt() ?? 0
+                    
                     let amount = foodEntry.amount?.toInt() ?? 0
                     let unit = foodEntry.unit
                     let kcalOfEntry = kalories * amount / 100
                     let kcalOfEntryString = "\(kcalOfEntry)"
                     let nameString = name ?? ""
                     let unitString = unit ?? ""
+                    
                     cell.name.text = "\(nameString) \(amount)\(unitString)"
                     cell.kcal.text = "\(kcalOfEntryString) kcal"
+                    
+                    let carbsOfEntry = carbs * amount / 100
+                    let proteinsOfEntry = proteins * amount / 100
+                    let fatsOfEntry = fats * amount / 100
+                    
+                    cell.details.text = "KH: \(carbsOfEntry)g, Protein: \(proteinsOfEntry)g, Fett: \(fatsOfEntry)g"
                 }
             }
         }
@@ -292,6 +318,8 @@ class JournalViewController: UITableViewController {
             addEntry(self)
         }
         
+        updateSummaryValues()
+        
     }
     
 
@@ -347,14 +375,12 @@ class JournalViewController: UITableViewController {
                     for (index,object) in (allObjectInDestinationSection as! [FoodEntry]).enumerate() {
                         object.sortOrder = NSNumber(integer: index)
                         object.section = NSNumber(integer: destinationIndexPath.section)
-                        print(object.section)
                     }
                 }
             }
             
         }
 
-        
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             tableView.reloadRowsAtIndexPaths(tableView.indexPathsForVisibleRows!, withRowAnimation: .Fade)
         })
@@ -389,29 +415,74 @@ class JournalViewController: UITableViewController {
         return CoreDataHelper.getFoodEntries(forDateString: selectedDateString, inSection: section, inmanagedObjectContext: managedObjectContext)
     }
     
-    private func getCaloriesFromFoodEntries(foodEntries:[FoodEntry]) -> Int
+    enum NutritinalValue {
+        case Calories, Carbs, Protein, Fat
+    }
+    
+    private func getNutritionalValueFromFoodEntries(foodEntries:[FoodEntry], withValue nutricionalValue: NutritinalValue)  -> Int
     {
         var totalCalories = 0
         for foodEntry in foodEntries {
-
+            
             let amountInt = foodEntry.amount?.toInt() ?? 0
-            let kcalOfEntry = foodEntry.foodItemRel?.kcal?.toInt() ?? 0
-            totalCalories += (amountInt * kcalOfEntry)/100
+            var value = 0
+            if nutricionalValue == .Calories {
+                value = foodEntry.foodItemRel?.kcal?.toInt() ?? 0
+            }
+            if nutricionalValue == .Carbs {
+                value = foodEntry.foodItemRel?.kohlenhydrate?.toInt() ?? 0
+            }
+            if nutricionalValue == .Protein {
+                value = foodEntry.foodItemRel?.protein?.toInt() ?? 0
+            }
+            totalCalories += (amountInt * value)/100
         }
         return totalCalories
     }
+    
+    private func getCaloriesFromFoodEntries(foodEntries:[FoodEntry]) -> Int
+    {
+        return getNutritionalValueFromFoodEntries(foodEntries, withValue: .Calories)
+    }
+    
+    private func getCarbsFromFoodEntries(foodEntries:[FoodEntry]) -> Int
+    {
+        return getNutritionalValueFromFoodEntries(foodEntries, withValue: .Carbs)
+    }
+    
+    private func getProteinsFromFoodEntries(foodEntries:[FoodEntry]) -> Int
+    {
+        return getNutritionalValueFromFoodEntries(foodEntries, withValue: .Protein)
+    }
+    
+    
 
     private func calculateTotalCalories(forselectedDate selectedDateString: String) -> Int
     {
         
         let foodEntries = CoreDataHelper.getFoodEntries(forDateString: selectedDateString, inmanagedObjectContext: managedObjectContext)
-        let totalCalories = getCaloriesFromFoodEntries(foodEntries)
-        return totalCalories
+        let result = getCaloriesFromFoodEntries(foodEntries)
+        return result
+    }
+    
+    private func calculateTotalCarbs(forselectedDate selectedDateString: String) -> Int
+    {
+        
+        let foodEntries = CoreDataHelper.getFoodEntries(forDateString: selectedDateString, inmanagedObjectContext: managedObjectContext)
+        let result = getCarbsFromFoodEntries(foodEntries)
+        return result
+    }
+    
+    private func calculateTotalProteins(forselectedDate selectedDateString: String) -> Int
+    {
+        
+        let foodEntries = CoreDataHelper.getFoodEntries(forDateString: selectedDateString, inmanagedObjectContext: managedObjectContext)
+        let result = getProteinsFromFoodEntries(foodEntries)
+        return result
     }
     
     override func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String?
     {
-        print(selectedDateString)
         let foodEntries = getFoodEntriesForSection(section)
         let totalCalories = getCaloriesFromFoodEntries(foodEntries)
         return "Summe: \(totalCalories) kcal"
@@ -463,5 +534,6 @@ class JournalCell: UITableViewCell
 {
     @IBOutlet weak var kcal: UILabel!
     @IBOutlet weak var name: UILabel!
+    @IBOutlet weak var details: UILabel!
     
 }
