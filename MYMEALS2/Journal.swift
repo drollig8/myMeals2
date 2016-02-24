@@ -141,6 +141,7 @@ class JournalViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
      
+        return 1
         
         var returnValue = 0
         if editMode {
