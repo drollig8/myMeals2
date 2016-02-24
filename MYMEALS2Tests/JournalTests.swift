@@ -31,6 +31,7 @@ class JournalViewControllerTests: XCTestCase {
         managedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.PrivateQueueConcurrencyType)
         managedObjectContext.persistentStoreCoordinator = storeCoordinator
         sut.managedObjectContext = managedObjectContext
+        sut.selectedDateString = "22.02.16"
     }
     
     override func tearDown()
@@ -58,20 +59,46 @@ class JournalViewControllerTests: XCTestCase {
         XCTAssertFalse(sut.tableView(sut.tableView, canMoveRowAtIndexPath: ZeroIndexPath))
     }
     
+    
+    
+    
+    
+    
+    
+    
+    
+    // MARC
+    
     func testThatAddEntryRowCanNotBeMovedOnNotEmptySection()
     {
-        CoreDataHelper.createFoodEntry(inSection: 0, atDateString: "01.01.16", inManagedObjectContext: managedObjectContext)
+        CoreDataHelper.createFoodEntry(inSection: 0, atDateString: todayDateString, inManagedObjectContext: managedObjectContext)
         sut.editMode = true
         let indexPath = NSIndexPath(forRow: 1, inSection: 0)
-        XCTAssertTrue(sut.tableView(sut.tableView, canMoveRowAtIndexPath: ZeroIndexPath))
+        sut.selectedDateString = NSDate().toDayMonthYear();        XCTAssertTrue(sut.tableView(sut.tableView, canMoveRowAtIndexPath: ZeroIndexPath))
         XCTAssertFalse(sut.tableView(sut.tableView, canMoveRowAtIndexPath: indexPath))
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     func testThatMovingEntryChangesSortOrder()
     {
         
-        let entryAt0 = CoreDataHelper.createFoodEntry(inManagedObjectContext: managedObjectContext)
-        let entryAt1 = CoreDataHelper.createFoodEntry(inManagedObjectContext: managedObjectContext)
+        
+        // TODO ist nicht sinnvoll, wenn wir das öfter machen.
+        
+        let entryAt0 = CoreDataHelper.addFoodEntry(dateString: todayDateString, inSection: 0, inManagedObjectContext: managedObjectContext)
+        let entryAt1 = CoreDataHelper.addFoodEntry(dateString: todayDateString, inSection: 0, inManagedObjectContext: managedObjectContext)
         let startIndexPath = NSIndexPath(forRow: 1, inSection: 0)
         let endIndexPath = ZeroIndexPath
         
@@ -357,7 +384,7 @@ class JournalViewControllerTests: XCTestCase {
     {
         initSut()
         sut.loadDefaults()
-        sut.selectedDateString = "22.02.16"
+        sut.selectedDateString = todayDateString
         XCTAssertEqual(sut.totalCaloriesValue.text,"1263")
         
     }
@@ -406,8 +433,9 @@ class JournalViewControllerTests: XCTestCase {
     
     private func createSampleFoodEntry()
     {
-        let foodItem = CoreDataHelper.createFoodItem(name: "TestName", kcal: "150", inManagedObjectContext: managedObjectContext)
-        CoreDataHelper.createFoodEntry(inSection: 0, unit: "g", amount: "50", foodItem: foodItem, inManagedObjectContext: managedObjectContext)
+        CoreDataHelper.createFoodItem(name: "TestName", kcal: "150", inManagedObjectContext: managedObjectContext)
+        CoreDataHelper.createFoodEntry(inSection: 0, atDateString: todayDateString, unit: "g", amount: "50", foodItemName: "TestName", inManagedObjectContext: managedObjectContext)
+        
     }
 
     func testThatTableViewCellReturnsNameUnitOfFoodItem()
@@ -513,14 +541,18 @@ class JournalViewControllerTests: XCTestCase {
         XCTAssertTrue(navController.viewControllers.count == 2, "Should push viewcontroller")
     }
     
+    private func createTestFoodItemWithAmount(amount:Int)
+    {
+       CoreDataHelper.createFoodEntry(inSection: 0, unit: "g", amount: "\(amount)", foodItemName: "Test", inManagedObjectContext: managedObjectContext)
+    }
+    
+    
     
     func testThatFooterContainsSumOfCalories()
     {
-        let foodItem = CoreDataHelper.createFoodItem(name: nil, kcal: "100", inManagedObjectContext: managedObjectContext)
-        
-        CoreDataHelper.createFoodEntry(inSection: 0, unit: "g", amount: "80", foodItem: foodItem, inManagedObjectContext: managedObjectContext)
-        CoreDataHelper.createFoodEntry(inSection: 0, unit: "g", amount: "90", foodItem: foodItem, inManagedObjectContext: managedObjectContext)
-
+        CoreDataHelper.createFoodItem(name: "Test", kcal: "100", inManagedObjectContext: managedObjectContext)
+        createTestFoodItemWithAmount(80)
+        createTestFoodItemWithAmount(90)
         initSut()
         let footer = sut.tableView(sut.tableView, titleForFooterInSection:  0)
         XCTAssertEqual(footer,"Summe: 170 kcal", "Summe: 170 kcal should be footer of first section")
@@ -528,9 +560,9 @@ class JournalViewControllerTests: XCTestCase {
     
     func testThatFooterCopesWithNilValues()
     {
-        let foodItem = CoreDataHelper.createFoodItem(name: nil, kcal: "100", inManagedObjectContext: managedObjectContext)
-        CoreDataHelper.createFoodEntry(inSection: 0, unit: "g", amount: "0", foodItem: foodItem, inManagedObjectContext: managedObjectContext)
-        CoreDataHelper.createFoodEntry(inSection: 0, unit: "g", amount: "0", foodItem: foodItem, inManagedObjectContext: managedObjectContext)
+        CoreDataHelper.createFoodItem(name: nil, kcal: "100", inManagedObjectContext: managedObjectContext)
+        createTestFoodItemWithAmount(0)
+        createTestFoodItemWithAmount(0)
         initSut()
         let footer = sut.tableView(sut.tableView, titleForFooterInSection:  0)
         XCTAssertEqual(footer,"Summe: 0 kcal", "Summe: 0 kcal should be footer of first section")
@@ -896,8 +928,8 @@ class JournalViewControllerTests: XCTestCase {
     
     func testThatFetchingForDateReturnsCorrectValue()
     {
-        CoreDataHelper.createFoodEntry(atDateString: "01.01.16", inManagedObjectContext: managedObjectContext)
-        sut.selectedDateString = "01.01.16"
+        CoreDataHelper.createFoodEntry(atDateString: todayDateString, inManagedObjectContext: managedObjectContext)
+        sut.selectedDateString = todayDateString
         initSut()
         XCTAssertTrue(sut.fetchedResultsController.hasObjectAtIndexPath(ZeroIndexPath))
         sut.selectedDateString = "02.01.16"
@@ -910,7 +942,7 @@ class JournalViewControllerTests: XCTestCase {
         sut.loadDefaults()
         sut.fetch()
         let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! FoodEntry
-        XCTAssertEqual(foodEntry.dateString,"22.02.16")
+        XCTAssertEqual(foodEntry.dateString,todayDateString)
     }
     
     func testThatFoodItemKaloriesNotNil()
@@ -926,14 +958,14 @@ class JournalViewControllerTests: XCTestCase {
     
     private func createTwoFoodEntriesInTwoSections()
     {
-        CoreDataHelper.createFoodEntry(inSection: 0, inManagedObjectContext: managedObjectContext)
-        CoreDataHelper.createFoodEntry(inSection: 1, inManagedObjectContext: managedObjectContext)
+        CoreDataHelper.createFoodEntry(inSection: 0, atDateString: NSDate().toDayMonthYear(),  inManagedObjectContext: managedObjectContext)
+        CoreDataHelper.createFoodEntry(inSection: 1, atDateString: NSDate().toDayMonthYear(), inManagedObjectContext: managedObjectContext)
     }
     
     private func createTwoFoodEntriesInSectionZero()
     {
-        CoreDataHelper.createFoodEntry(inSection: 0, inManagedObjectContext: managedObjectContext)
-        CoreDataHelper.createFoodEntry(inSection: 0, inManagedObjectContext: managedObjectContext)
+        CoreDataHelper.createFoodEntry(inSection: 0, atDateString: NSDate().toDayMonthYear(), inManagedObjectContext: managedObjectContext)
+        CoreDataHelper.createFoodEntry(inSection: 0, atDateString: NSDate().toDayMonthYear(), inManagedObjectContext: managedObjectContext)
     }
 }
 

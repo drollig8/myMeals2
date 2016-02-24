@@ -20,6 +20,8 @@ let NSZeroIndexPath = NSIndexPath(forRow: 0, inSection: 0)
 let ZeroIndexPath = NSIndexPath(forRow: 0, inSection: 0)
 let bodyFont = UIFont(name: "HelveticaNeue-Light", size: 15)
 
+let todayDateString = NSDate().toDayMonthYear()
+
 //func ZeroIndexPath() -> NSIndexPath {
 //    return NSIndexPath(forRow: 0, inSection: 0)
 //}

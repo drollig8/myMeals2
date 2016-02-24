@@ -48,26 +48,26 @@ class JournalViewController: UITableViewController {
     
     override func viewDidLoad()
     {
+        
         self.navigationItem.title = "Ernährungs-Tagebuch"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Edit, target: self, action: "edit:")
         calendar.fillCurrentYear()
-        calendar.selectDate(selectedDateOnDatepicker)
-        fetch()
+        calendar.selectDate(NSDate())
+        selectedDateString = NSDate().toDayMonthYear()
+        fetch(forDateString: selectedDateString)
         addToolBarButton()
         self.tableView.editing = true
         self.tableView.allowsSelectionDuringEditing = true
         self.calendar.addTarget(self, action: "updateSelectedDate", forControlEvents: UIControlEvents.ValueChanged)
         setSummaryLabels()
-        
-        // wenn Werte in der Datenbank sind, dann zeige sie auch an
-       // selectedDateString = "23.02.2016"
+
     }
     
     func updateSelectedDate()
     {
         let date = calendar.selectedDate
         selectedDateString = "\(date.toDayMonthYear())"
-        self.fetch()
+        self.fetch(forDateString: selectedDateString)
     }
     
     // MARK: Helper Methods
@@ -99,7 +99,8 @@ class JournalViewController: UITableViewController {
     
     private func addFoodEntry(dateString dateString: String, amount: String? = nil, inSection section: Int, withFoodItemNamed foodItemName: String?=nil) -> FoodEntry
     {
-        return CoreDataHelper.addFoodEntry(dateString: dateString, amount: amount, inSection: section, withFoodItemNamed: foodItemName, inManagedObjectContext: managedObjectContext)
+        let currentDateString = NSDate().toDayMonthYear()
+        return CoreDataHelper.addFoodEntry(dateString: currentDateString, amount: amount, inSection: section, withFoodItemNamed: foodItemName, inManagedObjectContext: managedObjectContext)
     }
 
     private func hasFoodItem(named name:String) -> Bool
@@ -164,9 +165,10 @@ class JournalViewController: UITableViewController {
         return  kNumberOfSection
     }
     
+    // TODO Reihenfolge umdrehen. Diese Funktion braucht den Datestring eigentlich nicht!
     func getNumberOfFoodEntries(inSection section: Int) -> Int
     {
-        let foodEntries = CoreDataHelper.getFoodEntries(inSection: section, inmanagedObjectContext: managedObjectContext)
+        let foodEntries = CoreDataHelper.getFoodEntries(forDateString: selectedDateString, inSection: section, inmanagedObjectContext: managedObjectContext)
         return foodEntries.count
     }
     
@@ -190,17 +192,14 @@ class JournalViewController: UITableViewController {
     }
     
     
-    private func numberOfObjectsInSection(section: Int) -> Int
-    {
-        if fetchedResultsController.sections?.count > section {
-            return fetchedResultsController.sections![section].objects!.count
-        }
-        return 0
-    }
+    
+
     
     func configureCell(cell: JournalCell, atIndexPath indexPath: NSIndexPath)
     {
-        let numberOfRowsInSection = numberOfObjectsInSection(indexPath.section)
+        let numberOfRowsInSection = getNumberOfFoodEntries(inSection: indexPath.section)
+        
+        print(indexPath.row)
         if indexPath.row == numberOfRowsInSection {
             cell.name.text = "Eintrag hinzufügen"
             cell.kcal.text = ""
@@ -240,7 +239,7 @@ class JournalViewController: UITableViewController {
     
     private func isAddEntry(indexPath:NSIndexPath) -> Bool
     {
-        return indexPath.row == numberOfObjectsInSection(indexPath.section)
+        return indexPath.row == getNumberOfFoodEntries(inSection: indexPath.section)
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
@@ -266,7 +265,7 @@ class JournalViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle
     {
-        let numberOfRowsInSection = numberOfObjectsInSection(indexPath.section)
+        let numberOfRowsInSection = getNumberOfFoodEntries(inSection: indexPath.section)
         
         if indexPath.row == numberOfRowsInSection && !self.editMode {
             return UITableViewCellEditingStyle.Insert
@@ -387,7 +386,7 @@ class JournalViewController: UITableViewController {
     
     private func getFoodEntriesForSection(section: Int) -> [FoodEntry]
     {
-        return CoreDataHelper.getFoodEntries(inSection: section, inmanagedObjectContext: managedObjectContext)
+        return CoreDataHelper.getFoodEntries(forDateString: selectedDateString, inSection: section, inmanagedObjectContext: managedObjectContext)
     }
     
     private func getCaloriesFromFoodEntries(foodEntries:[FoodEntry]) -> Int
@@ -412,6 +411,7 @@ class JournalViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String?
     {
+        print(selectedDateString)
         let foodEntries = getFoodEntriesForSection(section)
         let totalCalories = getCaloriesFromFoodEntries(foodEntries)
         return "Summe: \(totalCalories) kcal"

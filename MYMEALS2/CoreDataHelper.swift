@@ -70,7 +70,7 @@ class CoreDataHelper {
         
     }
     
-    class func addFoodEntry(dateString dateString: String, amount: String? = nil, inSection section: Int, withFoodItemNamed foodItemName: String?=nil,inManagedObjectContext managedObjectContext: NSManagedObjectContext) -> FoodEntry
+    class func addFoodEntry(dateString dateString: String, amount: String? = nil, unit: String? = nil, inSection section: Int, withFoodItemNamed foodItemName: String?=nil,inManagedObjectContext managedObjectContext: NSManagedObjectContext) -> FoodEntry
     {
         
         var foodItem : FoodItem?
@@ -83,55 +83,50 @@ class CoreDataHelper {
             foodEntry.amount = amount
             foodEntry.section = NSNumber(integer: section)
             foodEntry.foodItemRel = foodItem
-            foodEntry.sortOrder = NSNumber(integer: getLastSortOrderForSection(section,inManagedObjectContext: managedObjectContext))
+
         }
+        if let unit = unit {
+            foodEntry.unit = unit
+        }
+        foodEntry.sortOrder = NSNumber(integer: getLastSortOrderForSection(section,inManagedObjectContext: managedObjectContext))
+        print(foodEntry.sortOrder)
         return foodEntry
     }
     
     
-    // TODO Hier mü+ssen wir dringend refactorisieren !!!
 
     
-    class func getFoodEntries(inSection section: Int, inmanagedObjectContext managedObjectContext: NSManagedObjectContext)  -> [FoodEntry]
-    {
-        let predicate = NSPredicate(format: "section = %d", section)
-        let fetchRequest = NSFetchRequest(entityName: "FoodEntry")
-        fetchRequest.predicate = predicate
-        let objects = try!managedObjectContext.executeFetchRequest(fetchRequest)
-        return objects as! [FoodEntry]
-    }
     
-    class func getFoodEntries(forDateString dateString: String, inmanagedObjectContext managedObjectContext: NSManagedObjectContext)  -> [FoodEntry]
-    {
-        let predicate = NSPredicate(format: "dateString = %@", dateString)
-        let fetchRequest = NSFetchRequest(entityName: "FoodEntry")
-        fetchRequest.predicate = predicate
-        let objects = try!managedObjectContext.executeFetchRequest(fetchRequest)
-        return objects as! [FoodEntry]
-    }
     
     // CONSOLIDIEREN mit ADD FOOD ENTRY
-    class func createFoodEntry(inSection section: Int? = 0, atDateString dateString: String? = nil, unit: String? = nil, amount: String? = nil, foodItem: FoodItem? = nil,inManagedObjectContext managedObjectContext: NSManagedObjectContext) -> FoodEntry
+    
+    class func createFoodEntry(var inSection section: Int? = 0, var atDateString dateString: String? = nil, unit: String? = nil, amount: String? = nil, foodItemName: String? = nil, inManagedObjectContext managedObjectContext: NSManagedObjectContext) -> FoodEntry
     {
-        
-        
-  //      var foodItem : FoodItem?
-        /*
-        if let foodItemName = foodItem?.name {
-            foodItem = getFoodItem(named: foodItemName,inManagedObjectContext: managedObjectContext)
+        if section == nil {
+            section = 0
         }
-*/
-        let foodEntry = NSEntityDescription.insertNewObjectForEntityForName("FoodEntry", inManagedObjectContext: managedObjectContext) as! FoodEntry
-        foodEntry.dateString = dateString
-       
-            foodEntry.amount = amount
-        foodEntry.unit = unit
-            foodEntry.section = NSNumber(integer: section!)
-            foodEntry.foodItemRel = foodItem
-            foodEntry.sortOrder = NSNumber(integer: getLastSortOrderForSection(section!,inManagedObjectContext: managedObjectContext))
+
+        if dateString == nil {
+            dateString = todayDateString
+        }
+
+        return addFoodEntry(dateString: dateString!, amount: amount, unit: unit, inSection: section!, withFoodItemNamed: foodItemName, inManagedObjectContext: managedObjectContext)
+
         
-        return foodEntry
     }
     
-    // TODO search for todo / dublicate
+    
+    
+    
+    
+    
+    class func getFoodEntries(forDateString dateString: String, inSection section: Int? = nil, inmanagedObjectContext managedObjectContext: NSManagedObjectContext)  -> [FoodEntry]
+    {
+        
+        let predicate =  section == nil ? NSPredicate(format: "dateString = %@", dateString) :  NSPredicate(format: "dateString = %@ AND section = %d", dateString, section!)
+        let fetchRequest = NSFetchRequest(entityName: "FoodEntry")
+        fetchRequest.predicate = predicate
+        let objects = try!managedObjectContext.executeFetchRequest(fetchRequest)
+        return objects as! [FoodEntry]
+    }
 }

@@ -34,7 +34,12 @@ class AddAmountViewController: UITableViewController {
             presentViewController(alertController, animated: true, completion: nil)
         }
         else {
-            CoreDataHelper.createFoodEntry(inSection: 0, unit: nil, amount: amount.text!, foodItem: foodItem, inManagedObjectContext: managedObjectContext)
+            // TODO DateString und Sectino fehlen !!!
+            var name = ""
+            if foodItem != nil {
+                name = foodItem.name ?? ""
+            }
+            CoreDataHelper.createFoodEntry(inSection: 0, unit: nil, amount: amount.text!, foodItemName: name, inManagedObjectContext: managedObjectContext)
         }
     }
     
