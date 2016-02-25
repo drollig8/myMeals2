@@ -48,7 +48,7 @@ class AddAmountViewController: UITableViewController {
     private func setFoodItemsNutricionalValues()
     {
         totalCaloriesValue?.text = foodItem.kcal
-        totalCarbValue?.text = foodItem.kohlenhydrate
+        totalCarbValue?.text = foodItem.carbs
         totalProteinValue?.text = foodItem.protein
         totalFatValue?.text = foodItem.fett
         
@@ -72,11 +72,12 @@ class AddAmountViewController: UITableViewController {
         else {
 
             assert(foodEntry != nil)
-            let amount = amountTextField.text ?? ""
+            let amount = amountTextField.text?.toDouble() ?? 0
             let unit = "g"
             
             foodEntry.amount = amount
             foodEntry.unit = unit
+            foodEntry.foodItemRel = foodItem
             delegate.addAmountViewController(self, didAddAmount: foodEntry)
         }
     }

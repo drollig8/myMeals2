@@ -149,7 +149,7 @@ class AddFoodItemViewControllerTests: XCTestCase {
     }
     func testThatCarbFieldIsConnected() {
         let _ = sut.view
-        XCTAssertNotNil(sut.kohlenhydrate, "Kohlenhydrate field should be connected")
+        XCTAssertNotNil(sut.carbs, "carbs field should be connected")
     }
     func testThatProteinFieldIsConnected() {
         let _ = sut.view
@@ -174,12 +174,12 @@ class AddFoodItemViewControllerTests: XCTestCase {
         sut.foodItem = FoodItem(entity: NSEntityDescription.entityForName("FoodItem", inManagedObjectContext: managedObjectContext)!, insertIntoManagedObjectContext: managedObjectContext)
         sut.name = UITextField()
         sut.kcal = UITextField()
-        sut.kohlenhydrate = UITextField()
+        sut.carbs = UITextField()
         sut.kcal.text = "Test"
         sut.name.text = "Test"
-        sut.kohlenhydrate.text = ""
+        sut.carbs.text = ""
         sut.done(UIBarButtonItem())
-        XCTAssertTrue(sut.actionViewControllerHasBeenCalled,"User must enter Kohlenhydrate")
+        XCTAssertTrue(sut.actionViewControllerHasBeenCalled,"User must enter carbs")
     }
     func testThatDoneActionVerifiesProteinField() {
         class SutMock:AddFoodItemViewController {
@@ -195,12 +195,12 @@ class AddFoodItemViewControllerTests: XCTestCase {
         sut.foodItem = FoodItem(entity: NSEntityDescription.entityForName("FoodItem", inManagedObjectContext: managedObjectContext)!, insertIntoManagedObjectContext: managedObjectContext)
         sut.name = UITextField()
         sut.kcal = UITextField()
-        sut.kohlenhydrate = UITextField()
+        sut.carbs = UITextField()
         sut.protein = UITextField()
-        sut.kohlenhydrate = UITextField()
+        sut.carbs = UITextField()
         sut.kcal.text = "Test"
         sut.name.text = "Test"
-        sut.kohlenhydrate.text = "Test"
+        sut.carbs.text = "Test"
         sut.protein.text = ""
         sut.done(UIBarButtonItem())
         XCTAssertTrue(sut.actionViewControllerHasBeenCalled, "User must enter Protein")
@@ -220,13 +220,13 @@ class AddFoodItemViewControllerTests: XCTestCase {
         sut.foodItem = FoodItem(entity: NSEntityDescription.entityForName("FoodItem", inManagedObjectContext: managedObjectContext)!, insertIntoManagedObjectContext: managedObjectContext)
         sut.name = UITextField()
         sut.kcal = UITextField()
-        sut.kohlenhydrate = UITextField()
+        sut.carbs = UITextField()
         sut.protein = UITextField()
-        sut.kohlenhydrate = UITextField()
+        sut.carbs = UITextField()
         sut.fat = UITextField()
         sut.kcal.text = "Test"
         sut.name.text = "Test"
-        sut.kohlenhydrate.text = "Test"
+        sut.carbs.text = "Test"
         sut.protein.text = "Test"
         sut.fat.text = ""
         sut.done(UIBarButtonItem())
@@ -247,19 +247,19 @@ class AddFoodItemViewControllerTests: XCTestCase {
         sut.foodItem = FoodItem(entity: NSEntityDescription.entityForName("FoodItem", inManagedObjectContext: managedObjectContext)!, insertIntoManagedObjectContext: managedObjectContext)
         sut.name = UITextField()
         sut.kcal = UITextField()
-        sut.kohlenhydrate = UITextField()
+        sut.carbs = UITextField()
         sut.protein = UITextField()
-        sut.kohlenhydrate = UITextField()
+        sut.carbs = UITextField()
         sut.fat = UITextField()
         sut.kcal.text = "kcal"
         sut.name.text = "name"
-        sut.kohlenhydrate.text = "kohlenhydrate"
+        sut.carbs.text = "carbs"
         sut.protein.text = "protein"
         sut.fat.text = "fat"
         sut.done(UIBarButtonItem())
         let foodItem = delegate.foodItem
         XCTAssertEqual(foodItem.kcal, "kcal", "FoodItem should contain value")
-        XCTAssertEqual(foodItem.kohlenhydrate, "kohlenhydrate", "FoodItem should contain value")
+        XCTAssertEqual(foodItem.carbs, "carbs", "FoodItem should contain value")
         XCTAssertEqual(foodItem.protein, "protein", "FoodItem should contain value")
         XCTAssertEqual(foodItem.fett, "fat", "FoodItem should contain value")
     }

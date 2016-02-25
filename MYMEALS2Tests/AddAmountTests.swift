@@ -32,7 +32,7 @@ class AddAmountViewControllerTests: XCTestCase
         sut.managedObjectContext = managedObjectContext
         
         let foodItem = CoreDataHelper.createFoodItem(name: "Test Haferflocken", kcal: "100", carbs: "10", protein: "50", fat: "20", inManagedObjectContext: managedObjectContext)
-        let foodEntry = CoreDataHelper.addFoodEntry(dateString: "01.01.15", inSection: 0, amount: "100", unit: "g", withFoodItemNamed: "Test Haferflocken", inManagedObjectContext: managedObjectContext)
+        let foodEntry = CoreDataHelper.addFoodEntry(dateString: "01.01.15", inSection: 0, amount: 100, unit: "g", withFoodItemNamed: "Test Haferflocken", inManagedObjectContext: managedObjectContext)
         sut.foodItem = foodItem
         sut.foodEntry = foodEntry
     }
@@ -197,7 +197,7 @@ class AddAmountViewControllerTests: XCTestCase
         }
     }
     
-    // TODO AMOUNT auf Float umstellen.
+    
     // TODO UNIT Auswahl ermöglichen.
     func testThatDoneAttachesAmountAndUnitToEntry()
     {
@@ -208,8 +208,13 @@ class AddAmountViewControllerTests: XCTestCase
         sut.delegate = delegate
         sut.done(self)
         XCTAssertEqual(sut.foodEntry.unit, "g")
-        XCTAssertEqual(sut.foodEntry.amount, "1234")
+        XCTAssertEqual(sut.foodEntry.amount, 1234)
     }
+    
+    // MARK: Anforderung 4.	Seite enthält zwei Sections Menge und Einheit.
+    
+    // nicht zu testen, da im Storyboard gesetzt?
+
     
 
 }

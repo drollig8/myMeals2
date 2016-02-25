@@ -56,9 +56,9 @@ class FoodDatabaseSearchController {
                                 let name = string3.getStringBetweenStrings("content=\"Kalorien f&uuml;r ", string2: " - Fddb") ?? "not found"
                                 let protein = string3.getStringBetweenStrings("Protein</span></td><td>", string2: " g</td></tr><tr><td>") ?? "999"
                                 let kcal = string3.getStringBetweenStrings("Kalorien</span></td><td>", string2: " kcal</td></tr><tr style=") ?? "999"
-                                let kh = string3.getStringBetweenStrings(">Kohlenhydrate</span></td><td>", string2: " g</td></tr><tr") ?? "999"
+                                let kh = string3.getStringBetweenStrings(">carbs</span></td><td>", string2: " g</td></tr><tr") ?? "999"
                                 let fett = string3.getStringBetweenStrings("Fett</span></td><td>", string2: " g</td></tr></table><h4>") ?? "999"
-                                let foodItem = generateFoodItem(name, kcal: kcal, kohlenhydrate: kh, protein: protein, fett: fett)
+                                let foodItem = generateFoodItem(name, kcal: kcal, carbs: kh, protein: protein, fett: fett)
                                 foodItems.append(foodItem)
                             }
                         }
@@ -67,13 +67,7 @@ class FoodDatabaseSearchController {
             }
         }
 
-        
-/*
-        
-        foodItems.append(generateFoodItem("H-Milch 1.5%"))
-        foodItems.append(generateFoodItem("H-Milch 3.5%"))
-        foodItems.append(generateFoodItem("H-Milch laktosefrei 0.1%"))
-  */
+
         completionHandler(foodItems)
         
     }
@@ -81,12 +75,12 @@ class FoodDatabaseSearchController {
     
    
     
-    func generateFoodItem(name: String, kcal: String, kohlenhydrate: String, protein: String, fett: String) -> FoodItem {
+    func generateFoodItem(name: String, kcal: String, carbs: String, protein: String, fett: String) -> FoodItem {
         assert(managedObjectContext != nil)
         let foodItem = NSEntityDescription.insertNewObjectForEntityForName("FoodItem", inManagedObjectContext: managedObjectContext) as! FoodItem
         foodItem.name = name
         foodItem.kcal = kcal
-        foodItem.kohlenhydrate = kohlenhydrate
+        foodItem.carbs = carbs
         foodItem.protein = protein
         foodItem.fett = fett
         return foodItem

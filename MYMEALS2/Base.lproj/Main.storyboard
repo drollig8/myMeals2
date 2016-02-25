@@ -412,7 +412,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Kohlenhydrate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tqP-GG-43N">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="carbs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tqP-GG-43N">
                                                     <rect key="frame" x="8" y="11" width="111" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -503,9 +503,9 @@
                     <navigationItem key="navigationItem" id="QOl-eD-ECX"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="carbs" destination="by3-gz-miU" id="ltc-KP-Pb5"/>
                         <outlet property="fat" destination="tDe-JF-rV8" id="1Fn-Wl-UHq"/>
                         <outlet property="kcal" destination="ene-II-22z" id="8hZ-nZ-QHw"/>
-                        <outlet property="kohlenhydrate" destination="by3-gz-miU" id="ltc-KP-Pb5"/>
                         <outlet property="name" destination="eQo-OH-uHf" id="Xkr-Ug-gd1"/>
                         <outlet property="protein" destination="BEY-Sv-lAH" id="ago-52-39z"/>
                     </connections>

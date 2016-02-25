@@ -19,7 +19,7 @@ class AddFoodItemViewController: UITableViewController
     
     @IBOutlet weak var name: UITextField!
     @IBOutlet weak var kcal: UITextField!
-    @IBOutlet weak var kohlenhydrate: UITextField!
+    @IBOutlet weak var carbs: UITextField!
     @IBOutlet weak var protein: UITextField!
     @IBOutlet weak var fat: UITextField!
     
@@ -57,7 +57,7 @@ class AddFoodItemViewController: UITableViewController
         
         else if kcal.text!.isEmpty { showAlertWithMessage("keine Kalorien") }
 
-        else if kohlenhydrate.text!.isEmpty { showAlertWithMessage("keine Kohlenhydrate") }
+        else if carbs.text!.isEmpty { showAlertWithMessage("keine carbs") }
 
         else if protein.text!.isEmpty  { showAlertWithMessage("keine Protein") }
         
@@ -65,7 +65,7 @@ class AddFoodItemViewController: UITableViewController
         
         else {
             foodItem.kcal = kcal.text
-            foodItem.kohlenhydrate = kohlenhydrate.text
+            foodItem.carbs = carbs.text
             foodItem.protein = protein.text
             foodItem.fett = fat.text
             delegate?.addFoodItemViewController(self, didAddFoodItem: foodItem)

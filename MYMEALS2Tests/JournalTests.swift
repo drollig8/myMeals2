@@ -381,7 +381,7 @@ class JournalViewControllerTests: XCTestCase {
     func testThatTotalCalorieValueIsCorrect()
     {
         initAndLoad()
-        XCTAssertEqual(sut.totalCaloriesValue.text,"1263")
+        XCTAssertEqual(sut.totalCaloriesValue.text,"1267")
     }
     
     func testThatTotalCarbsValueIsCorrect()
@@ -393,7 +393,7 @@ class JournalViewControllerTests: XCTestCase {
     func testThatTotalProteinsValueIsCorrect()
     {
         initAndLoad()
-        XCTAssertEqual(sut.totalProteinValue.text,"122")
+        XCTAssertEqual(sut.totalProteinValue.text,"123")
     }
     
     // MARK: Debug Test that we might not need
@@ -412,7 +412,7 @@ class JournalViewControllerTests: XCTestCase {
     
     // TODO ARBEITE MEHR MIT OBSERVERN, DAMIT SICH ZUM BEISPIEL DIE SUMMENZEILE AUTOMATISCH AKTUALISIERT
     // TODO AU?ERDEM GIBT ES UNSAUBERKEINTEN IN TDER HELPER METHODE COREDATA
-    // TODO AU?ERDEM WOLLEN WIR OBJECT DSCRIPTION AN CORE DATA HABEN
+
     
     func testThatOneFoodEntryReturnsOneRow()
     {
@@ -432,7 +432,7 @@ class JournalViewControllerTests: XCTestCase {
     private func createSampleFoodEntry()
     {
         CoreDataHelper.createFoodItem(name: "TestName", kcal: "150", carbs: "10", protein: "40", fat: "8", inManagedObjectContext: managedObjectContext)
-        CoreDataHelper.addFoodEntry(dateString: todayDateString, inSection: 0, amount: "50", unit: "g",  withFoodItemNamed: "TestName", inManagedObjectContext: managedObjectContext)
+        CoreDataHelper.addFoodEntry(dateString: todayDateString, inSection: 0, amount: 50, unit: "g",  withFoodItemNamed: "TestName", inManagedObjectContext: managedObjectContext)
         
     }
 
@@ -540,9 +540,9 @@ class JournalViewControllerTests: XCTestCase {
         XCTAssertTrue(navController.viewControllers.count == 2, "Should push viewcontroller")
     }
     
-    private func createTestFoodEntryWithAmount(amount:Int) -> FoodEntry
+    private func createTestFoodEntryWithAmount(amount:Double) -> FoodEntry
     {
-        return CoreDataHelper.addFoodEntry(dateString: todayDateString, inSection: 0, amount: "\(amount)", unit: "g", withFoodItemNamed: "Test", inManagedObjectContext: managedObjectContext)
+        return CoreDataHelper.addFoodEntry(dateString: todayDateString, inSection: 0, amount: amount, unit: "g", withFoodItemNamed: "Test", inManagedObjectContext: managedObjectContext)
 
     }
     
@@ -661,11 +661,11 @@ class JournalViewControllerTests: XCTestCase {
     
     func testThatFoodItemsCanBeCreated()
     {
-        sut.addFoodItem(named: "Test", kcal: "100", kohlenhydrate: "100", protein: "100", fett: "10")
+        sut.addFoodItem(named: "Test", kcal: "100", carbs: "100", protein: "100", fett: "10")
         let foodItems = getAllFoodItems()
         let foodItem = foodItems.first
         XCTAssertEqual(foodItem?.name, "Test")
-        XCTAssertEqual(foodItem?.kohlenhydrate, "100")
+        XCTAssertEqual(foodItem?.carbs, "100")
         XCTAssertEqual(foodItem?.protein, "100")
         XCTAssertEqual(foodItem?.fett, "10")
         
@@ -674,8 +674,8 @@ class JournalViewControllerTests: XCTestCase {
     func testThatNoDublicateFoodItemsCanBeCreated()
     {
         
-        sut.addFoodItem(named: "Test", kcal: "100", kohlenhydrate: "100", protein: "100", fett: "10")
-        sut.addFoodItem(named: "Test", kcal: "100", kohlenhydrate: "100", protein: "100", fett: "10")
+        sut.addFoodItem(named: "Test", kcal: "100", carbs: "100", protein: "100", fett: "10")
+        sut.addFoodItem(named: "Test", kcal: "100", carbs: "100", protein: "100", fett: "10")
         let foodItems = getAllFoodItems()
         XCTAssertTrue(foodItems.count == 1)
         
@@ -714,7 +714,7 @@ class JournalViewControllerTests: XCTestCase {
         foodEntry2.sortOrder = NSNumber(integer: 1)
         sut.fetch()
         let result = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))
-        XCTAssertEqual(result.amount, "10")
+        XCTAssertEqual(result.amount, 10)
     }
     
     func testThatFoodEntryFrühstück1HasCorrectValues()
@@ -722,7 +722,7 @@ class JournalViewControllerTests: XCTestCase {
         sut.loadDefaults()
         sut.fetch()
         let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! FoodEntry
-        XCTAssertEqual(foodEntry.amount,"35")
+        XCTAssertEqual(foodEntry.amount,35)
         let foodItem = foodEntry.foodItemRel! as FoodItem
         XCTAssertEqual(foodItem.name, "Kölln - Köln Flocken")
     }
@@ -732,7 +732,7 @@ class JournalViewControllerTests: XCTestCase {
         sut.loadDefaults()
         sut.fetch()
         let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as! FoodEntry
-        XCTAssertEqual(foodEntry.amount,"35")
+        XCTAssertEqual(foodEntry.amount,35)
         let foodItem = foodEntry.foodItemRel! as FoodItem
         XCTAssertEqual(foodItem.name, "Hy-Pro 85 Vanille")
     }
@@ -742,7 +742,7 @@ class JournalViewControllerTests: XCTestCase {
         sut.loadDefaults()
         sut.fetch()
         let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 2, inSection: 0)) as! FoodEntry
-        XCTAssertEqual(foodEntry.amount,"100")
+        XCTAssertEqual(foodEntry.amount,100)
         let foodItem = foodEntry.foodItemRel! as FoodItem
         XCTAssertEqual(foodItem.name, "Heidelbeeren TK")
     }
@@ -752,7 +752,7 @@ class JournalViewControllerTests: XCTestCase {
         sut.loadDefaults()
         sut.fetch()
         let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as! FoodEntry
-        XCTAssertEqual(foodEntry.amount,"30")
+        XCTAssertEqual(foodEntry.amount,30)
         let foodItem = foodEntry.foodItemRel! as FoodItem
         XCTAssertEqual(foodItem.name, "Nusskernmischung Seeberger")
     }
@@ -762,7 +762,7 @@ class JournalViewControllerTests: XCTestCase {
         sut.loadDefaults()
         sut.fetch()
         let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 1, inSection: 1)) as! FoodEntry
-        XCTAssertEqual(foodEntry.amount,"30")
+        XCTAssertEqual(foodEntry.amount,30)
         let foodItem = foodEntry.foodItemRel! as FoodItem
         XCTAssertEqual(foodItem.name, "Körniger Frischkäse Fitline 0,8%")
     }
@@ -772,7 +772,7 @@ class JournalViewControllerTests: XCTestCase {
         sut.loadDefaults()
         sut.fetch()
         let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 2)) as! FoodEntry
-        XCTAssertEqual(foodEntry.amount,"200")
+        XCTAssertEqual(foodEntry.amount,200)
         let foodItem = foodEntry.foodItemRel! as FoodItem
         XCTAssertEqual(foodItem.name, "Hänchenbrust Filet")
     }
@@ -782,7 +782,7 @@ class JournalViewControllerTests: XCTestCase {
         sut.loadDefaults()
         sut.fetch()
         let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 3)) as! FoodEntry
-        XCTAssertEqual(foodEntry.amount,"40")
+        XCTAssertEqual(foodEntry.amount,40)
         let foodItem = foodEntry.foodItemRel! as FoodItem
         XCTAssertEqual(foodItem.name, "ESN Designer Whey Vanille")
     }
@@ -792,7 +792,7 @@ class JournalViewControllerTests: XCTestCase {
         sut.loadDefaults()
         sut.fetch()
         let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 4)) as! FoodEntry
-        XCTAssertEqual(foodEntry.amount,"8")
+        XCTAssertEqual(foodEntry.amount,8)
         let foodItem = foodEntry.foodItemRel! as FoodItem
         XCTAssertEqual(foodItem.name, "Bertolli Olivenöl")
     }
@@ -802,7 +802,7 @@ class JournalViewControllerTests: XCTestCase {
         sut.loadDefaults()
         sut.fetch()
         let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 1, inSection: 4)) as! FoodEntry
-        XCTAssertEqual(foodEntry.amount,"8")
+        XCTAssertEqual(foodEntry.amount,8)
         let foodItem = foodEntry.foodItemRel! as FoodItem
         XCTAssertEqual(foodItem.name, "Seeberger milde Pinienkerne")
     }
@@ -811,7 +811,7 @@ class JournalViewControllerTests: XCTestCase {
     {
         sut.loadDefaults()
         let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 2, inSection: 4)) as! FoodEntry
-        XCTAssertEqual(foodEntry.amount,"60")
+        XCTAssertEqual(foodEntry.amount,60)
         let foodItem = foodEntry.foodItemRel! as FoodItem
         XCTAssertEqual(foodItem.name, "Harry Ciabatta")
     }
@@ -820,7 +820,7 @@ class JournalViewControllerTests: XCTestCase {
     {
         sut.loadDefaults()
         let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 5)) as! FoodEntry
-        XCTAssertEqual(foodEntry.amount,"40")
+        XCTAssertEqual(foodEntry.amount,40)
         let foodItem = foodEntry.foodItemRel! as FoodItem
         XCTAssertEqual(foodItem.name, "Weider Casein")
     }
@@ -999,10 +999,6 @@ class JournalViewControllerTests: XCTestCase {
 
     // MARK: Delegation Stuff
     
-    func testThatJournalIsAddAmountDelegate()
-    {
-        XCTAssertTrue(sut is AddAmountDelegate)
-    }
     
     func testThatJournalSetsItselfAsDelegateToFoodItems()
     {

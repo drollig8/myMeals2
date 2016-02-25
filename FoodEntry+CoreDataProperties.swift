@@ -14,10 +14,9 @@ import CoreData
 
 extension FoodEntry {
 
-    @NSManaged var name: String?
     @NSManaged var date: NSDate?
     @NSManaged var unit: String?
-    @NSManaged var amount: String?
+    @NSManaged var amount: NSNumber?
     @NSManaged var dateString: String?
     @NSManaged var timeString: String?
     @NSManaged var section: NSNumber?

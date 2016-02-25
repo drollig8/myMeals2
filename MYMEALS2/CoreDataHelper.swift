@@ -14,25 +14,75 @@ class CoreDataHelper {
     
     // MARK: - FoodItem
     
+    // OBSOLET so etwas gehört hier definitiv nicht hin
+    // TODO:
+    /*
+    private class func getFoodItem(named name: String, inManagedObjectContext managedObjectContext: NSManagedObjectContext) -> FoodItem?
+    {
+        
+        let fetchRequest = NSFetchRequest(entityName: "FoodItem")
+        let predicate = NSPredicate(format: "name =%@", name)
+        fetchRequest.predicate = predicate
+        let foodItems = try!managedObjectContext.executeFetchRequest(fetchRequest) as! [FoodItem]
+        return foodItems.first
+        
+    }
+    
+*/
+    private class func hasFoodItem(named name:String, inManagedObjectContext managedObjectContext: NSManagedObjectContext) -> Bool
+    {
+        return getFoodItem(named: name, inManagedObjectContext: managedObjectContext) != nil
+        
+    }
+    
     class func createFoodItem(name name: String? = nil, kcal: String? = nil, carbs: String? = nil, protein: String?=nil, fat:String?=nil, inManagedObjectContext managedObjectContext: NSManagedObjectContext) -> FoodItem
     {
-        let foodItem = NSEntityDescription.insertNewObjectForEntityForName("FoodItem", inManagedObjectContext: managedObjectContext) as! FoodItem
+        
         if let name = name {
+            if !hasFoodItem(named: name, inManagedObjectContext: managedObjectContext) {
+        
+                let foodItem = NSEntityDescription.insertNewObjectForEntityForName("FoodItem", inManagedObjectContext: managedObjectContext) as! FoodItem
+                
+                    foodItem.name = name
+                
+                if let kcal = kcal {
+                    foodItem.kcal = kcal
+                }
+                if let carbs = carbs {
+                    foodItem.carbs = carbs
+                }
+                if let protein = protein {
+                    foodItem.protein = protein
+                }
+                if let fat = fat {
+                    foodItem.fett = fat
+                }
+                return foodItem
+            } else {
+                return getFoodItem(named: name, inManagedObjectContext: managedObjectContext)!
+            }
+        }
+        else
+        {
+            let foodItem = NSEntityDescription.insertNewObjectForEntityForName("FoodItem", inManagedObjectContext: managedObjectContext) as! FoodItem
+            
             foodItem.name = name
+            
+            if let kcal = kcal {
+                foodItem.kcal = kcal
+            }
+            if let carbs = carbs {
+                foodItem.carbs = carbs
+            }
+            if let protein = protein {
+                foodItem.protein = protein
+            }
+            if let fat = fat {
+                foodItem.fett = fat
+            }
+            return foodItem
         }
-        if let kcal = kcal {
-            foodItem.kcal = kcal
-        }
-        if let carbs = carbs {
-            foodItem.kohlenhydrate = carbs
-        }
-        if let protein = protein {
-            foodItem.protein = protein
-        }
-        if let fat = fat {
-            foodItem.fett = fat
-        }
-        return foodItem
+        
     }
     
     
@@ -60,8 +110,8 @@ class CoreDataHelper {
     }
     
     //TODO: Sinnvoll, aber inSection umpositionieren an den Anfang.
-    //TODO: Ist das sinnvoll, dass der Amount ein String ist?
-    class func addFoodEntryMussWeg(dateString dateString: String, amount: String? = nil, unit: String? = nil, inSection section: Int, withFoodItemNamed foodItemName: String?=nil,inManagedObjectContext managedObjectContext: NSManagedObjectContext) -> FoodEntry
+    
+    class func addFoodEntryMussWeg(dateString dateString: String, amount: Double? = nil, unit: String? = nil, inSection section: Int, withFoodItemNamed foodItemName: String?=nil,inManagedObjectContext managedObjectContext: NSManagedObjectContext) -> FoodEntry
     {
         
         var foodItem : FoodItem?
@@ -84,7 +134,7 @@ class CoreDataHelper {
     }
     
     
-    class func addFoodEntry(dateString dateString: String, inSection section: Int, amount: String? = nil, unit: String? = nil,  withFoodItemNamed foodItemName: String? = nil,inManagedObjectContext managedObjectContext: NSManagedObjectContext) -> FoodEntry
+    class func addFoodEntry(dateString dateString: String, inSection section: Int, amount: Double? = nil, unit: String? = nil,  withFoodItemNamed foodItemName: String? = nil,inManagedObjectContext managedObjectContext: NSManagedObjectContext) -> FoodEntry
     {
         
         var foodItem : FoodItem?

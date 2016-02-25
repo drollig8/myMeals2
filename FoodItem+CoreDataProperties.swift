@@ -19,7 +19,7 @@ extension FoodItem {
     @NSManaged var fett: String?
     @NSManaged var protein: String?
     @NSManaged var kcal: String?
-    @NSManaged var kohlenhydrate: String?
+    @NSManaged var carbs: String?
     @NSManaged var foodEntriesRel: NSSet?
 
 }

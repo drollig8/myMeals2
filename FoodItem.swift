@@ -12,6 +12,11 @@ import CoreData
 
 class FoodItem: NSManagedObject {
 
-// Insert code here to add functionality to your managed object subclass
+    var nameString : String  {get {
+        let test = "Test123"
+        return test
+        }
+    }
+    
 
 }
