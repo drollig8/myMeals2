@@ -13,7 +13,8 @@ protocol AddFoodItemDelegate {
     func addFoodItemViewController(addFoodItemViewController:AddFoodItemViewController, didAddFoodItem foodItem: FoodItem?)
 }
 
-class AddFoodItemViewController: UITableViewController {
+class AddFoodItemViewController: UITableViewController
+{
     var foodItem: FoodItem!
     
     @IBOutlet weak var name: UITextField!
@@ -25,16 +26,19 @@ class AddFoodItemViewController: UITableViewController {
     var delegate: AddFoodItemDelegate?
     var managedObjectContext: NSManagedObjectContext!
     
-    override func viewDidLoad() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "cancel:")
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "done:")
+    override func viewDidLoad()
+    {
+        UIFunctions.addCancelButton(self)
+        UIFunctions.addDoneButton(self)
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(animated: Bool)
+    {
         assert(delegate != nil)
     }
     
-    func cancel(sender: AnyObject) {
+    func cancel(sender: AnyObject)
+    {
         managedObjectContext.deleteObject(foodItem)
         try!managedObjectContext.save()
         delegate?.addFoodItemViewController(self, didAddFoodItem: nil)

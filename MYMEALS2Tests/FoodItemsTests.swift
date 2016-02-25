@@ -401,6 +401,36 @@ class FoodItemsViewControllerTests: XCTestCase {
         XCTAssertEqual(cell.textLabel!.font, bodyFont)
     }
     
+    // MARK: Anforderung 2: beim normalen Klicken auf eine Zelle wird der empfangene FoodEntry (der Datum und Section enthält, in die eingefügt werden soll) an die AddAmount Scene übertragen und diese auf den Stack des NavigationControllers gelegt.
+
+    private func dummyFoodEntry() -> FoodEntry
+    {
+        return CoreDataHelper.addFoodEntry(dateString: todayDateString, inSection: 0, inManagedObjectContext: managedObjectContext)
+    }
     
+    func testThatCellSelectionProvidesDestinationViewControllerWithFoodEntry()
+    {
+        CoreDataHelper.createFoodItem(inManagedObjectContext: managedObjectContext)
+        sut.foodEntry = dummyFoodEntry()
+        sut.tableView(sut.tableView, didSelectRowAtIndexPath: ZeroIndexPath)
+        // TODO: I do not know how to verify this.
+    }
+    
+    func testThatWeProvideAddAmountViewControllerWithFoodEntry()
+    {
+        let navigationController = UINavigationController()
+        CoreDataHelper.createFoodItem(inManagedObjectContext: managedObjectContext)
+        sut.foodEntry = dummyFoodEntry()
+        navigationController.viewControllers.append(sut)
+        print(navigationController.viewControllers.count)
+        sut.tableView(sut.tableView, didSelectRowAtIndexPath: ZeroIndexPath)
+        print(navigationController.viewControllers.count)
+        let destinationViewController = navigationController.topViewController as! AddAmountViewController
+        print(destinationViewController)
+        print(destinationViewController.delegate)
+        print(destinationViewController.foodItem)
+        XCTAssertNotNil(destinationViewController.foodEntry)
+        
+    }
 
 }

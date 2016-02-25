@@ -11,7 +11,7 @@ import CoreData
 
 
 
-class JournalViewController: UITableViewController {
+class JournalViewController: UITableViewController,AddAmountDelegate {
     
     var managedObjectContext    : NSManagedObjectContext!
     var fetchedResultsController: NSFetchedResultsController!
@@ -26,6 +26,7 @@ class JournalViewController: UITableViewController {
         }
     }
     var isMovingItem : Bool = false
+    var selectedSection = 0
     
     @IBOutlet var totalProteinLabel: UILabel!
     @IBOutlet var totalFatLabel: UILabel!
@@ -47,14 +48,14 @@ class JournalViewController: UITableViewController {
     }
     private func setSummaryLabels()
     {
-        totalCaloriesLabel.text = "Kalorien"
-        totalCarbLabel.text = "KH"
-        totalProteinLabel.text = "Protein"
-        totalFatLabel.text = "Fett"
-        totalCaloriesValue.text = " -- "
-        totalCarbValue.text = " -- "
-        totalProteinValue.text = " -- "
-        totalFatValue.text = " -- "
+        totalCaloriesLabel?.text = "Kalorien"
+        totalCarbLabel?.text = "KH"
+        totalProteinLabel?.text = "Protein"
+        totalFatLabel?.text = "Fett"
+        totalCaloriesValue?.text = " -- "
+        totalCarbValue?.text = " -- "
+        totalProteinValue?.text = " -- "
+        totalFatValue?.text = " -- "
     }
     
     override func viewDidLoad()
@@ -269,7 +270,7 @@ class JournalViewController: UITableViewController {
     {
         
         if isAddEntry(indexPath) {
-            addEntry(self)
+            addEntry(indexPath.section)
         } else {
     
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -312,7 +313,7 @@ class JournalViewController: UITableViewController {
         }
         
         if editingStyle == .Insert {
-            addEntry(self)
+            addEntry(0)
         }
         
         updateSummaryValues()
@@ -499,18 +500,26 @@ class JournalViewController: UITableViewController {
             let predicate = NSPredicate(format: "dateString == %@", dateString)
             fetchRequest.predicate = predicate
         }
+        assert(managedObjectContext != nil)
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: managedObjectContext, sectionNameKeyPath: "section", cacheName: nil)
         try! fetchedResultsController.performFetch()
         self.tableView.reloadData()
     }
     
-    func addEntry(sender:AnyObject)
+    func addEntry(section:Int)
     {
-
+        self.selectedSection = section
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let viewController = storyboard.instantiateViewControllerWithIdentifier("FoodItemsViewController") as! FoodItemsViewController
+        let foodEntry = CoreDataHelper.addFoodEntry(dateString: selectedDateString, inSection: section, inManagedObjectContext: managedObjectContext)
+        viewController.foodEntry = foodEntry
         viewController.managedObjectContext = managedObjectContext
-        self.navigationController?.pushViewController(viewController, animated: false)
+        viewController.addAmountDelegate = self
+      //  self.navigationController?.pushViewController(viewController, animated: false)
+        // UNTESTED
+        let navigationController = UINavigationController()
+        navigationController.viewControllers.append(viewController)
+        self.presentViewController(navigationController, animated: false, completion: nil)
         
     }
     
@@ -524,6 +533,16 @@ class JournalViewController: UITableViewController {
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "edit:")
         }
         tableView.reloadData()
+    }
+    
+    // MARK: - Delegate Methods
+    
+    func addAmountViewController(addAmountViewController: AddAmountViewController, didAddAmount foodEntry: FoodEntry)
+    {
+        fetch()
+        tableView.reloadData()
+        assert(foodEntry.name != nil)
+        dismissViewControllerAnimated(true, completion: nil)
     }
 }
 

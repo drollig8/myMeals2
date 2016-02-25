@@ -15,47 +15,69 @@ protocol AddAmountDelegate {
 
 class AddAmountViewController: UITableViewController {
     
-    // TODO: rename amount!
-    @IBOutlet var amount: UITextField!
-    @IBOutlet weak var name: UILabel!
+    @IBOutlet var amountTextField: UITextField!
+    @IBOutlet var nameTextLabel: UILabel!
     
+    @IBOutlet var totalProteinLabel: UILabel!
+    @IBOutlet var totalFatLabel: UILabel!
+    @IBOutlet var totalCarbLabel: UILabel!
+    @IBOutlet var totalCaloriesLabel: UILabel!
+    
+    @IBOutlet var totalProteinValue: UILabel!
+    @IBOutlet var totalFatValue: UILabel!
+    @IBOutlet var totalCarbValue: UILabel!
+    @IBOutlet var totalCaloriesValue: UILabel!
 
     var managedObjectContext: NSManagedObjectContext!
     var foodItem : FoodItem!
+    var foodEntry: FoodEntry!
     var delegate : AddAmountDelegate!
-    var dateString: String!
-    var section : Int!
-    
-    private func addDoneButton()
+
+    private func setSummaryLabels()
     {
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "done:")
+        totalCaloriesLabel?.text = "Kalorien"
+        totalCarbLabel?.text = "KH"
+        totalProteinLabel?.text = "Protein"
+        totalFatLabel?.text = "Fett"
+        totalCaloriesValue?.text = " -- "
+        totalCarbValue?.text = " -- "
+        totalProteinValue?.text = " -- "
+        totalFatValue?.text = " -- "
     }
     
+    private func setFoodItemsNutricionalValues()
+    {
+        totalCaloriesValue?.text = foodItem.kcal
+        totalCarbValue?.text = foodItem.kohlenhydrate
+        totalProteinValue?.text = foodItem.protein
+        totalFatValue?.text = foodItem.fett
+        
+    }
     override func viewDidLoad()
     {
-        addDoneButton()
-        // TODO : Es macht sinn, das nicht hierher übergeben wird und asserted werden muss, sondern dass der foodEntry schon vorher creeiert wird und diese Informationen schon enthält. Das ist eine Reduktion von Schnittstellen !!!
-   //     assert(dateString != nil)
-   //     assert(section != 0)
-
+        UIFunctions.addDoneButton(self)
+        setSummaryLabels()
+        setFoodItemsNutricionalValues()
+        nameTextLabel.font = UIFont.customSummaryValues()
+        nameTextLabel.text = foodItem.name
     }
    
     func done(sender:AnyObject)
     {
-        if amount.text!.isEmpty {
+        if amountTextField.text!.isEmpty {
             let alertController = UIAlertController(title: "Error", message: "Entry is empty", preferredStyle: .Alert)
             alertController.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
             presentViewController(alertController, animated: true, completion: nil)
         }
         else {
-            // TODO DateString und Sectino fehlen !!!
-            var foodName = ""
-            if foodItem != nil {
-                foodName = foodItem.name ?? ""
-            }
-            let amount1 = amount.text ?? ""
+
+            assert(foodEntry != nil)
+            let amount = amountTextField.text ?? ""
             let unit = "g"
-            //CoreDataHelper.addFoodEntry(dateString: dateString, inSection: section, amount: amount1, unit: unit, withFoodItemNamed: foodName, inManagedObjectContext: managedObjectContext)
+            
+            foodEntry.amount = amount
+            foodEntry.unit = unit
+            delegate.addAmountViewController(self, didAddAmount: foodEntry)
         }
     }
     

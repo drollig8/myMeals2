@@ -372,28 +372,27 @@ class JournalViewControllerTests: XCTestCase {
 
     }
     
-    func testThatTotalCalorieValueIsCorrect()
+    private func initAndLoad()
     {
         initSut()
         sut.loadDefaults()
         sut.selectedDateString = todayDateString
+    }
+    func testThatTotalCalorieValueIsCorrect()
+    {
+        initAndLoad()
         XCTAssertEqual(sut.totalCaloriesValue.text,"1263")
-        
     }
     
     func testThatTotalCarbsValueIsCorrect()
     {
-        initSut()
-        sut.loadDefaults()
-        sut.selectedDateString = todayDateString
+        initAndLoad()
         XCTAssertEqual(sut.totalCarbValue.text,"4")
     }
     
     func testThatTotalProteinsValueIsCorrect()
     {
-        initSut()
-        sut.loadDefaults()
-        sut.selectedDateString = todayDateString
+        initAndLoad()
         XCTAssertEqual(sut.totalProteinValue.text,"122")
     }
     
@@ -457,15 +456,16 @@ class JournalViewControllerTests: XCTestCase {
         XCTAssertEqual(name,"75 kcal","Cell should return formatted content.")
     }
     
-
+    // TODO How to we test presenting a viewcontroller?
+/* ViewController gets presented.
     func testThatTableViewCellInLastSectionPushesAddEntry()
     {
         createTwoFoodEntriesInTwoSections()
         let navController = initSutWithNavigationController()
         XCTAssertTrue(navController.viewControllers.count == 1, "Should push viewcontroller")
         sut.tableView(sut.tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 2))
-        XCTAssertTrue(navController.viewControllers.count == 2, "Should push viewcontroller")
-        XCTAssertNotNil((navController.viewControllers.last as? FoodItemsViewController)?.managedObjectContext, "Should set MOC")
+        XCTAssertTrue(navController.viewControllers.count == 1, "Should present viewcontroller")
+        XCTAssertNotNil((navController.topViewController as? FoodItemsViewController)?.managedObjectContext, "Should set MOC")
     }
     
     func testThatSelectionPlusSymbolAddsEntry()
@@ -480,7 +480,7 @@ class JournalViewControllerTests: XCTestCase {
         
         XCTAssertNotNil((navController.viewControllers.last as? FoodItemsViewController)?.managedObjectContext, "Should set MOC")
     }
-    
+*/
     func testThatTableViewhasEditButton()
     {
         initSut()
@@ -540,7 +540,7 @@ class JournalViewControllerTests: XCTestCase {
         XCTAssertTrue(navController.viewControllers.count == 2, "Should push viewcontroller")
     }
     
-    private func createTestFoodItemWithAmount(amount:Int) -> FoodEntry
+    private func createTestFoodEntryWithAmount(amount:Int) -> FoodEntry
     {
         return CoreDataHelper.addFoodEntry(dateString: todayDateString, inSection: 0, amount: "\(amount)", unit: "g", withFoodItemNamed: "Test", inManagedObjectContext: managedObjectContext)
 
@@ -551,8 +551,8 @@ class JournalViewControllerTests: XCTestCase {
     func testThatFooterContainsSumOfCalories()
     {
         CoreDataHelper.createFoodItem(name: "Test", kcal: "100", inManagedObjectContext: managedObjectContext)
-        createTestFoodItemWithAmount(80)
-        createTestFoodItemWithAmount(90)
+        createTestFoodEntryWithAmount(80)
+        createTestFoodEntryWithAmount(90)
         initSut()
         let footer = sut.tableView(sut.tableView, titleForFooterInSection:  0)
         XCTAssertEqual(footer,"Summe: 170 kcal", "Summe: 170 kcal should be footer of first section")
@@ -561,8 +561,8 @@ class JournalViewControllerTests: XCTestCase {
     func testThatFooterCopesWithNilValues()
     {
         CoreDataHelper.createFoodItem(name: nil, kcal: "100", inManagedObjectContext: managedObjectContext)
-        createTestFoodItemWithAmount(0)
-        createTestFoodItemWithAmount(0)
+        createTestFoodEntryWithAmount(0)
+        createTestFoodEntryWithAmount(0)
         initSut()
         let footer = sut.tableView(sut.tableView, titleForFooterInSection:  0)
         XCTAssertEqual(footer,"Summe: 0 kcal", "Summe: 0 kcal should be footer of first section")
@@ -707,10 +707,10 @@ class JournalViewControllerTests: XCTestCase {
     
     func testThatSortOrderWorks()
     {
-        let foodEntry1 = createTestFoodItemWithAmount(10)
+        let foodEntry1 = createTestFoodEntryWithAmount(10)
         
         foodEntry1.sortOrder = NSNumber(integer: 0)
-        let foodEntry2 =  createTestFoodItemWithAmount(20)
+        let foodEntry2 =  createTestFoodEntryWithAmount(20)
         foodEntry2.sortOrder = NSNumber(integer: 1)
         sut.fetch()
         let result = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))
@@ -968,6 +968,65 @@ class JournalViewControllerTests: XCTestCase {
     {
         CoreDataHelper.addFoodEntry(dateString: todayDateString, inSection: 0, inManagedObjectContext: managedObjectContext)
         CoreDataHelper.addFoodEntry(dateString: todayDateString, inSection: 0, inManagedObjectContext: managedObjectContext)
+    }
+    
+    
+    // MARK: Anforderung: 12 Beim Hinzufügen eines Items wird ein FoodEntry in der Datenbank angelegt. FoodSelection ViewController arbeitet über ein Protocoll. Wird Kein Eintrag zurückgegeben. Wird der angelegte FoodEntry vom FoodSelection Viewcontroller gelöscht.
+    
+    func testThatfoodEntryIsCreatedWhenSelectionAddEntry()
+    {
+        sut.selectedDateString = "01.01.15"
+        sut.addEntry(0)
+        XCTAssertEqual(CoreDataHelper.getFoodEntries(forDateString: "01.01.15", inmanagedObjectContext: managedObjectContext).count, 1)
+    }
+    
+    func testThatSectionGetsTransferredToAddEntry()
+    {
+        /*
+        class sutMock: JournalViewController
+        {
+            var section = 0
+            private override func addEntry(section: Int) {
+                section = section
+            }
+        }
+        let sut = sutMock()
+        */
+        sut.selectedDateString = "01.01.15"
+        sut.tableView(sut.tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 1))
+        XCTAssertEqual(sut.selectedSection, 1)
+    }
+
+    // MARK: Delegation Stuff
+    
+    func testThatJournalIsAddAmountDelegate()
+    {
+        XCTAssertTrue(sut is AddAmountDelegate)
+    }
+    
+    func testThatJournalSetsItselfAsDelegateToFoodItems()
+    {
+        //CoreDataHelper.createFoodItem(inManagedObjectContext: managedObjectContext)
+        //sut.tableView(sut.tableView, didSelectRowAtIndexPath: ZeroIndexPath)
+        sut.addEntry(0)
+        //AppDelegate().window?.rootViewController.pr
+    }
+    
+    func testThatJournalAddAmountDelegateDismissesViewController()
+    {
+        class sutMock:JournalViewController
+        {
+            var didCallDismissViewController = false
+            private override func dismissViewControllerAnimated(flag: Bool, completion: (() -> Void)?) {
+                didCallDismissViewController = true
+            }
+            
+        }
+        let sut = sutMock()
+        sut.calendar = DIDatepicker()
+        sut.managedObjectContext = managedObjectContext
+  //      sut.addAmountViewController(AddAmountViewController(), didAddAmount: FoodEntry())
+  //      XCTAssertTrue(sut.didCallDismissViewController)
     }
 }
 

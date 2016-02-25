@@ -21,6 +21,8 @@ class FoodItemsViewController: UITableViewController,AddFoodItemDelegate,AddAmou
     }
     var foodDatabaseSearchFoodItems: [FoodItem]!
     var selectedFoodItem: FoodItem!
+    var foodEntry: FoodEntry!
+    var addAmountDelegate:AddAmountDelegate!
     
     var performSegueHasBeenCalled = false // because we cannot mock storyboard viewcontrollers that implement a tableview. maybe we want to do it programmatically
 
@@ -30,17 +32,20 @@ class FoodItemsViewController: UITableViewController,AddFoodItemDelegate,AddAmou
     
     let cellIdentifier = "Cell"
     
-    private func setTitle(title: String) {
+    private func setTitle(title: String)
+    {
         self.navigationItem.title = title
     }
     
-    func addToolBarButton() {
+    func addToolBarButton()
+    {
         
         self.toolbarItems = [UIBarButtonItem(title: "addFoodItem", style: UIBarButtonItemStyle.Plain, target: self, action: "addFoodItem:")]
         self.navigationController?.toolbarHidden = false
     }
     
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "scan", style: .Plain, target: self, action: "scanFoodItem:")
         addToolBarButton()
@@ -52,7 +57,8 @@ class FoodItemsViewController: UITableViewController,AddFoodItemDelegate,AddAmou
     
 
     
-    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+    func searchBarSearchButtonClicked(searchBar: UISearchBar)
+    {
         // TODO ASYNC
         // NETWORK INDICATOR
         foodDatabaseSearchController.searchText = searchBar.text
@@ -80,6 +86,8 @@ class FoodItemsViewController: UITableViewController,AddFoodItemDelegate,AddAmou
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
+        //assert(foodEntry != nil)
+        
         let foodItem: FoodItem!
         if !fetchedResultsController.hasObjectAtIndexPath(indexPath) {
             fatalError("Object not found.")
@@ -92,6 +100,7 @@ class FoodItemsViewController: UITableViewController,AddFoodItemDelegate,AddAmou
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let viewController = storyboard.instantiateViewControllerWithIdentifier("AddAmountViewController") as! AddAmountViewController
             viewController.foodItem = foodItem
+        viewController.foodEntry = foodEntry
         viewController.delegate = self
         self.navigationController?.pushViewController(viewController, animated: false)
         
@@ -186,8 +195,9 @@ class FoodItemsViewController: UITableViewController,AddFoodItemDelegate,AddAmou
     }
     
     func addAmountViewController(addAmountViewController: AddAmountViewController, didAddAmount foodEntry: FoodEntry) {
-        dismissViewControllerAnimated(true, completion: nil)
+        addAmountDelegate.addAmountViewController(addAmountViewController, didAddAmount: foodEntry)
     }
+
     
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
         tableView.reloadData()

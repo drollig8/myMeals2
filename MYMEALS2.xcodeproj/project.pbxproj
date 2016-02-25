@@ -16,6 +16,7 @@
 		6E68C2811C654A9200CD50BA /* AddFootItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E68C2801C654A9200CD50BA /* AddFootItemTests.swift */; };
 		6E70B52E1C60E6AA00AA47C0 /* Journal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E70B52D1C60E6AA00AA47C0 /* Journal.swift */; };
 		6E70B5301C60E6BE00AA47C0 /* JournalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E70B52F1C60E6BE00AA47C0 /* JournalTests.swift */; };
+		6E7544681C7F38EB00035D0E /* UIFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7544671C7F38EB00035D0E /* UIFunctions.swift */; };
 		6E9BDE1D1C706D0F008CD1AE /* DIDatepicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E9BDE1A1C706D0F008CD1AE /* DIDatepicker.m */; };
 		6E9BDE1E1C706D0F008CD1AE /* DIDatepickerDateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E9BDE1C1C706D0F008CD1AE /* DIDatepickerDateView.m */; };
 		6EB506851C5D512C00CF0589 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB506841C5D512C00CF0589 /* AppDelegate.swift */; };
@@ -59,6 +60,7 @@
 		6E68C2801C654A9200CD50BA /* AddFootItemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddFootItemTests.swift; path = MYMEALS2Tests/AddFootItemTests.swift; sourceTree = SOURCE_ROOT; };
 		6E70B52D1C60E6AA00AA47C0 /* Journal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Journal.swift; sourceTree = "<group>"; };
 		6E70B52F1C60E6BE00AA47C0 /* JournalTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JournalTests.swift; path = MYMEALS2Tests/JournalTests.swift; sourceTree = SOURCE_ROOT; };
+		6E7544671C7F38EB00035D0E /* UIFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIFunctions.swift; sourceTree = "<group>"; };
 		6E9BDE191C706D0F008CD1AE /* DIDatepicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIDatepicker.h; sourceTree = "<group>"; };
 		6E9BDE1A1C706D0F008CD1AE /* DIDatepicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIDatepicker.m; sourceTree = "<group>"; };
 		6E9BDE1B1C706D0F008CD1AE /* DIDatepickerDateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIDatepickerDateView.h; sourceTree = "<group>"; };
@@ -209,6 +211,7 @@
 				6EB506901C5D512C00CF0589 /* LaunchScreen.storyboard */,
 				6EB506931C5D512C00CF0589 /* Info.plist */,
 				6EDE59ED1C5E0C6800F33544 /* Constants.swift */,
+				6E7544671C7F38EB00035D0E /* UIFunctions.swift */,
 				6E5BDDBF1C7B168600C03115 /* CoreDataHelper.swift */,
 				6E59F1681C7DBE7F00924006 /* UIFont+Extension.swift */,
 			);
@@ -343,6 +346,7 @@
 				6EDE59F01C5E39DB00F33544 /* AddAmount.swift in Sources */,
 				6EDE59F61C5E576A00F33544 /* ShowFoodItemViewController.swift in Sources */,
 				6EB506C81C5DF48F00CF0589 /* FoodEntry+CoreDataProperties.swift in Sources */,
+				6E7544681C7F38EB00035D0E /* UIFunctions.swift in Sources */,
 				6E5BDDC01C7B168600C03115 /* CoreDataHelper.swift in Sources */,
 				6E70B52E1C60E6AA00AA47C0 /* Journal.swift in Sources */,
 				6E59F1691C7DBE7F00924006 /* UIFont+Extension.swift in Sources */,
