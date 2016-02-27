@@ -16,7 +16,13 @@ class FoodItemManager
         fooditems.append(foodItem)
     }
     
-
-    
+/*
+    func addItem(item:ToDoItem)
+    {
+        if !toDoItems.contains(item) {
+            toDoItems.append(item)
+        }
+    }
+  */  
     
 }

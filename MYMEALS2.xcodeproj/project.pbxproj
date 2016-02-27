@@ -59,7 +59,7 @@
 		6E05EFBB1C8082BD002D1DDB /* FoodItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodItem.swift; sourceTree = "<group>"; };
 		6E05EFBD1C8083F5002D1DDB /* FoodItemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FoodItemTests.swift; path = MYMEALS2Tests/FoodItemTests.swift; sourceTree = SOURCE_ROOT; };
 		6E05EFBF1C808800002D1DDB /* FoodItemManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodItemManager.swift; sourceTree = "<group>"; };
-		6E05EFC11C80880C002D1DDB /* FoodItemManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodItemManagerTests.swift; sourceTree = "<group>"; };
+		6E05EFC11C80880C002D1DDB /* FoodItemManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FoodItemManagerTests.swift; path = MYMEALS2Tests/FoodItemManagerTests.swift; sourceTree = SOURCE_ROOT; };
 		6E23D2FC1C637DDC00D0F622 /* EditFoodItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditFoodItem.swift; sourceTree = "<group>"; };
 		6E59F1681C7DBE7F00924006 /* UIFont+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		6E5BDDBF1C7B168600C03115 /* CoreDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CoreDataHelper.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -187,7 +187,6 @@
 			children = (
 				6E70B5311C60E80400AA47C0 /* Supporting Files */,
 				6EB506CD1C5DF86700CF0589 /* ViewController */,
-				6E05EFC11C80880C002D1DDB /* FoodItemManagerTests.swift */,
 			);
 			path = MYMEALS2Tests;
 			sourceTree = "<group>";
@@ -210,6 +209,7 @@
 				6EDE59F71C5E85DC00F33544 /* FoodDatabaseSearchController.swift */,
 				6E05EFBB1C8082BD002D1DDB /* FoodItem.swift */,
 				6E05EFBF1C808800002D1DDB /* FoodItemManager.swift */,
+				6E05EFC11C80880C002D1DDB /* FoodItemManagerTests.swift */,
 				6E05EFBD1C8083F5002D1DDB /* FoodItemTests.swift */,
 			);
 			name = Model;
