@@ -10,12 +10,12 @@ import UIKit
 import CoreData
 
 protocol AddFoodItemDelegate {
-    func addFoodItemViewController(addFoodItemViewController:AddFoodItemViewController, didAddFoodItem foodItem: FoodItem?)
+    func addCDFoodItemViewController(addCDFoodItemViewController:AddFoodItemViewController, didAddFoodItem foodItem: CDFoodItem?)
 }
 
 class AddFoodItemViewController: UITableViewController
 {
-    var foodItem: FoodItem!
+    var foodItem: CDFoodItem!
     
     @IBOutlet weak var name: UITextField!
     @IBOutlet weak var kcal: UITextField!
@@ -41,7 +41,7 @@ class AddFoodItemViewController: UITableViewController
     {
         managedObjectContext.deleteObject(foodItem)
         try!managedObjectContext.save()
-        delegate?.addFoodItemViewController(self, didAddFoodItem: nil)
+        delegate?.addCDFoodItemViewController(self, didAddFoodItem: nil)
     }
     
     func done(sender: AnyObject) {
@@ -68,7 +68,7 @@ class AddFoodItemViewController: UITableViewController
             foodItem.carbs = carbs.text
             foodItem.protein = protein.text
             foodItem.fett = fat.text
-            delegate?.addFoodItemViewController(self, didAddFoodItem: foodItem)
+            delegate?.addCDFoodItemViewController(self, didAddFoodItem: foodItem)
         }
 
     }

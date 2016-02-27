@@ -73,7 +73,7 @@ class JournalViewControllerTests: XCTestCase {
     
     func testThatAddEntryRowCanNotBeMovedOnNotEmptySection()
     {
-        createSampleFoodEntry()
+        createSampleCDFoodEntry()
         sut.editMode = true
         let indexPath = NSIndexPath(forRow: 1, inSection: 0)
         sut.selectedDateString = todayDateString
@@ -84,8 +84,8 @@ class JournalViewControllerTests: XCTestCase {
     func testThatMovingEntryChangesSortOrder()
     {
         
-        let entryAt0 = CoreDataHelper.addFoodEntry(dateString: todayDateString, inSection: 0, inManagedObjectContext: managedObjectContext)
-        let entryAt1 = CoreDataHelper.addFoodEntry(dateString: todayDateString, inSection: 0, inManagedObjectContext: managedObjectContext)
+        let entryAt0 = CoreDataHelper.addCDFoodEntry(dateString: todayDateString, inSection: 0, inManagedObjectContext: managedObjectContext)
+        let entryAt1 = CoreDataHelper.addCDFoodEntry(dateString: todayDateString, inSection: 0, inManagedObjectContext: managedObjectContext)
         let startIndexPath = NSIndexPath(forRow: 1, inSection: 0)
         let endIndexPath = ZeroIndexPath
         
@@ -99,10 +99,10 @@ class JournalViewControllerTests: XCTestCase {
     }
 
 
-    private func getFoodItemInFoodEntryTable(atIndexPath indexPatch: NSIndexPath)  -> FoodItem
+    private func getCDFoodItemInCDFoodEntryTable(atIndexPath indexPatch: NSIndexPath)  -> CDFoodItem
     {
-        let foodEntry = sut.fetchedResultsController.objectAtIndexPath(indexPatch) as! FoodEntry
-        return foodEntry.foodItemRel! as FoodItem
+        let foodEntry = sut.fetchedResultsController.objectAtIndexPath(indexPatch) as! CDFoodEntry
+        return foodEntry.foodItemRel! as CDFoodItem
     }
     
    
@@ -112,11 +112,11 @@ class JournalViewControllerTests: XCTestCase {
         let startIndexPath = NSIndexPath(forRow: 2, inSection: 0)
         let endIndexPath = NSIndexPath(forRow: 1, inSection: 0)
 
-        XCTAssertEqual(getFoodItemInFoodEntryTable(atIndexPath: startIndexPath).name, "Heidelbeeren TK")
+        XCTAssertEqual(getCDFoodItemInCDFoodEntryTable(atIndexPath: startIndexPath).name, "Heidelbeeren TK")
 
         sut.tableView(sut.tableView, moveRowAtIndexPath: startIndexPath, toIndexPath: endIndexPath)
         
-        XCTAssertEqual(getFoodItemInFoodEntryTable(atIndexPath: endIndexPath).name, "Heidelbeeren TK")
+        XCTAssertEqual(getCDFoodItemInCDFoodEntryTable(atIndexPath: endIndexPath).name, "Heidelbeeren TK")
     }
     
     func testThatMovingOntoAddSectionIsInhibited()
@@ -125,11 +125,11 @@ class JournalViewControllerTests: XCTestCase {
         let startIndexPath = NSIndexPath(forRow: 2, inSection: 0)
         let endIndexPath = NSIndexPath(forRow: 3, inSection: 0)
         
-        XCTAssertEqual(getFoodItemInFoodEntryTable(atIndexPath: startIndexPath).name, "Heidelbeeren TK")
+        XCTAssertEqual(getCDFoodItemInCDFoodEntryTable(atIndexPath: startIndexPath).name, "Heidelbeeren TK")
         
         sut.tableView(sut.tableView, moveRowAtIndexPath: startIndexPath, toIndexPath: endIndexPath)
 
-        XCTAssertEqual(getFoodItemInFoodEntryTable(atIndexPath: startIndexPath).name, "Heidelbeeren TK")
+        XCTAssertEqual(getCDFoodItemInCDFoodEntryTable(atIndexPath: startIndexPath).name, "Heidelbeeren TK")
     }
     
     func testThatMovingExampleAcrossSection()
@@ -138,11 +138,11 @@ class JournalViewControllerTests: XCTestCase {
         let startIndexPath = NSIndexPath(forRow: 2, inSection: 0)
         let endIndexPath = NSIndexPath(forRow: 1, inSection: 1)
         
-        XCTAssertEqual(getFoodItemInFoodEntryTable(atIndexPath: startIndexPath).name, "Heidelbeeren TK")
+        XCTAssertEqual(getCDFoodItemInCDFoodEntryTable(atIndexPath: startIndexPath).name, "Heidelbeeren TK")
         
         sut.tableView(sut.tableView, moveRowAtIndexPath: startIndexPath, toIndexPath: endIndexPath)
         
-        XCTAssertEqual(getFoodItemInFoodEntryTable(atIndexPath: endIndexPath).name, "Heidelbeeren TK")
+        XCTAssertEqual(getCDFoodItemInCDFoodEntryTable(atIndexPath: endIndexPath).name, "Heidelbeeren TK")
     }
     
     // MARK: - Anforderung 2 (Im EditMode können Einträge gelöscht werden)
@@ -400,7 +400,7 @@ class JournalViewControllerTests: XCTestCase {
     
     func testThatCarbsAndProteinsAreShownInCell()
     {
-        createSampleFoodEntry()
+        createSampleCDFoodEntry()
         initSut()
         sut.tableView.reloadData()
         let cell = sut.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! JournalCell
@@ -414,31 +414,31 @@ class JournalViewControllerTests: XCTestCase {
     // TODO AU?ERDEM GIBT ES UNSAUBERKEINTEN IN TDER HELPER METHODE COREDATA
 
     
-    func testThatOneFoodEntryReturnsOneRow()
+    func testThatOneCDFoodEntryReturnsOneRow()
     {
-        createSampleFoodEntry()
+        createSampleCDFoodEntry()
         sut.selectedDateString = todayDateString
         XCTAssertEqual(sut.tableView(sut.tableView, numberOfRowsInSection: 0),2,"There should be one two Rows (add Item) in this test")
     }
     
 
-    func testThatTwoFoodEntrysReturnTwoRows()
+    func testThatTwoCDFoodEntrysReturnTwoRows()
     {
         createTwoFoodEntriesInSectionZero()
         initSut()
         XCTAssertEqual(sut.tableView(sut.tableView, numberOfRowsInSection: 0),3,"There should be one row in this test")
     }
     
-    private func createSampleFoodEntry()
+    private func createSampleCDFoodEntry()
     {
-        CoreDataHelper.createFoodItem(name: "TestName", kcal: "150", carbs: "10", protein: "40", fat: "8", inManagedObjectContext: managedObjectContext)
-        CoreDataHelper.addFoodEntry(dateString: todayDateString, inSection: 0, amount: 50, unit: "g",  withFoodItemNamed: "TestName", inManagedObjectContext: managedObjectContext)
+        CoreDataHelper.createCDFoodItem(name: "TestName", kcal: "150", carbs: "10", protein: "40", fat: "8", inManagedObjectContext: managedObjectContext)
+        CoreDataHelper.addCDFoodEntry(dateString: todayDateString, inSection: 0, amount: 50, unit: "g",  withCDFoodItemNamed: "TestName", inManagedObjectContext: managedObjectContext)
         
     }
 
-    func testThatTableViewCellReturnsNameUnitOfFoodItem()
+    func testThatTableViewCellReturnsNameUnitOfCDFoodItem()
     {
-        createSampleFoodEntry()
+        createSampleCDFoodEntry()
         initSut()
         sut.tableView.reloadData()
         let cell = sut.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! JournalCell
@@ -446,9 +446,9 @@ class JournalViewControllerTests: XCTestCase {
         XCTAssertEqual(name,"TestName 50g","Cell should return formatted content.")
     }
     
-    func testThatTableViewCellReturnsCaloriesOfFoodItem()
+    func testThatTableViewCellReturnsCaloriesOfCDFoodItem()
     {
-        createSampleFoodEntry()
+        createSampleCDFoodEntry()
         initSut()
         sut.tableView.reloadData()
         let cell = sut.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! JournalCell
@@ -540,9 +540,9 @@ class JournalViewControllerTests: XCTestCase {
         XCTAssertTrue(navController.viewControllers.count == 2, "Should push viewcontroller")
     }
     
-    private func createTestFoodEntryWithAmount(amount:Double) -> FoodEntry
+    private func createTestCDFoodEntryWithAmount(amount:Double) -> CDFoodEntry
     {
-        return CoreDataHelper.addFoodEntry(dateString: todayDateString, inSection: 0, amount: amount, unit: "g", withFoodItemNamed: "Test", inManagedObjectContext: managedObjectContext)
+        return CoreDataHelper.addCDFoodEntry(dateString: todayDateString, inSection: 0, amount: amount, unit: "g", withCDFoodItemNamed: "Test", inManagedObjectContext: managedObjectContext)
 
     }
     
@@ -550,9 +550,9 @@ class JournalViewControllerTests: XCTestCase {
     
     func testThatFooterContainsSumOfCalories()
     {
-        CoreDataHelper.createFoodItem(name: "Test", kcal: "100", inManagedObjectContext: managedObjectContext)
-        createTestFoodEntryWithAmount(80)
-        createTestFoodEntryWithAmount(90)
+        CoreDataHelper.createCDFoodItem(name: "Test", kcal: "100", inManagedObjectContext: managedObjectContext)
+        createTestCDFoodEntryWithAmount(80)
+        createTestCDFoodEntryWithAmount(90)
         initSut()
         let footer = sut.tableView(sut.tableView, titleForFooterInSection:  0)
         XCTAssertEqual(footer,"Summe: 170 kcal", "Summe: 170 kcal should be footer of first section")
@@ -560,9 +560,9 @@ class JournalViewControllerTests: XCTestCase {
     
     func testThatFooterCopesWithNilValues()
     {
-        CoreDataHelper.createFoodItem(name: nil, kcal: "100", inManagedObjectContext: managedObjectContext)
-        createTestFoodEntryWithAmount(0)
-        createTestFoodEntryWithAmount(0)
+        CoreDataHelper.createCDFoodItem(name: nil, kcal: "100", inManagedObjectContext: managedObjectContext)
+        createTestCDFoodEntryWithAmount(0)
+        createTestCDFoodEntryWithAmount(0)
         initSut()
         let footer = sut.tableView(sut.tableView, titleForFooterInSection:  0)
         XCTAssertEqual(footer,"Summe: 0 kcal", "Summe: 0 kcal should be footer of first section")
@@ -654,15 +654,15 @@ class JournalViewControllerTests: XCTestCase {
         XCTAssertEqual(button.action.description, "loadDefaults", "There should be one Button in Toolbar with action Load Default")
     }
     
-    private func getAllFoodItems() -> [FoodItem]
+    private func getAllCDFoodItems() -> [CDFoodItem]
     {
-        return CoreDataHelper.getAllFoodItems(inManagedObjectContext: managedObjectContext)
+        return CoreDataHelper.getAllCDFoodItems(inManagedObjectContext: managedObjectContext)
     }
     
-    func testThatFoodItemsCanBeCreated()
+    func testThatCDFoodItemsCanBeCreated()
     {
-        sut.addFoodItem(named: "Test", kcal: "100", carbs: "100", protein: "100", fett: "10")
-        let foodItems = getAllFoodItems()
+        sut.addCDFoodItem(named: "Test", kcal: "100", carbs: "100", protein: "100", fett: "10")
+        let foodItems = getAllCDFoodItems()
         let foodItem = foodItems.first
         XCTAssertEqual(foodItem?.name, "Test")
         XCTAssertEqual(foodItem?.carbs, "100")
@@ -671,23 +671,23 @@ class JournalViewControllerTests: XCTestCase {
         
     }
     
-    func testThatNoDublicateFoodItemsCanBeCreated()
+    func testThatNoDublicateCDFoodItemsCanBeCreated()
     {
         
-        sut.addFoodItem(named: "Test", kcal: "100", carbs: "100", protein: "100", fett: "10")
-        sut.addFoodItem(named: "Test", kcal: "100", carbs: "100", protein: "100", fett: "10")
-        let foodItems = getAllFoodItems()
+        sut.addCDFoodItem(named: "Test", kcal: "100", carbs: "100", protein: "100", fett: "10")
+        sut.addCDFoodItem(named: "Test", kcal: "100", carbs: "100", protein: "100", fett: "10")
+        let foodItems = getAllCDFoodItems()
         XCTAssertTrue(foodItems.count == 1)
         
     }
     
-    func testThatWeHaveAllFoodItems()
+    func testThatWeHaveAllCDFoodItems()
     {
         sut.loadDefaults()
-        let fetchRequest = NSFetchRequest(entityName: "FoodItem")
+        let fetchRequest = NSFetchRequest(entityName: "CDFoodItem")
         let nameSort = NSSortDescriptor(key: "name", ascending: true)
         fetchRequest.sortDescriptors = [nameSort]
-        let foodItems = try!managedObjectContext.executeFetchRequest(fetchRequest) as! [FoodItem]
+        let foodItems = try!managedObjectContext.executeFetchRequest(fetchRequest) as! [CDFoodItem]
         XCTAssertTrue(foodItems.count > 0)
         
     }
@@ -701,127 +701,127 @@ class JournalViewControllerTests: XCTestCase {
     
     
     func testThatSecondItemInSectionGetsSortOrderOne() {
-        createSampleFoodEntry()
+        createSampleCDFoodEntry()
         XCTAssertEqual(CoreDataHelper.getLastEntry(dateString: todayDateString, inSection: 0, inManagedObjectContext: managedObjectContext),1)
     }
     
     func testThatSortOrderWorks()
     {
-        let foodEntry1 = createTestFoodEntryWithAmount(10)
+        let foodEntry1 = createTestCDFoodEntryWithAmount(10)
         
         foodEntry1.sortOrder = NSNumber(integer: 0)
-        let foodEntry2 =  createTestFoodEntryWithAmount(20)
+        let foodEntry2 =  createTestCDFoodEntryWithAmount(20)
         foodEntry2.sortOrder = NSNumber(integer: 1)
         sut.fetch()
         let result = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))
         XCTAssertEqual(result.amount, 10)
     }
     
-    func testThatFoodEntryFrühstück1HasCorrectValues()
+    func testThatCDFoodEntryFrühstück1HasCorrectValues()
     {
         sut.loadDefaults()
         sut.fetch()
-        let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! FoodEntry
+        let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! CDFoodEntry
         XCTAssertEqual(foodEntry.amount,35)
-        let foodItem = foodEntry.foodItemRel! as FoodItem
+        let foodItem = foodEntry.foodItemRel! as CDFoodItem
         XCTAssertEqual(foodItem.name, "Kölln - Köln Flocken")
     }
 
-    func testThatFoodEntryFrühstück2HasCorrectValues()
+    func testThatCDFoodEntryFrühstück2HasCorrectValues()
     {
         sut.loadDefaults()
         sut.fetch()
-        let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as! FoodEntry
+        let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as! CDFoodEntry
         XCTAssertEqual(foodEntry.amount,35)
-        let foodItem = foodEntry.foodItemRel! as FoodItem
+        let foodItem = foodEntry.foodItemRel! as CDFoodItem
         XCTAssertEqual(foodItem.name, "Hy-Pro 85 Vanille")
     }
     
-    func testThatFoodEntryFrühstück3HasCorrectValues()
+    func testThatCDFoodEntryFrühstück3HasCorrectValues()
     {
         sut.loadDefaults()
         sut.fetch()
-        let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 2, inSection: 0)) as! FoodEntry
+        let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 2, inSection: 0)) as! CDFoodEntry
         XCTAssertEqual(foodEntry.amount,100)
-        let foodItem = foodEntry.foodItemRel! as FoodItem
+        let foodItem = foodEntry.foodItemRel! as CDFoodItem
         XCTAssertEqual(foodItem.name, "Heidelbeeren TK")
     }
     
-    func testThatFoodEntry2Frühstück1HasCorrectValues()
+    func testThatCDFoodEntry2Frühstück1HasCorrectValues()
     {
         sut.loadDefaults()
         sut.fetch()
-        let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as! FoodEntry
+        let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as! CDFoodEntry
         XCTAssertEqual(foodEntry.amount,30)
-        let foodItem = foodEntry.foodItemRel! as FoodItem
+        let foodItem = foodEntry.foodItemRel! as CDFoodItem
         XCTAssertEqual(foodItem.name, "Nusskernmischung Seeberger")
     }
     
-    func testThatFoodEntry2Frühstück2HasCorrectValues()
+    func testThatCDFoodEntry2Frühstück2HasCorrectValues()
     {
         sut.loadDefaults()
         sut.fetch()
-        let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 1, inSection: 1)) as! FoodEntry
+        let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 1, inSection: 1)) as! CDFoodEntry
         XCTAssertEqual(foodEntry.amount,30)
-        let foodItem = foodEntry.foodItemRel! as FoodItem
+        let foodItem = foodEntry.foodItemRel! as CDFoodItem
         XCTAssertEqual(foodItem.name, "Körniger Frischkäse Fitline 0,8%")
     }
     
-    func testThatFoodEntryMittag1HasCorrectValues()
+    func testThatCDFoodEntryMittag1HasCorrectValues()
     {
         sut.loadDefaults()
         sut.fetch()
-        let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 2)) as! FoodEntry
+        let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 2)) as! CDFoodEntry
         XCTAssertEqual(foodEntry.amount,200)
-        let foodItem = foodEntry.foodItemRel! as FoodItem
+        let foodItem = foodEntry.foodItemRel! as CDFoodItem
         XCTAssertEqual(foodItem.name, "Hänchenbrust Filet")
     }
     
-    func testThatFoodEntryPWS1HasCorrectValues()
+    func testThatCDFoodEntryPWS1HasCorrectValues()
     {
         sut.loadDefaults()
         sut.fetch()
-        let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 3)) as! FoodEntry
+        let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 3)) as! CDFoodEntry
         XCTAssertEqual(foodEntry.amount,40)
-        let foodItem = foodEntry.foodItemRel! as FoodItem
+        let foodItem = foodEntry.foodItemRel! as CDFoodItem
         XCTAssertEqual(foodItem.name, "ESN Designer Whey Vanille")
     }
     
-    func testThatFoodEntryAbendbrot1HasCorrectValues()
+    func testThatCDFoodEntryAbendbrot1HasCorrectValues()
     {
         sut.loadDefaults()
         sut.fetch()
-        let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 4)) as! FoodEntry
+        let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 4)) as! CDFoodEntry
         XCTAssertEqual(foodEntry.amount,8)
-        let foodItem = foodEntry.foodItemRel! as FoodItem
+        let foodItem = foodEntry.foodItemRel! as CDFoodItem
         XCTAssertEqual(foodItem.name, "Bertolli Olivenöl")
     }
     
-    func testThatFoodEntryAbendbrot2HasCorrectValues()
+    func testThatCDFoodEntryAbendbrot2HasCorrectValues()
     {
         sut.loadDefaults()
         sut.fetch()
-        let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 1, inSection: 4)) as! FoodEntry
+        let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 1, inSection: 4)) as! CDFoodEntry
         XCTAssertEqual(foodEntry.amount,8)
-        let foodItem = foodEntry.foodItemRel! as FoodItem
+        let foodItem = foodEntry.foodItemRel! as CDFoodItem
         XCTAssertEqual(foodItem.name, "Seeberger milde Pinienkerne")
     }
     
-    func testThatFoodEntryAbendbrot3HasCorrectValues()
+    func testThatCDFoodEntryAbendbrot3HasCorrectValues()
     {
         sut.loadDefaults()
-        let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 2, inSection: 4)) as! FoodEntry
+        let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 2, inSection: 4)) as! CDFoodEntry
         XCTAssertEqual(foodEntry.amount,60)
-        let foodItem = foodEntry.foodItemRel! as FoodItem
+        let foodItem = foodEntry.foodItemRel! as CDFoodItem
         XCTAssertEqual(foodItem.name, "Harry Ciabatta")
     }
     
-    func testThatFoodEntryNachtisch1HasCorrectValues()
+    func testThatCDFoodEntryNachtisch1HasCorrectValues()
     {
         sut.loadDefaults()
-        let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 5)) as! FoodEntry
+        let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 5)) as! CDFoodEntry
         XCTAssertEqual(foodEntry.amount,40)
-        let foodItem = foodEntry.foodItemRel! as FoodItem
+        let foodItem = foodEntry.foodItemRel! as CDFoodItem
         XCTAssertEqual(foodItem.name, "Weider Casein")
     }
     
@@ -928,7 +928,7 @@ class JournalViewControllerTests: XCTestCase {
     
     func testThatFetchingForDateReturnsCorrectValue()
     {
-        createSampleFoodEntry()
+        createSampleCDFoodEntry()
         sut.selectedDateString = todayDateString
         initSut()
         XCTAssertTrue(sut.fetchedResultsController.hasObjectAtIndexPath(ZeroIndexPath))
@@ -941,16 +941,16 @@ class JournalViewControllerTests: XCTestCase {
     {
         sut.loadDefaults()
         sut.fetch()
-        let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! FoodEntry
+        let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! CDFoodEntry
         XCTAssertEqual(foodEntry.dateString,todayDateString)
     }
     
-    func testThatFoodItemKaloriesNotNil()
+    func testThatCDFoodItemKaloriesNotNil()
     {
         sut.loadDefaults()
         sut.fetch()
-        let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! FoodEntry
-        let foodItem = foodEntry.foodItemRel! as FoodItem
+        let foodEntry = sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! CDFoodEntry
+        let foodItem = foodEntry.foodItemRel! as CDFoodItem
         XCTAssertEqual(foodItem.kcal,"361")
     }
     
@@ -958,20 +958,20 @@ class JournalViewControllerTests: XCTestCase {
     
     private func createTwoFoodEntriesInTwoSections()
     {
-        CoreDataHelper.addFoodEntry(dateString: todayDateString, inSection: 0, inManagedObjectContext: managedObjectContext)
-        CoreDataHelper.addFoodEntry(dateString: todayDateString, inSection: 1, inManagedObjectContext: managedObjectContext)
+        CoreDataHelper.addCDFoodEntry(dateString: todayDateString, inSection: 0, inManagedObjectContext: managedObjectContext)
+        CoreDataHelper.addCDFoodEntry(dateString: todayDateString, inSection: 1, inManagedObjectContext: managedObjectContext)
         
         
     }
     
     private func createTwoFoodEntriesInSectionZero()
     {
-        CoreDataHelper.addFoodEntry(dateString: todayDateString, inSection: 0, inManagedObjectContext: managedObjectContext)
-        CoreDataHelper.addFoodEntry(dateString: todayDateString, inSection: 0, inManagedObjectContext: managedObjectContext)
+        CoreDataHelper.addCDFoodEntry(dateString: todayDateString, inSection: 0, inManagedObjectContext: managedObjectContext)
+        CoreDataHelper.addCDFoodEntry(dateString: todayDateString, inSection: 0, inManagedObjectContext: managedObjectContext)
     }
     
     
-    // MARK: Anforderung: 12 Beim Hinzufügen eines Items wird ein FoodEntry in der Datenbank angelegt. FoodSelection ViewController arbeitet über ein Protocoll. Wird Kein Eintrag zurückgegeben. Wird der angelegte FoodEntry vom FoodSelection Viewcontroller gelöscht.
+    // MARK: Anforderung: 12 Beim Hinzufügen eines Items wird ein CDFoodEntry in der Datenbank angelegt. FoodSelection ViewController arbeitet über ein Protocoll. Wird Kein Eintrag zurückgegeben. Wird der angelegte CDFoodEntry vom FoodSelection Viewcontroller gelöscht.
     
     func testThatfoodEntryIsCreatedWhenSelectionAddEntry()
     {
@@ -1000,9 +1000,9 @@ class JournalViewControllerTests: XCTestCase {
     // MARK: Delegation Stuff
     
     
-    func testThatJournalSetsItselfAsDelegateToFoodItems()
+    func testThatJournalSetsItselfAsDelegateToCDFoodItems()
     {
-        //CoreDataHelper.createFoodItem(inManagedObjectContext: managedObjectContext)
+        //CoreDataHelper.createCDFoodItem(inManagedObjectContext: managedObjectContext)
         //sut.tableView(sut.tableView, didSelectRowAtIndexPath: ZeroIndexPath)
         sut.addEntry(0)
         //AppDelegate().window?.rootViewController.pr
@@ -1021,7 +1021,7 @@ class JournalViewControllerTests: XCTestCase {
         let sut = sutMock()
         sut.calendar = DIDatepicker()
         sut.managedObjectContext = managedObjectContext
-  //      sut.addAmountViewController(AddAmountViewController(), didAddAmount: FoodEntry())
+  //      sut.addAmountViewController(AddAmountViewController(), didAddAmount: CDFoodEntry())
   //      XCTAssertTrue(sut.didCallDismissViewController)
     }
 }

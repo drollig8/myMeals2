@@ -31,8 +31,8 @@ class AddAmountViewControllerTests: XCTestCase
         managedObjectContext.persistentStoreCoordinator = storeCoordinator
         sut.managedObjectContext = managedObjectContext
         
-        let foodItem = CoreDataHelper.createFoodItem(name: "Test Haferflocken", kcal: "100", carbs: "10", protein: "50", fat: "20", inManagedObjectContext: managedObjectContext)
-        let foodEntry = CoreDataHelper.addFoodEntry(dateString: "01.01.15", inSection: 0, amount: 100, unit: "g", withFoodItemNamed: "Test Haferflocken", inManagedObjectContext: managedObjectContext)
+        let foodItem = CoreDataHelper.createCDFoodItem(name: "Test Haferflocken", kcal: "100", carbs: "10", protein: "50", fat: "20", inManagedObjectContext: managedObjectContext)
+        let foodEntry = CoreDataHelper.addCDFoodEntry(dateString: "01.01.15", inSection: 0, amount: 100, unit: "g", withCDFoodItemNamed: "Test Haferflocken", inManagedObjectContext: managedObjectContext)
         sut.foodItem = foodItem
         sut.foodEntry = foodEntry
     }
@@ -184,15 +184,15 @@ class AddAmountViewControllerTests: XCTestCase
         
     }
     
-    private func dummyFoodEntry() -> FoodEntry
+    private func dummyCDFoodEntry() -> CDFoodEntry
     {
-        return CoreDataHelper.addFoodEntry(dateString: todayDateString, inSection: 0, inManagedObjectContext: managedObjectContext)
+        return CoreDataHelper.addCDFoodEntry(dateString: todayDateString, inSection: 0, inManagedObjectContext: managedObjectContext)
     }
     
     class dummyDelegate:AddAmountDelegate
     {
         var delegateWasCalled = false
-        func addAmountViewController(addAmountViewController: AddAmountViewController, didAddAmount foodEntry: FoodEntry) {
+        func addAmountViewController(addAmountViewController: AddAmountViewController, didAddAmount foodEntry: CDFoodEntry) {
             delegateWasCalled = true
         }
     }
@@ -204,7 +204,7 @@ class AddAmountViewControllerTests: XCTestCase
         let delegate = dummyDelegate()
         sut.amountTextField = UITextField()
         sut.amountTextField.text = "1234"
-        sut.foodEntry = dummyFoodEntry()
+        sut.foodEntry = dummyCDFoodEntry()
         sut.delegate = delegate
         sut.done(self)
         XCTAssertEqual(sut.foodEntry.unit, "g")

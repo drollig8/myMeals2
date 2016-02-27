@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 protocol AddAmountDelegate {
-    func addAmountViewController(addAmountViewController:AddAmountViewController, didAddAmount foodEntry: FoodEntry)
+    func addAmountViewController(addAmountViewController:AddAmountViewController, didAddAmount foodEntry: CDFoodEntry)
 }
 
 class AddAmountViewController: UITableViewController {
@@ -29,8 +29,8 @@ class AddAmountViewController: UITableViewController {
     @IBOutlet var totalCaloriesValue: UILabel!
 
     var managedObjectContext: NSManagedObjectContext!
-    var foodItem : FoodItem!
-    var foodEntry: FoodEntry!
+    var foodItem : CDFoodItem!
+    var foodEntry: CDFoodEntry!
     var delegate : AddAmountDelegate!
 
     private func setSummaryLabels()
@@ -45,7 +45,7 @@ class AddAmountViewController: UITableViewController {
         totalFatValue?.text = " -- "
     }
     
-    private func setFoodItemsNutricionalValues()
+    private func setCDFoodItemsNutricionalValues()
     {
         totalCaloriesValue?.text = foodItem.kcal
         totalCarbValue?.text = foodItem.carbs
@@ -57,7 +57,7 @@ class AddAmountViewController: UITableViewController {
     {
         UIFunctions.addDoneButton(self)
         setSummaryLabels()
-        setFoodItemsNutricionalValues()
+        setCDFoodItemsNutricionalValues()
         nameTextLabel.font = UIFont.customSummaryValues()
         nameTextLabel.text = foodItem.name
     }

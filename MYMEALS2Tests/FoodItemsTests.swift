@@ -45,16 +45,16 @@ class FoodItemsViewControllerTests: XCTestCase {
     }
     
     func testThatOneEntryReturnsOneRow() {
-        let foodItem = NSEntityDescription.insertNewObjectForEntityForName("FoodItem", inManagedObjectContext: managedObjectContext) as! FoodItem
+        let foodItem = NSEntityDescription.insertNewObjectForEntityForName("CDFoodItem", inManagedObjectContext: managedObjectContext) as! CDFoodItem
         try!foodItem.managedObjectContext?.save()
         let _ = sut.view
         XCTAssertEqual(sut.tableView(sut.tableView, numberOfRowsInSection: 0),1,"There should be one row in this test")
     }
     
     func testThatTwoEntriesReturnsTwoRows() {
-        let foodItem = NSEntityDescription.insertNewObjectForEntityForName("FoodItem", inManagedObjectContext: managedObjectContext) as! FoodItem
+        let foodItem = NSEntityDescription.insertNewObjectForEntityForName("CDFoodItem", inManagedObjectContext: managedObjectContext) as! CDFoodItem
         try!foodItem.managedObjectContext?.save()
-        let foodItem1 = NSEntityDescription.insertNewObjectForEntityForName("FoodItem", inManagedObjectContext: managedObjectContext) as! FoodItem
+        let foodItem1 = NSEntityDescription.insertNewObjectForEntityForName("CDFoodItem", inManagedObjectContext: managedObjectContext) as! CDFoodItem
         try!foodItem1.managedObjectContext?.save()
         let _ = sut.view
         XCTAssertEqual(sut.tableView(sut.tableView, numberOfRowsInSection: 0),2,"There should be one row in this test")
@@ -62,16 +62,16 @@ class FoodItemsViewControllerTests: XCTestCase {
     
     // Problem: Dieser Testcase setzt voraus, dass Zellen bereits Werte zurückgeben.
     func DISABLED_testThatFoodEntriesAreInReversedLastUsedOrder() {
-        let foodItem = NSEntityDescription.insertNewObjectForEntityForName("FoodItem", inManagedObjectContext: managedObjectContext) as! FoodItem
+        let foodItem = NSEntityDescription.insertNewObjectForEntityForName("CDFoodItem", inManagedObjectContext: managedObjectContext) as! CDFoodItem
         foodItem.name = "distantPast"
         try!foodItem.managedObjectContext?.save()
-        let foodItem1 = NSEntityDescription.insertNewObjectForEntityForName("FoodItem", inManagedObjectContext: managedObjectContext) as! FoodItem
+        let foodItem1 = NSEntityDescription.insertNewObjectForEntityForName("CDFoodItem", inManagedObjectContext: managedObjectContext) as! CDFoodItem
         foodItem1.name = "distantFuture"
         try!foodItem1.managedObjectContext?.save()
-        let foodEntry = NSEntityDescription.insertNewObjectForEntityForName("FoodEntry", inManagedObjectContext: managedObjectContext) as! FoodEntry
+        let foodEntry = NSEntityDescription.insertNewObjectForEntityForName("CDFoodEntry", inManagedObjectContext: managedObjectContext) as! CDFoodEntry
         foodEntry.date = NSDate.distantPast()
         try!foodEntry.managedObjectContext?.save()
-        let foodEntry1 = NSEntityDescription.insertNewObjectForEntityForName("FoodEntry", inManagedObjectContext: managedObjectContext) as! FoodEntry
+        let foodEntry1 = NSEntityDescription.insertNewObjectForEntityForName("CDFoodEntry", inManagedObjectContext: managedObjectContext) as! CDFoodEntry
         foodEntry.date = NSDate.distantFuture()
         try!foodEntry1.managedObjectContext?.save()
         let _ = sut.view
@@ -86,23 +86,23 @@ class FoodItemsViewControllerTests: XCTestCase {
     }
     
     func testThatFoodEntriesAreInReversedLastUsedOrder() {
-        let foodItem = NSEntityDescription.insertNewObjectForEntityForName("FoodItem", inManagedObjectContext: managedObjectContext) as! FoodItem
+        let foodItem = NSEntityDescription.insertNewObjectForEntityForName("CDFoodItem", inManagedObjectContext: managedObjectContext) as! CDFoodItem
         foodItem.name = "distantPast"
         foodItem.lastUsed = NSDate.distantPast()
         try!foodItem.managedObjectContext?.save()
-        let foodItem1 = NSEntityDescription.insertNewObjectForEntityForName("FoodItem", inManagedObjectContext: managedObjectContext) as! FoodItem
+        let foodItem1 = NSEntityDescription.insertNewObjectForEntityForName("CDFoodItem", inManagedObjectContext: managedObjectContext) as! CDFoodItem
         foodItem1.name = "distantFuture"
         foodItem1.lastUsed = NSDate.distantFuture()
         try!foodItem1.managedObjectContext?.save()
         let _ = sut.view
-        let name = (sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! FoodItem).name
-        let name1 = (sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as! FoodItem).name
+        let name = (sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! CDFoodItem).name
+        let name1 = (sut.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as! CDFoodItem).name
         XCTAssertEqual(name,"distantFuture","Future is latest Entry")
         XCTAssertEqual(name1,"distantPast","Past is remotest Entry")
     }
     
-    func testThatTableViewCellReturnsNameOfFoodItem() {
-        let foodItem = NSEntityDescription.insertNewObjectForEntityForName("FoodItem", inManagedObjectContext: managedObjectContext) as! FoodItem
+    func testThatTableViewCellReturnsNameOfCDFoodItem() {
+        let foodItem = NSEntityDescription.insertNewObjectForEntityForName("CDFoodItem", inManagedObjectContext: managedObjectContext) as! CDFoodItem
         foodItem.name = "TestName"
         try!foodItem.managedObjectContext?.save()
         let _ = sut.view
@@ -131,28 +131,28 @@ class FoodItemsViewControllerTests: XCTestCase {
         let _ = sut.view
         let toolbarButton = (sut.toolbarItems?.first)! as UIBarButtonItem
         let actions = toolbarButton.action.description
-        XCTAssertEqual(actions,"addFoodItem:","Button should have action")
+        XCTAssertEqual(actions,"addCDFoodItem:","Button should have action")
 
     }
     
     func testThatAddFoodItemButtonPerformsSegue() {
         class FoodItemsViewControllerMock:FoodItemsViewController {
-            var addFoodItemSegueHasBeenCalled = false
+            var addCDFoodItemSegueHasBeenCalled = false
             private override func performSegueWithIdentifier(identifier: String, sender: AnyObject?) {
                 if identifier == kSegue.AddFoodItem {
-                    addFoodItemSegueHasBeenCalled = true
+                    addCDFoodItemSegueHasBeenCalled = true
                 }
             }
         }
         let sut = FoodItemsViewControllerMock()
         sut.managedObjectContext = managedObjectContext
         let _ = sut.view
-        sut.addFoodItem(self)
-        XCTAssertTrue(sut.addFoodItemSegueHasBeenCalled,"Button should perform Segue")
+        sut.addCDFoodItem(self)
+        XCTAssertTrue(sut.addCDFoodItemSegueHasBeenCalled,"Button should perform Segue")
     }
     
     func testThatCellContainsInfoButton() {
-        let foodItem = NSEntityDescription.insertNewObjectForEntityForName("FoodItem", inManagedObjectContext: managedObjectContext) as! FoodItem
+        let foodItem = NSEntityDescription.insertNewObjectForEntityForName("CDFoodItem", inManagedObjectContext: managedObjectContext) as! CDFoodItem
         foodItem.name = "TestName"
         try!foodItem.managedObjectContext?.save()
         let _ = sut.view
@@ -163,7 +163,7 @@ class FoodItemsViewControllerTests: XCTestCase {
     
     
     func testThatInfoButtonPerformsSegue() {
-        let foodItem = NSEntityDescription.insertNewObjectForEntityForName("FoodItem", inManagedObjectContext: managedObjectContext) as! FoodItem
+        let foodItem = NSEntityDescription.insertNewObjectForEntityForName("CDFoodItem", inManagedObjectContext: managedObjectContext) as! CDFoodItem
         foodItem.name = "TestName"
         try!foodItem.managedObjectContext?.save()
         let _ = sut.view
@@ -182,7 +182,7 @@ class FoodItemsViewControllerTests: XCTestCase {
     
     func testThatDidSelectPerformsSegue() {
 
-        CoreDataHelper.createFoodItem(inManagedObjectContext: managedObjectContext)
+        CoreDataHelper.createCDFoodItem(inManagedObjectContext: managedObjectContext)
         let navController = initSutWithNavigationController()
         XCTAssertTrue(navController.viewControllers.count == 1, "Should push viewcontroller")
         let indexPath =  NSIndexPath(forRow: 0, inSection: 0)
@@ -212,15 +212,15 @@ class FoodItemsViewControllerTests: XCTestCase {
         initSut()
         let toolbarButton = sut.navigationItem.rightBarButtonItem! as UIBarButtonItem
         let actions = toolbarButton.action.description
-        XCTAssertEqual(actions,"scanFoodItem:","Button should have action")
+        XCTAssertEqual(actions,"scanCDFoodItem:","Button should have action")
     }
     
     func testThatScanPerformsSegue() {
         class FoodItemsViewControllerMock:FoodItemsViewController {
-            var scanFoodItemSegueHasBeenCalled = false
+            var scanCDFoodItemSegueHasBeenCalled = false
             private override func performSegueWithIdentifier(identifier: String, sender: AnyObject?) {
                 if identifier == kSegue.ScanFoodItem {
-                scanFoodItemSegueHasBeenCalled = true
+                scanCDFoodItemSegueHasBeenCalled = true
                 }
             }
         }
@@ -228,21 +228,21 @@ class FoodItemsViewControllerTests: XCTestCase {
         sut.scanButton = UIButton()
         sut.managedObjectContext = managedObjectContext
         let _ = sut.view
-        sut.scanFoodItem(self)
-        XCTAssertTrue(sut.scanFoodItemSegueHasBeenCalled,"Button should perform Segue")
+        sut.scanCDFoodItem(self)
+        XCTAssertTrue(sut.scanCDFoodItemSegueHasBeenCalled,"Button should perform Segue")
     }
     
-    func testThatAddFoodItemProvidesDestinationViewControllerWithFoodItem() {
+    func testThatAddFoodItemProvidesDestinationViewControllerWithCDFoodItem() {
         let navVC = UINavigationController()
         let destVC = AddFoodItemViewController()
         navVC.viewControllers.append(destVC)
         let segue = UIStoryboardSegue(identifier: kSegue.AddFoodItem, source: sut, destination: navVC)
-        let foodItem = NSEntityDescription.insertNewObjectForEntityForName("FoodItem", inManagedObjectContext: managedObjectContext) as! FoodItem
+        let foodItem = NSEntityDescription.insertNewObjectForEntityForName("CDFoodItem", inManagedObjectContext: managedObjectContext) as! CDFoodItem
         foodItem.name = "TestName"
         try!foodItem.managedObjectContext?.save()
         let _ = sut.view
         sut.tableView.reloadData()
-        sut.selectedFoodItem = foodItem
+        sut.selectedCDFoodItem = foodItem
         sut.prepareForSegue(segue, sender: sut)
         XCTAssertTrue(destVC.foodItem != nil, "Destination View Controller requires Food Item")
     }
@@ -252,10 +252,10 @@ class FoodItemsViewControllerTests: XCTestCase {
         let destVC = AddFoodItemViewController()
         navVC.viewControllers.append(destVC)
         let segue = UIStoryboardSegue(identifier: kSegue.AddFoodItem, source: sut, destination: navVC)
-        let foodItem = FoodItem()
+        let foodItem = CDFoodItem()
         try!foodItem.managedObjectContext?.save()
         let _ = sut.view
-        sut.selectedFoodItem = foodItem
+        sut.selectedCDFoodItem = foodItem
         sut.prepareForSegue(segue, sender: sut)
         XCTAssertNotNil(destVC.delegate, "Destination View Controller requires delegate")
     }
@@ -263,30 +263,30 @@ class FoodItemsViewControllerTests: XCTestCase {
     func testThatScanFoodItemProvidesDestinationViewControllerWithDelegate() {
         let destVC = ScanFoodItemViewController()
         let segue = UIStoryboardSegue(identifier: kSegue.ScanFoodItem, source: sut, destination: destVC)
-        let foodItem = FoodItem()
+        let foodItem = CDFoodItem()
         try!foodItem.managedObjectContext?.save()
         let _ = sut.view
-        sut.selectedFoodItem = foodItem
+        sut.selectedCDFoodItem = foodItem
         sut.prepareForSegue(segue, sender: sut)
         XCTAssertNotNil(destVC.delegate, "Destination View Controller requires delegate")
     }
     
-    func testThatShowDetailsOfFoodItemProvidesDestinationViewControllerWithSelectedFoodItem() {
+    func testThatShowDetailsOfFoodItemProvidesDestinationViewControllerWithSelectedCDFoodItem() {
         let destVC = ShowFoodItemViewController()
         let segue = UIStoryboardSegue(identifier: kSegue.ShowDetailsOfFoodItem, source: sut, destination: destVC)
-        let foodItem = NSEntityDescription.insertNewObjectForEntityForName("FoodItem", inManagedObjectContext: managedObjectContext) as! FoodItem
+        let foodItem = NSEntityDescription.insertNewObjectForEntityForName("CDFoodItem", inManagedObjectContext: managedObjectContext) as! CDFoodItem
         foodItem.name = "TestName"
         try!foodItem.managedObjectContext?.save()
         let _ = sut.view
         sut.tableView.reloadData()
-        sut.selectedFoodItem = foodItem
+        sut.selectedCDFoodItem = foodItem
         sut.prepareForSegue(segue, sender: sut)
         XCTAssertEqual(destVC.foodItem, foodItem, "Destination View Controller requires Food Item")
     }
     
 
     func testThatAddAmountProvidesDestinationViewControllerWithDelegate() {
-        CoreDataHelper.createFoodItem(inManagedObjectContext: managedObjectContext)
+        CoreDataHelper.createCDFoodItem(inManagedObjectContext: managedObjectContext)
         let navigationController = UINavigationController()
         navigationController.viewControllers.append(sut)
         
@@ -313,10 +313,10 @@ class FoodItemsViewControllerTests: XCTestCase {
     }
     
     func testThatOneRowRemainsWhenSearchingItem() {
-        let foodItem = NSEntityDescription.insertNewObjectForEntityForName("FoodItem", inManagedObjectContext: managedObjectContext) as! FoodItem
+        let foodItem = NSEntityDescription.insertNewObjectForEntityForName("CDFoodItem", inManagedObjectContext: managedObjectContext) as! CDFoodItem
         foodItem.name = "Müsli"
         try!foodItem.managedObjectContext?.save()
-        let foodItem1 = NSEntityDescription.insertNewObjectForEntityForName("FoodItem", inManagedObjectContext: managedObjectContext) as! FoodItem
+        let foodItem1 = NSEntityDescription.insertNewObjectForEntityForName("CDFoodItem", inManagedObjectContext: managedObjectContext) as! CDFoodItem
         foodItem1.name = "H-Milch"
         try!foodItem1.managedObjectContext?.save()
         let _ = sut.view
@@ -334,7 +334,7 @@ class FoodItemsViewControllerTests: XCTestCase {
     func testThatKeyboardReturnKeyTriggersSearch() {
         class FoodDatabaseSearchControllerMock: FoodDatabaseSearchController {
             var performSearchWasCalled = false
-            private override func performSearch(completionHandler: ([FoodItem]) -> ()) {
+            private override func performSearch(completionHandler: ([CDFoodItem]) -> ()) {
                 performSearchWasCalled = true
             }
         }
@@ -348,7 +348,7 @@ class FoodItemsViewControllerTests: XCTestCase {
 
     }
     
-    func testThatSearchStringReturnsFoodItems() {
+    func testThatSearchStringReturnsCDFoodItems() {
         let expectation = expectationWithDescription("3 Items")
         let foodDatabaseSearchController = FoodDatabaseSearchController()
         foodDatabaseSearchController.searchText = "H-Milch"
@@ -365,9 +365,9 @@ class FoodItemsViewControllerTests: XCTestCase {
     }
     
     func testThatAfterFDDBSearchTableViewShowsFDDBResults() {
-        let foodItem = FoodItem()
-        sut.foodDatabaseSearchFoodItems = [FoodItem]()
-        sut.foodDatabaseSearchFoodItems.append(foodItem)
+        let foodItem = CDFoodItem()
+        sut.foodDatabaseSearchCDFoodItems = [CDFoodItem]()
+        sut.foodDatabaseSearchCDFoodItems.append(foodItem)
         sut.tableView.reloadData()
         XCTAssertEqual(sut.tableView(sut.tableView, numberOfRowsInSection: 0), 1)
     }
@@ -395,32 +395,32 @@ class FoodItemsViewControllerTests: XCTestCase {
         XCTAssertFalse(navigationController.toolbarHidden, "")
     }
 
-    func testThatFoodItemsNameIsHelveticaNeue() {
-        CoreDataHelper.createFoodItem(inManagedObjectContext: managedObjectContext)
+    func testThatCDFoodItemsNameIsHelveticaNeue() {
+        CoreDataHelper.createCDFoodItem(inManagedObjectContext: managedObjectContext)
         let cell = sut.tableView(sut.tableView, cellForRowAtIndexPath: ZeroIndexPath)
         XCTAssertEqual(cell.textLabel!.font, bodyFont)
     }
     
-    // MARK: Anforderung 2: beim normalen Klicken auf eine Zelle wird der empfangene FoodEntry (der Datum und Section enthält, in die eingefügt werden soll) an die AddAmount Scene übertragen und diese auf den Stack des NavigationControllers gelegt.
+    // MARK: Anforderung 2: beim normalen Klicken auf eine Zelle wird der empfangene CDFoodEntry (der Datum und Section enthält, in die eingefügt werden soll) an die AddAmount Scene übertragen und diese auf den Stack des NavigationControllers gelegt.
 
-    private func dummyFoodEntry() -> FoodEntry
+    private func dummyCDFoodEntry() -> CDFoodEntry
     {
-        return CoreDataHelper.addFoodEntry(dateString: todayDateString, inSection: 0, inManagedObjectContext: managedObjectContext)
+        return CoreDataHelper.addCDFoodEntry(dateString: todayDateString, inSection: 0, inManagedObjectContext: managedObjectContext)
     }
     
-    func testThatCellSelectionProvidesDestinationViewControllerWithFoodEntry()
+    func testThatCellSelectionProvidesDestinationViewControllerWithCDFoodEntry()
     {
-        CoreDataHelper.createFoodItem(inManagedObjectContext: managedObjectContext)
-        sut.foodEntry = dummyFoodEntry()
+        CoreDataHelper.createCDFoodItem(inManagedObjectContext: managedObjectContext)
+        sut.foodEntry = dummyCDFoodEntry()
         sut.tableView(sut.tableView, didSelectRowAtIndexPath: ZeroIndexPath)
         // TODO: I do not know how to verify this.
     }
     
-    func testThatWeProvideAddAmountViewControllerWithFoodEntry()
+    func testThatWeProvideAddAmountViewControllerWithCDFoodEntry()
     {
         let navigationController = UINavigationController()
-        CoreDataHelper.createFoodItem(inManagedObjectContext: managedObjectContext)
-        sut.foodEntry = dummyFoodEntry()
+        CoreDataHelper.createCDFoodItem(inManagedObjectContext: managedObjectContext)
+        sut.foodEntry = dummyCDFoodEntry()
         navigationController.viewControllers.append(sut)
         print(navigationController.viewControllers.count)
         sut.tableView(sut.tableView, didSelectRowAtIndexPath: ZeroIndexPath)

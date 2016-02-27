@@ -1,5 +1,5 @@
 //
-//  FoodEntry.swift
+//  CDFoodEntry.swift
 //  MYMEALS2
 //
 //  Created by Marc Felden on 31.01.16.
@@ -10,6 +10,6 @@ import Foundation
 import CoreData
 
 
-class FoodEntry: NSManagedObject  {
+class CDFoodEntry: NSManagedObject  {
 
 }

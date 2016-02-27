@@ -12,36 +12,36 @@ import CoreData
 class CoreDataHelper {
     
     
-    // MARK: - FoodItem
+    // MARK: - CDFoodItem
     
     // OBSOLET so etwas gehört hier definitiv nicht hin
     // TODO:
     /*
-    private class func getFoodItem(named name: String, inManagedObjectContext managedObjectContext: NSManagedObjectContext) -> FoodItem?
+    private class func getCDFoodItem(named name: String, inManagedObjectContext managedObjectContext: NSManagedObjectContext) -> CDFoodItem?
     {
         
-        let fetchRequest = NSFetchRequest(entityName: "FoodItem")
+        let fetchRequest = NSFetchRequest(entityName: "CDFoodItem")
         let predicate = NSPredicate(format: "name =%@", name)
         fetchRequest.predicate = predicate
-        let foodItems = try!managedObjectContext.executeFetchRequest(fetchRequest) as! [FoodItem]
+        let foodItems = try!managedObjectContext.executeFetchRequest(fetchRequest) as! [CDFoodItem]
         return foodItems.first
         
     }
     
 */
-    private class func hasFoodItem(named name:String, inManagedObjectContext managedObjectContext: NSManagedObjectContext) -> Bool
+    private class func hasCDFoodItem(named name:String, inManagedObjectContext managedObjectContext: NSManagedObjectContext) -> Bool
     {
-        return getFoodItem(named: name, inManagedObjectContext: managedObjectContext) != nil
+        return getCDFoodItem(named: name, inManagedObjectContext: managedObjectContext) != nil
         
     }
     
-    class func createFoodItem(name name: String? = nil, kcal: String? = nil, carbs: String? = nil, protein: String?=nil, fat:String?=nil, inManagedObjectContext managedObjectContext: NSManagedObjectContext) -> FoodItem
+    class func createCDFoodItem(name name: String? = nil, kcal: String? = nil, carbs: String? = nil, protein: String?=nil, fat:String?=nil, inManagedObjectContext managedObjectContext: NSManagedObjectContext) -> CDFoodItem
     {
         
         if let name = name {
-            if !hasFoodItem(named: name, inManagedObjectContext: managedObjectContext) {
+            if !hasCDFoodItem(named: name, inManagedObjectContext: managedObjectContext) {
         
-                let foodItem = NSEntityDescription.insertNewObjectForEntityForName("FoodItem", inManagedObjectContext: managedObjectContext) as! FoodItem
+                let foodItem = NSEntityDescription.insertNewObjectForEntityForName("CDFoodItem", inManagedObjectContext: managedObjectContext) as! CDFoodItem
                 
                     foodItem.name = name
                 
@@ -59,12 +59,12 @@ class CoreDataHelper {
                 }
                 return foodItem
             } else {
-                return getFoodItem(named: name, inManagedObjectContext: managedObjectContext)!
+                return getCDFoodItem(named: name, inManagedObjectContext: managedObjectContext)!
             }
         }
         else
         {
-            let foodItem = NSEntityDescription.insertNewObjectForEntityForName("FoodItem", inManagedObjectContext: managedObjectContext) as! FoodItem
+            let foodItem = NSEntityDescription.insertNewObjectForEntityForName("CDFoodItem", inManagedObjectContext: managedObjectContext) as! CDFoodItem
             
             foodItem.name = name
             
@@ -86,12 +86,12 @@ class CoreDataHelper {
     }
     
     
-    class func getAllFoodItems(inManagedObjectContext managedObjectContext: NSManagedObjectContext) -> [FoodItem]
+    class func getAllCDFoodItems(inManagedObjectContext managedObjectContext: NSManagedObjectContext) -> [CDFoodItem]
     {
-        let fetchRequest = NSFetchRequest(entityName: "FoodItem")
+        let fetchRequest = NSFetchRequest(entityName: "CDFoodItem")
         let nameSort = NSSortDescriptor(key: "name", ascending: true)
         fetchRequest.sortDescriptors = [nameSort]
-        let foodItems = try!managedObjectContext.executeFetchRequest(fetchRequest) as! [FoodItem]
+        let foodItems = try!managedObjectContext.executeFetchRequest(fetchRequest) as! [CDFoodItem]
         return foodItems
     }
     
@@ -101,24 +101,24 @@ class CoreDataHelper {
     
     class func getLastEntry(dateString dateString: String, inSection section: Int,inManagedObjectContext managedObjectContext: NSManagedObjectContext) -> Int
     {
-        let fetchRequest = NSFetchRequest(entityName: "FoodEntry")
+        let fetchRequest = NSFetchRequest(entityName: "CDFoodEntry")
         let predicate = NSPredicate(format: "section = %d ", section)
         fetchRequest.predicate = predicate
-        let foodItems = try!managedObjectContext.executeFetchRequest(fetchRequest) as! [FoodEntry]
+        let foodItems = try!managedObjectContext.executeFetchRequest(fetchRequest) as! [CDFoodEntry]
         return foodItems.count
         
     }
     
     //TODO: Sinnvoll, aber inSection umpositionieren an den Anfang.
     
-    class func addFoodEntryMussWeg(dateString dateString: String, amount: Double? = nil, unit: String? = nil, inSection section: Int, withFoodItemNamed foodItemName: String?=nil,inManagedObjectContext managedObjectContext: NSManagedObjectContext) -> FoodEntry
+    class func addCDFoodEntryMussWeg(dateString dateString: String, amount: Double? = nil, unit: String? = nil, inSection section: Int, withCDFoodItemNamed foodItemName: String?=nil,inManagedObjectContext managedObjectContext: NSManagedObjectContext) -> CDFoodEntry
     {
         
-        var foodItem : FoodItem?
+        var foodItem : CDFoodItem?
         if let foodItemName = foodItemName {
-            foodItem = getFoodItem(named: foodItemName,inManagedObjectContext: managedObjectContext)
+            foodItem = getCDFoodItem(named: foodItemName,inManagedObjectContext: managedObjectContext)
         }
-        let foodEntry = NSEntityDescription.insertNewObjectForEntityForName("FoodEntry", inManagedObjectContext: managedObjectContext) as! FoodEntry
+        let foodEntry = NSEntityDescription.insertNewObjectForEntityForName("CDFoodEntry", inManagedObjectContext: managedObjectContext) as! CDFoodEntry
         foodEntry.dateString = dateString
         if let amount = amount {
             foodEntry.amount = amount
@@ -134,14 +134,14 @@ class CoreDataHelper {
     }
     
     
-    class func addFoodEntry(dateString dateString: String, inSection section: Int, amount: Double? = nil, unit: String? = nil,  withFoodItemNamed foodItemName: String? = nil,inManagedObjectContext managedObjectContext: NSManagedObjectContext) -> FoodEntry
+    class func addCDFoodEntry(dateString dateString: String, inSection section: Int, amount: Double? = nil, unit: String? = nil,  withCDFoodItemNamed foodItemName: String? = nil,inManagedObjectContext managedObjectContext: NSManagedObjectContext) -> CDFoodEntry
     {
         
-        var foodItem : FoodItem?
+        var foodItem : CDFoodItem?
         if let foodItemName = foodItemName {
-            foodItem = getFoodItem(named: foodItemName,inManagedObjectContext: managedObjectContext)
+            foodItem = getCDFoodItem(named: foodItemName,inManagedObjectContext: managedObjectContext)
         }
-        let foodEntry = NSEntityDescription.insertNewObjectForEntityForName("FoodEntry", inManagedObjectContext: managedObjectContext) as! FoodEntry
+        let foodEntry = NSEntityDescription.insertNewObjectForEntityForName("CDFoodEntry", inManagedObjectContext: managedObjectContext) as! CDFoodEntry
         foodEntry.dateString = dateString
         foodEntry.section = NSNumber(integer: section)
         foodEntry.foodItemRel = foodItem
@@ -156,24 +156,24 @@ class CoreDataHelper {
     }
 
     
-    class func getFoodEntries(forDateString dateString: String, inSection section: Int? = nil, inmanagedObjectContext managedObjectContext: NSManagedObjectContext)  -> [FoodEntry]
+    class func getFoodEntries(forDateString dateString: String, inSection section: Int? = nil, inmanagedObjectContext managedObjectContext: NSManagedObjectContext)  -> [CDFoodEntry]
     {
         
         let predicate =  section == nil ? NSPredicate(format: "dateString = %@", dateString) :  NSPredicate(format: "dateString = %@ AND section = %d", dateString, section!)
-        let fetchRequest = NSFetchRequest(entityName: "FoodEntry")
+        let fetchRequest = NSFetchRequest(entityName: "CDFoodEntry")
         fetchRequest.predicate = predicate
         let objects = try!managedObjectContext.executeFetchRequest(fetchRequest)
-        return objects as! [FoodEntry]
+        return objects as! [CDFoodEntry]
     }
     
     // MARK: - Private Classes
     
-    private class func getFoodItem(named name: String,inManagedObjectContext managedObjectContext: NSManagedObjectContext) -> FoodItem? {
+    private class func getCDFoodItem(named name: String,inManagedObjectContext managedObjectContext: NSManagedObjectContext) -> CDFoodItem? {
         
-        let fetchRequest = NSFetchRequest(entityName: "FoodItem")
+        let fetchRequest = NSFetchRequest(entityName: "CDFoodItem")
         let predicate = NSPredicate(format: "name =%@", name)
         fetchRequest.predicate = predicate
-        let foodItems = try!managedObjectContext.executeFetchRequest(fetchRequest) as! [FoodItem]
+        let foodItems = try!managedObjectContext.executeFetchRequest(fetchRequest) as! [CDFoodItem]
         return foodItems.first
         
     }

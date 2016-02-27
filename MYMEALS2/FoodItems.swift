@@ -19,15 +19,15 @@ class FoodItemsViewController: UITableViewController,AddFoodItemDelegate,AddAmou
             stack.updateContextWithUbiquitousContentUpdates = true
         }
     }
-    var foodDatabaseSearchFoodItems: [FoodItem]!
-    var selectedFoodItem: FoodItem!
-    var foodEntry: FoodEntry!
+    var foodDatabaseSearchCDFoodItems: [CDFoodItem]!
+    var selectedCDFoodItem: CDFoodItem!
+    var foodEntry: CDFoodEntry!
     var addAmountDelegate:AddAmountDelegate!
     
     var performSegueHasBeenCalled = false // because we cannot mock storyboard viewcontrollers that implement a tableview. maybe we want to do it programmatically
 
     @IBOutlet var searchBar: UISearchBar!  // wegen Unit Test darf das nicht weak sein.
-    @IBOutlet var addFoodItemBarButton: UIBarButtonItem!
+    @IBOutlet var addCDFoodItemBarButton: UIBarButtonItem!
     @IBOutlet weak var scanButton: UIButton!
     
     let cellIdentifier = "Cell"
@@ -40,14 +40,14 @@ class FoodItemsViewController: UITableViewController,AddFoodItemDelegate,AddAmou
     func addToolBarButton()
     {
         
-        self.toolbarItems = [UIBarButtonItem(title: "addFoodItem", style: UIBarButtonItemStyle.Plain, target: self, action: "addFoodItem:")]
+        self.toolbarItems = [UIBarButtonItem(title: "addCDFoodItem", style: UIBarButtonItemStyle.Plain, target: self, action: "addCDFoodItem:")]
         self.navigationController?.toolbarHidden = false
     }
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "scan", style: .Plain, target: self, action: "scanFoodItem:")
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "scan", style: .Plain, target: self, action: "scanCDFoodItem:")
         addToolBarButton()
         searchBar?.delegate = self
         searchBar?.returnKeyType = .Search
@@ -64,14 +64,14 @@ class FoodItemsViewController: UITableViewController,AddFoodItemDelegate,AddAmou
         foodDatabaseSearchController.searchText = searchBar.text
         foodDatabaseSearchController.managedObjectContext = managedObjectContext
         foodDatabaseSearchController.performSearch { (foodItems) -> () in
-            self.foodDatabaseSearchFoodItems = foodItems
+            self.foodDatabaseSearchCDFoodItems = foodItems
             self.tableView.reloadData() // wenn das nil ist, werden die lokalen Ergebnisse angezeigt.
         }
         searchBar.resignFirstResponder()
     }
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let foodDatabaseSearchFoodItems = foodDatabaseSearchFoodItems {
-            return foodDatabaseSearchFoodItems.count
+        if let foodDatabaseSearchCDFoodItems = foodDatabaseSearchCDFoodItems {
+            return foodDatabaseSearchCDFoodItems.count
         } else {
             return fetchedResultsController.sections![section].objects!.count
         }
@@ -88,14 +88,14 @@ class FoodItemsViewController: UITableViewController,AddFoodItemDelegate,AddAmou
         
         //assert(foodEntry != nil)
         
-        let foodItem: FoodItem!
+        let foodItem: CDFoodItem!
         if !fetchedResultsController.hasObjectAtIndexPath(indexPath) {
             fatalError("Object not found.")
         }
-        if let foodDatabaseSearchFoodItems = foodDatabaseSearchFoodItems {
-            foodItem = foodDatabaseSearchFoodItems[indexPath.row]
+        if let foodDatabaseSearchCDFoodItems = foodDatabaseSearchCDFoodItems {
+            foodItem = foodDatabaseSearchCDFoodItems[indexPath.row]
         } else {
-            foodItem = fetchedResultsController.objectAtIndexPath(indexPath) as! FoodItem
+            foodItem = fetchedResultsController.objectAtIndexPath(indexPath) as! CDFoodItem
         }
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let viewController = storyboard.instantiateViewControllerWithIdentifier("AddAmountViewController") as! AddAmountViewController
@@ -107,10 +107,10 @@ class FoodItemsViewController: UITableViewController,AddFoodItemDelegate,AddAmou
 
     }
     override func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
-        if let foodDatabaseSearchFoodItems = foodDatabaseSearchFoodItems {
-            selectedFoodItem = foodDatabaseSearchFoodItems[indexPath.row]
+        if let foodDatabaseSearchCDFoodItems = foodDatabaseSearchCDFoodItems {
+            selectedCDFoodItem = foodDatabaseSearchCDFoodItems[indexPath.row]
         } else {
-            selectedFoodItem = fetchedResultsController.objectAtIndexPath(indexPath) as! FoodItem
+            selectedCDFoodItem = fetchedResultsController.objectAtIndexPath(indexPath) as! CDFoodItem
         }
         performSegueWithIdentifier(kSegue.ShowDetailsOfFoodItem, sender: self)
     }
@@ -118,11 +118,11 @@ class FoodItemsViewController: UITableViewController,AddFoodItemDelegate,AddAmou
     
     func configureCell(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) {
         
-        var foodItem: FoodItem!
-        if let foodDatabaseSearchFoodItems = foodDatabaseSearchFoodItems {
-            foodItem = foodDatabaseSearchFoodItems[indexPath.row]
+        var foodItem: CDFoodItem!
+        if let foodDatabaseSearchCDFoodItems = foodDatabaseSearchCDFoodItems {
+            foodItem = foodDatabaseSearchCDFoodItems[indexPath.row]
         } else {
-            foodItem = fetchedResultsController.objectAtIndexPath(indexPath) as! FoodItem
+            foodItem = fetchedResultsController.objectAtIndexPath(indexPath) as! CDFoodItem
         }
         cell.textLabel?.text = foodItem.name
         if let bodyFont = bodyFont {
@@ -139,7 +139,7 @@ class FoodItemsViewController: UITableViewController,AddFoodItemDelegate,AddAmou
 
     
     func fetch(searchText:String? = nil) {
-        let fetchRequest = NSFetchRequest(entityName: "FoodItem")
+        let fetchRequest = NSFetchRequest(entityName: "CDFoodItem")
         let nameSort = NSSortDescriptor(key: "lastUsed", ascending: false)
         fetchRequest.sortDescriptors = [nameSort]
         if let seachText = searchText {
@@ -150,10 +150,10 @@ class FoodItemsViewController: UITableViewController,AddFoodItemDelegate,AddAmou
         try! fetchedResultsController.performFetch()
     }
     
-    func addFoodItem(sender:AnyObject) {
+    func addCDFoodItem(sender:AnyObject) {
         performSegueWithIdentifier(kSegue.AddFoodItem, sender: self)
     }
-    func scanFoodItem(sender:AnyObject) {
+    func scanCDFoodItem(sender:AnyObject) {
         performSegueWithIdentifier(kSegue.ScanFoodItem, sender: self)
     }
     
@@ -165,18 +165,18 @@ class FoodItemsViewController: UITableViewController,AddFoodItemDelegate,AddAmou
             let navController = segue.destinationViewController as! UINavigationController
             let destVC = navController.topViewController as! AddFoodItemViewController
             destVC.delegate = self
-            destVC.foodItem = CoreDataHelper.createFoodItem(inManagedObjectContext: managedObjectContext)
+            destVC.foodItem = CoreDataHelper.createCDFoodItem(inManagedObjectContext: managedObjectContext)
             
         }
         if segue.identifier == kSegue.ShowDetailsOfFoodItem {
             if let destVC = segue.destinationViewController as? ShowFoodItemViewController {
-                destVC.foodItem = selectedFoodItem
+                destVC.foodItem = selectedCDFoodItem
             }
         }
 
         if segue.identifier == kSegue.ScanFoodItem {
             if let destVC = segue.destinationViewController as? ScanFoodItemViewController {
-                destVC.foodItem = selectedFoodItem
+                destVC.foodItem = selectedCDFoodItem
                 destVC.delegate = self // der scanner ruft ja dann wiederum addAdmount auf. Dafür braucht er uns.
             }
         }
@@ -190,11 +190,11 @@ class FoodItemsViewController: UITableViewController,AddFoodItemDelegate,AddAmou
     
     // MARK: - Delegates
     
-    func addFoodItemViewController(addFoodItemViewController: AddFoodItemViewController, didAddFoodItem foodItem: FoodItem?) {
+    func addCDFoodItemViewController(addCDFoodItemViewController: AddFoodItemViewController, didAddFoodItem foodItem: CDFoodItem?) {
         dismissViewControllerAnimated(true, completion: nil)
     }
     
-    func addAmountViewController(addAmountViewController: AddAmountViewController, didAddAmount foodEntry: FoodEntry) {
+    func addAmountViewController(addAmountViewController: AddAmountViewController, didAddAmount foodEntry: CDFoodEntry) {
         addAmountDelegate.addAmountViewController(addAmountViewController, didAddAmount: foodEntry)
     }
 

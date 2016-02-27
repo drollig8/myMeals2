@@ -1,5 +1,5 @@
 //
-//  FoodItem.swift
+//  CDFoodItem.swift
 //  MYMEALS2
 //
 //  Created by Marc Felden on 31.01.16.
@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 
-class FoodItem: NSManagedObject {
+class CDFoodItem: NSManagedObject {
 
     var nameString : String  {get {
         let test = "Test123"

@@ -1,5 +1,5 @@
 //
-//  FoodEntry+CoreDataProperties.swift
+//  CDFoodEntry+CoreDataProperties.swift
 //  MYMEALS2
 //
 //  Created by Marc Felden on 31.01.16.
@@ -12,7 +12,7 @@
 import Foundation
 import CoreData
 
-extension FoodEntry {
+extension CDFoodEntry {
 
     @NSManaged var date: NSDate?
     @NSManaged var unit: String?
@@ -21,7 +21,7 @@ extension FoodEntry {
     @NSManaged var timeString: String?
     @NSManaged var section: NSNumber?
     @NSManaged var sortOrder: NSNumber?
-    @NSManaged var foodItemRel: FoodItem?
+    @NSManaged var foodItemRel: CDFoodItem?
     
 
 }

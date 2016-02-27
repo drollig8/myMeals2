@@ -57,19 +57,19 @@ class AddFoodItemViewControllerTests: XCTestCase {
     }
     
     func testThatCancelActionDeletesItemInDatabase() {
-        let foodItem = NSEntityDescription.insertNewObjectForEntityForName("FoodItem", inManagedObjectContext: managedObjectContext) as! FoodItem
+        let foodItem = NSEntityDescription.insertNewObjectForEntityForName("CDFoodItem", inManagedObjectContext: managedObjectContext) as! CDFoodItem
         try!foodItem.managedObjectContext?.save()
         let _ = sut.view
-        let fetchRequest = NSFetchRequest(entityName: "FoodItem")
+        let fetchRequest = NSFetchRequest(entityName: "CDFoodItem")
 
-        let entityDescription = NSEntityDescription.entityForName("FoodItem", inManagedObjectContext: self.managedObjectContext)
+        let entityDescription = NSEntityDescription.entityForName("CDFoodItem", inManagedObjectContext: self.managedObjectContext)
         fetchRequest.entity = entityDescription
         
         let result = try! self.managedObjectContext.executeFetchRequest(fetchRequest)
 
         XCTAssertTrue(result.count == 1, "Test")
         class mockDelegate:AddFoodItemDelegate {
-            private func addFoodItemViewController(addFoodItemViewController: AddFoodItemViewController, didAddFoodItem foodItem: FoodItem?) {
+            private func addCDFoodItemViewController(addCDFoodItemViewController: AddFoodItemViewController, didAddFoodItem foodItem: CDFoodItem?) {
                 //
             }
         }
@@ -81,14 +81,14 @@ class AddFoodItemViewControllerTests: XCTestCase {
     }
     
     func testThatCancelActionDelegatesWithNilItem() {
-        let foodItem = NSEntityDescription.insertNewObjectForEntityForName("FoodItem", inManagedObjectContext: managedObjectContext) as! FoodItem
+        let foodItem = NSEntityDescription.insertNewObjectForEntityForName("CDFoodItem", inManagedObjectContext: managedObjectContext) as! CDFoodItem
         try!foodItem.managedObjectContext?.save()
         let _ = sut.view
         class MockDelegate:AddFoodItemDelegate {
-            var addFoodItemViewControllerHasBeenCalledReturningNilItem = false
-            private func addFoodItemViewController(addFoodItemViewController: AddFoodItemViewController, didAddFoodItem foodItem: FoodItem?) {
+            var addCDFoodItemViewControllerHasBeenCalledReturningNilItem = false
+            private func addCDFoodItemViewController(addCDFoodItemViewController: AddFoodItemViewController, didAddFoodItem foodItem: CDFoodItem?) {
                 if foodItem == nil {
-                    addFoodItemViewControllerHasBeenCalledReturningNilItem = true
+                    addCDFoodItemViewControllerHasBeenCalledReturningNilItem = true
                 }
             }
         }
@@ -96,7 +96,7 @@ class AddFoodItemViewControllerTests: XCTestCase {
         sut.delegate = mockDelegate
         sut.foodItem = foodItem
         sut.cancel(UIBarButtonItem())
-        XCTAssertTrue(mockDelegate.addFoodItemViewControllerHasBeenCalledReturningNilItem, "The Cacncel Action should call method on delegate")
+        XCTAssertTrue(mockDelegate.addCDFoodItemViewControllerHasBeenCalledReturningNilItem, "The Cacncel Action should call method on delegate")
     }
     
     
@@ -111,7 +111,7 @@ class AddFoodItemViewControllerTests: XCTestCase {
         }
         let sut = SutMock()
         sut.managedObjectContext = managedObjectContext
-        sut.foodItem = FoodItem(entity: NSEntityDescription.entityForName("FoodItem", inManagedObjectContext: managedObjectContext)!, insertIntoManagedObjectContext: managedObjectContext)
+        sut.foodItem = CDFoodItem(entity: NSEntityDescription.entityForName("CDFoodItem", inManagedObjectContext: managedObjectContext)!, insertIntoManagedObjectContext: managedObjectContext)
         sut.name = UITextField()
         sut.kcal = UITextField()
         sut.name.text = ""
@@ -130,7 +130,7 @@ class AddFoodItemViewControllerTests: XCTestCase {
         }
         let sut = SutMock()
         sut.managedObjectContext = managedObjectContext
-        sut.foodItem = FoodItem(entity: NSEntityDescription.entityForName("FoodItem", inManagedObjectContext: managedObjectContext)!, insertIntoManagedObjectContext: managedObjectContext)
+        sut.foodItem = CDFoodItem(entity: NSEntityDescription.entityForName("CDFoodItem", inManagedObjectContext: managedObjectContext)!, insertIntoManagedObjectContext: managedObjectContext)
         sut.name = UITextField()
         sut.kcal = UITextField()
         sut.name.text = "Test"
@@ -171,7 +171,7 @@ class AddFoodItemViewControllerTests: XCTestCase {
         }
         let sut = SutMock()
         sut.managedObjectContext = managedObjectContext
-        sut.foodItem = FoodItem(entity: NSEntityDescription.entityForName("FoodItem", inManagedObjectContext: managedObjectContext)!, insertIntoManagedObjectContext: managedObjectContext)
+        sut.foodItem = CDFoodItem(entity: NSEntityDescription.entityForName("CDFoodItem", inManagedObjectContext: managedObjectContext)!, insertIntoManagedObjectContext: managedObjectContext)
         sut.name = UITextField()
         sut.kcal = UITextField()
         sut.carbs = UITextField()
@@ -192,7 +192,7 @@ class AddFoodItemViewControllerTests: XCTestCase {
         }
         let sut = SutMock()
         sut.managedObjectContext = managedObjectContext
-        sut.foodItem = FoodItem(entity: NSEntityDescription.entityForName("FoodItem", inManagedObjectContext: managedObjectContext)!, insertIntoManagedObjectContext: managedObjectContext)
+        sut.foodItem = CDFoodItem(entity: NSEntityDescription.entityForName("CDFoodItem", inManagedObjectContext: managedObjectContext)!, insertIntoManagedObjectContext: managedObjectContext)
         sut.name = UITextField()
         sut.kcal = UITextField()
         sut.carbs = UITextField()
@@ -217,7 +217,7 @@ class AddFoodItemViewControllerTests: XCTestCase {
         }
         let sut = SutMock()
         sut.managedObjectContext = managedObjectContext
-        sut.foodItem = FoodItem(entity: NSEntityDescription.entityForName("FoodItem", inManagedObjectContext: managedObjectContext)!, insertIntoManagedObjectContext: managedObjectContext)
+        sut.foodItem = CDFoodItem(entity: NSEntityDescription.entityForName("CDFoodItem", inManagedObjectContext: managedObjectContext)!, insertIntoManagedObjectContext: managedObjectContext)
         sut.name = UITextField()
         sut.kcal = UITextField()
         sut.carbs = UITextField()
@@ -235,8 +235,8 @@ class AddFoodItemViewControllerTests: XCTestCase {
     
     func testThatDoneActionPutsAllValuesToItem() {
         class AddDelegate:AddFoodItemDelegate {
-            var foodItem : FoodItem!
-            private func addFoodItemViewController(addFoodItemViewController: AddFoodItemViewController, didAddFoodItem foodItem: FoodItem?) {
+            var foodItem : CDFoodItem!
+            private func addCDFoodItemViewController(addCDFoodItemViewController: AddFoodItemViewController, didAddFoodItem foodItem: CDFoodItem?) {
                // try!foodItem?.managedObjectContext?.save() ist nicht nötig, um den Test zu bestehen, weil du es im memory lässt.
                 self.foodItem = foodItem!
             }
@@ -244,7 +244,7 @@ class AddFoodItemViewControllerTests: XCTestCase {
         let delegate = AddDelegate()
         sut.managedObjectContext = managedObjectContext
         sut.delegate = delegate
-        sut.foodItem = FoodItem(entity: NSEntityDescription.entityForName("FoodItem", inManagedObjectContext: managedObjectContext)!, insertIntoManagedObjectContext: managedObjectContext)
+        sut.foodItem = CDFoodItem(entity: NSEntityDescription.entityForName("CDFoodItem", inManagedObjectContext: managedObjectContext)!, insertIntoManagedObjectContext: managedObjectContext)
         sut.name = UITextField()
         sut.kcal = UITextField()
         sut.carbs = UITextField()
@@ -258,10 +258,10 @@ class AddFoodItemViewControllerTests: XCTestCase {
         sut.fat.text = "fat"
         sut.done(UIBarButtonItem())
         let foodItem = delegate.foodItem
-        XCTAssertEqual(foodItem.kcal, "kcal", "FoodItem should contain value")
-        XCTAssertEqual(foodItem.carbs, "carbs", "FoodItem should contain value")
-        XCTAssertEqual(foodItem.protein, "protein", "FoodItem should contain value")
-        XCTAssertEqual(foodItem.fett, "fat", "FoodItem should contain value")
+        XCTAssertEqual(foodItem.kcal, "kcal", "CDFoodItem should contain value")
+        XCTAssertEqual(foodItem.carbs, "carbs", "CDFoodItem should contain value")
+        XCTAssertEqual(foodItem.protein, "protein", "CDFoodItem should contain value")
+        XCTAssertEqual(foodItem.fett, "fat", "CDFoodItem should contain value")
     }
     
     func testThatSetionHeaderIsName() {

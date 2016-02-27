@@ -96,23 +96,23 @@ class JournalViewController: UITableViewController,AddAmountDelegate {
 
     
     
-    private func addFoodEntry(amount amount: Double? = nil, inSection section: Int, withFoodItemNamed foodName: String) -> FoodEntry
+    private func addCDFoodEntry(amount amount: Double? = nil, inSection section: Int, withCDFoodItemNamed foodName: String) -> CDFoodEntry
     {
         let dateString = NSDate().toDayMonthYear()
-        return CoreDataHelper.addFoodEntry(dateString: dateString, inSection: section, amount: amount, unit: nil, withFoodItemNamed: foodName, inManagedObjectContext: managedObjectContext)
+        return CoreDataHelper.addCDFoodEntry(dateString: dateString, inSection: section, amount: amount, unit: nil, withCDFoodItemNamed: foodName, inManagedObjectContext: managedObjectContext)
     }
 
 
     
-    func addFoodItem(named name: String, kcal: String, carbs: String, protein: String, fett: String)
+    func addCDFoodItem(named name: String, kcal: String, carbs: String, protein: String, fett: String)
     {
         
-        CoreDataHelper.createFoodItem(name: name, kcal: kcal, carbs: carbs, protein: protein, fat: fett, inManagedObjectContext: managedObjectContext)
+        CoreDataHelper.createCDFoodItem(name: name, kcal: kcal, carbs: carbs, protein: protein, fat: fett, inManagedObjectContext: managedObjectContext)
         
         /*
-        if !hasFoodItem(named: name) {
+        if !hasCDFoodItem(named: name) {
         
-            let foodItem = NSEntityDescription.insertNewObjectForEntityForName("FoodItem", inManagedObjectContext: managedObjectContext) as! FoodItem
+            let foodItem = NSEntityDescription.insertNewObjectForEntityForName("CDFoodItem", inManagedObjectContext: managedObjectContext) as! CDFoodItem
             foodItem.name = name
             foodItem.carbs = carbs
             foodItem.protein = protein
@@ -127,28 +127,28 @@ class JournalViewController: UITableViewController,AddAmountDelegate {
     func loadDefaults()
     {
 
-        addFoodItem(named: "Kölln - Köln Flocken", kcal: "361", carbs: "55,8", protein: "13,8", fett: "6,7")
-        addFoodItem(named: "Hy-Pro 85 Vanille", kcal: "351", carbs: "0,8", protein: "84,1", fett: "1,1")
-        addFoodItem(named: "Heidelbeeren TK", kcal: "32", carbs: "6,1", protein: "0,6", fett: "0,6")
-        addFoodItem(named: "Nusskernmischung Seeberger", kcal: "634", carbs: "15", protein: "17", fett: "54")
-        addFoodItem(named: "Körniger Frischkäse Fitline 0,8%", kcal: "63", carbs: "1", protein: "13", fett: "0,8")
-        addFoodItem(named: "Hänchenbrust Filet", kcal: "99", carbs: "0", protein: "23", fett: "0,8")
-        addFoodItem(named: "ESN Designer Whey Vanille", kcal: "390", carbs: "5,3", protein: "80", fett: "5,5")
-        addFoodItem(named: "Bertolli Olivenöl", kcal: "819", carbs: "0", protein: "0", fett: "91")
-        addFoodItem(named: "Seeberger milde Pinienkerne", kcal: "735", carbs: "5,8", protein: "17", fett: "71")
-        addFoodItem(named: "Harry Ciabatta", kcal: "249", carbs: "48,7", protein: "8,4", fett: "1,5")
-        addFoodItem(named: "Weider Casein", kcal: "374", carbs: "3,2", protein: "88", fett: "1")
-        addFoodEntry(amount: 35, inSection: 0, withFoodItemNamed: "Kölln - Köln Flocken" )
-        addFoodEntry(amount: 35, inSection: 0, withFoodItemNamed: "Hy-Pro 85 Vanille" )
-        addFoodEntry(amount: 100, inSection: 0, withFoodItemNamed: "Heidelbeeren TK"  )
-        addFoodEntry(amount: 30, inSection: 1, withFoodItemNamed: "Nusskernmischung Seeberger"   )
-        addFoodEntry(amount: 30, inSection: 1, withFoodItemNamed: "Körniger Frischkäse Fitline 0,8%"  )
-        addFoodEntry(amount: 200, inSection: 2, withFoodItemNamed: "Hänchenbrust Filet" )
-        addFoodEntry(amount: 40, inSection: 3, withFoodItemNamed: "ESN Designer Whey Vanille" )
-        addFoodEntry(amount: 8, inSection: 4, withFoodItemNamed: "Bertolli Olivenöl" )
-        addFoodEntry(amount: 8, inSection: 4, withFoodItemNamed: "Seeberger milde Pinienkerne" )
-        addFoodEntry(amount: 60, inSection: 4, withFoodItemNamed: "Harry Ciabatta" )
-        addFoodEntry(amount: 40, inSection: 5, withFoodItemNamed: "Weider Casein" )
+        addCDFoodItem(named: "Kölln - Köln Flocken", kcal: "361", carbs: "55,8", protein: "13,8", fett: "6,7")
+        addCDFoodItem(named: "Hy-Pro 85 Vanille", kcal: "351", carbs: "0,8", protein: "84,1", fett: "1,1")
+        addCDFoodItem(named: "Heidelbeeren TK", kcal: "32", carbs: "6,1", protein: "0,6", fett: "0,6")
+        addCDFoodItem(named: "Nusskernmischung Seeberger", kcal: "634", carbs: "15", protein: "17", fett: "54")
+        addCDFoodItem(named: "Körniger Frischkäse Fitline 0,8%", kcal: "63", carbs: "1", protein: "13", fett: "0,8")
+        addCDFoodItem(named: "Hänchenbrust Filet", kcal: "99", carbs: "0", protein: "23", fett: "0,8")
+        addCDFoodItem(named: "ESN Designer Whey Vanille", kcal: "390", carbs: "5,3", protein: "80", fett: "5,5")
+        addCDFoodItem(named: "Bertolli Olivenöl", kcal: "819", carbs: "0", protein: "0", fett: "91")
+        addCDFoodItem(named: "Seeberger milde Pinienkerne", kcal: "735", carbs: "5,8", protein: "17", fett: "71")
+        addCDFoodItem(named: "Harry Ciabatta", kcal: "249", carbs: "48,7", protein: "8,4", fett: "1,5")
+        addCDFoodItem(named: "Weider Casein", kcal: "374", carbs: "3,2", protein: "88", fett: "1")
+        addCDFoodEntry(amount: 35, inSection: 0, withCDFoodItemNamed: "Kölln - Köln Flocken" )
+        addCDFoodEntry(amount: 35, inSection: 0, withCDFoodItemNamed: "Hy-Pro 85 Vanille" )
+        addCDFoodEntry(amount: 100, inSection: 0, withCDFoodItemNamed: "Heidelbeeren TK"  )
+        addCDFoodEntry(amount: 30, inSection: 1, withCDFoodItemNamed: "Nusskernmischung Seeberger"   )
+        addCDFoodEntry(amount: 30, inSection: 1, withCDFoodItemNamed: "Körniger Frischkäse Fitline 0,8%"  )
+        addCDFoodEntry(amount: 200, inSection: 2, withCDFoodItemNamed: "Hänchenbrust Filet" )
+        addCDFoodEntry(amount: 40, inSection: 3, withCDFoodItemNamed: "ESN Designer Whey Vanille" )
+        addCDFoodEntry(amount: 8, inSection: 4, withCDFoodItemNamed: "Bertolli Olivenöl" )
+        addCDFoodEntry(amount: 8, inSection: 4, withCDFoodItemNamed: "Seeberger milde Pinienkerne" )
+        addCDFoodEntry(amount: 60, inSection: 4, withCDFoodItemNamed: "Harry Ciabatta" )
+        addCDFoodEntry(amount: 40, inSection: 5, withCDFoodItemNamed: "Weider Casein" )
         try!self.managedObjectContext.save()
         self.fetch()
 
@@ -203,12 +203,12 @@ class JournalViewController: UITableViewController,AddAmountDelegate {
             
         } else {
             
-            let foodEntry = fetchedResultsController.objectAtIndexPath(indexPath) as? FoodEntry
+            let foodEntry = fetchedResultsController.objectAtIndexPath(indexPath) as? CDFoodEntry
             if let foodEntry = foodEntry {
                 
                 // TODO: Refactorisieren!
                 if foodEntry.foodItemRel != nil {
-                    let foodItem = foodEntry.foodItemRel! as FoodItem
+                    let foodItem = foodEntry.foodItemRel! as CDFoodItem
                     let name = foodItem.name
                     
                     let kalories = foodItem.kcal?.toInt() ?? 0
@@ -268,13 +268,13 @@ class JournalViewController: UITableViewController,AddAmountDelegate {
     
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             if self.editing {
-                let editFoodItemViewController = storyboard.instantiateViewControllerWithIdentifier("EditFoodItemViewController") as! EditFoodItemViewController
-                self.navigationController?.pushViewController(editFoodItemViewController, animated: false) // true not possible for unit testing
+                let editCDFoodItemViewController = storyboard.instantiateViewControllerWithIdentifier("EditFoodItemViewController") as! EditFoodItemViewController
+                self.navigationController?.pushViewController(editCDFoodItemViewController, animated: false) // true not possible for unit testing
             }
             
             else {
-                let showFoodItemViewController = storyboard.instantiateViewControllerWithIdentifier("ShowFoodItemViewController") as! ShowFoodItemViewController
-                self.navigationController?.pushViewController(showFoodItemViewController, animated: false) // true not possible for unit testing
+                let showCDFoodItemViewController = storyboard.instantiateViewControllerWithIdentifier("ShowFoodItemViewController") as! ShowFoodItemViewController
+                self.navigationController?.pushViewController(showCDFoodItemViewController, animated: false) // true not possible for unit testing
             }
         }
     }
@@ -299,7 +299,7 @@ class JournalViewController: UITableViewController,AddAmountDelegate {
         
         if editingStyle == .Delete {
      
-            let object = fetchedResultsController.objectAtIndexPath(indexPath) as! FoodEntry
+            let object = fetchedResultsController.objectAtIndexPath(indexPath) as! CDFoodEntry
             managedObjectContext?.deleteObject(object)
             try!managedObjectContext?.save()
             self.fetch()
@@ -338,12 +338,12 @@ class JournalViewController: UITableViewController,AddAmountDelegate {
         
         if sourceIndexPath.section == destinationIndexPath.section {
             if var todos = self.fetchedResultsController.sections![sourceIndexPath.section].objects {
-                let todo = todos[sourceIndexPath.row] as! FoodEntry
+                let todo = todos[sourceIndexPath.row] as! CDFoodEntry
                 todos.removeAtIndex(sourceIndexPath.row)
                 todos.insert(todo, atIndex: destinationIndexPath.row)
                 
                 var idx = 1
-                for todo in todos as! [FoodEntry] {
+                for todo in todos as! [CDFoodEntry] {
                     todo.sortOrder = NSNumber(integer: idx++)
                 }
                 try!managedObjectContext.save()
@@ -351,10 +351,10 @@ class JournalViewController: UITableViewController,AddAmountDelegate {
         } else {
 
             if var allObjectInSourceSection = fetchedResultsController.sections![sourceIndexPath.section].objects {
-                let object = allObjectInSourceSection[sourceIndexPath.row] as! FoodEntry
+                let object = allObjectInSourceSection[sourceIndexPath.row] as! CDFoodEntry
                 allObjectInSourceSection.removeAtIndex(sourceIndexPath.row)
 
-                for (index,object) in (allObjectInSourceSection as! [FoodEntry]).enumerate() {
+                for (index,object) in (allObjectInSourceSection as! [CDFoodEntry]).enumerate() {
                     object.sortOrder = NSNumber(integer: index)
                 }
             
@@ -363,7 +363,7 @@ class JournalViewController: UITableViewController,AddAmountDelegate {
                 
                     allObjectInDestinationSection.insert(object, atIndex: destinationIndexPath.row)
             
-                    for (index,object) in (allObjectInDestinationSection as! [FoodEntry]).enumerate() {
+                    for (index,object) in (allObjectInDestinationSection as! [CDFoodEntry]).enumerate() {
                         object.sortOrder = NSNumber(integer: index)
                         object.section = NSNumber(integer: destinationIndexPath.section)
                     }
@@ -401,7 +401,7 @@ class JournalViewController: UITableViewController,AddAmountDelegate {
         
     }
     
-    private func getFoodEntriesForSection(section: Int) -> [FoodEntry]
+    private func getFoodEntriesForSection(section: Int) -> [CDFoodEntry]
     {
         return CoreDataHelper.getFoodEntries(forDateString: selectedDateString, inSection: section, inmanagedObjectContext: managedObjectContext)
     }
@@ -410,7 +410,7 @@ class JournalViewController: UITableViewController,AddAmountDelegate {
         case Calories, Carbs, Protein, Fat
     }
     
-    private func getNutritionalValueFromFoodEntries(foodEntries:[FoodEntry], withValue nutricionalValue: NutritinalValue)  -> Int
+    private func getNutritionalValueFromFoodEntries(foodEntries:[CDFoodEntry], withValue nutricionalValue: NutritinalValue)  -> Int
     {
         var totalCalories:Double = 0
         for foodEntry in foodEntries {
@@ -431,17 +431,17 @@ class JournalViewController: UITableViewController,AddAmountDelegate {
         return Int(totalCalories)
     }
     
-    private func getCaloriesFromFoodEntries(foodEntries:[FoodEntry]) -> Int
+    private func getCaloriesFromFoodEntries(foodEntries:[CDFoodEntry]) -> Int
     {
         return getNutritionalValueFromFoodEntries(foodEntries, withValue: .Calories)
     }
     
-    private func getCarbsFromFoodEntries(foodEntries:[FoodEntry]) -> Int
+    private func getCarbsFromFoodEntries(foodEntries:[CDFoodEntry]) -> Int
     {
         return getNutritionalValueFromFoodEntries(foodEntries, withValue: .Carbs)
     }
     
-    private func getProteinsFromFoodEntries(foodEntries:[FoodEntry]) -> Int
+    private func getProteinsFromFoodEntries(foodEntries:[CDFoodEntry]) -> Int
     {
         return getNutritionalValueFromFoodEntries(foodEntries, withValue: .Protein)
     }
@@ -485,7 +485,7 @@ class JournalViewController: UITableViewController,AddAmountDelegate {
     func fetch(forDateString dateString: String? = nil)
     {
         
-        let fetchRequest = NSFetchRequest(entityName: "FoodEntry")
+        let fetchRequest = NSFetchRequest(entityName: "CDFoodEntry")
         let sectionSort = NSSortDescriptor(key: "section", ascending: true)
         let sortOrder = NSSortDescriptor(key: "sortOrder", ascending: true)
         fetchRequest.sortDescriptors = [sectionSort, sortOrder]
@@ -504,7 +504,7 @@ class JournalViewController: UITableViewController,AddAmountDelegate {
         self.selectedSection = section
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let viewController = storyboard.instantiateViewControllerWithIdentifier("FoodItemsViewController") as! FoodItemsViewController
-        let foodEntry = CoreDataHelper.addFoodEntry(dateString: selectedDateString, inSection: section, inManagedObjectContext: managedObjectContext)
+        let foodEntry = CoreDataHelper.addCDFoodEntry(dateString: selectedDateString, inSection: section, inManagedObjectContext: managedObjectContext)
         viewController.foodEntry = foodEntry
         viewController.managedObjectContext = managedObjectContext
         viewController.addAmountDelegate = self
@@ -530,7 +530,7 @@ class JournalViewController: UITableViewController,AddAmountDelegate {
     
     // MARK: - Delegate Methods
     
-    func addAmountViewController(addAmountViewController: AddAmountViewController, didAddAmount foodEntry: FoodEntry)
+    func addAmountViewController(addAmountViewController: AddAmountViewController, didAddAmount foodEntry: CDFoodEntry)
     {
         fetch()
         tableView.reloadData()

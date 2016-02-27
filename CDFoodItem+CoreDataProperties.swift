@@ -1,5 +1,5 @@
 //
-//  FoodItem+CoreDataProperties.swift
+//  CDFoodItem+CoreDataProperties.swift
 //  MYMEALS2
 //
 //  Created by Marc Felden on 31.01.16.
@@ -12,7 +12,7 @@
 import Foundation
 import CoreData
 
-extension FoodItem {
+extension CDFoodItem {
     @NSManaged var lastUsed: NSDate?
     @NSManaged var name: String?
     @NSManaged var barcode: String?

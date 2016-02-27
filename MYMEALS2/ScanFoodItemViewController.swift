@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 class ScanFoodItemViewController: UIViewController {
-    var foodItem: FoodItem?
+    var foodItem: CDFoodItem?
     var delegate: AddFoodItemDelegate?
     override func viewDidLoad() {
         print("ViewDidLoad ScanFoodItemViewController")

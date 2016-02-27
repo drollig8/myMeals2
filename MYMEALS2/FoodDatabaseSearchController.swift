@@ -14,9 +14,9 @@ class FoodDatabaseSearchController {
     var searchText : String!
     var managedObjectContext: NSManagedObjectContext!
     
-    func performSearch(completionHandler: ([FoodItem])->()) {
+    func performSearch(completionHandler: ([CDFoodItem])->()) {
         
-        var foodItems = [FoodItem]()
+        var foodItems = [CDFoodItem]()
         let urlstring   = "http://fddb.mobi/search/?lang=de&cat=mobile-de&search=\(searchText)"
         let url         = NSURL(string: urlstring)
         let data: NSData?
@@ -58,7 +58,7 @@ class FoodDatabaseSearchController {
                                 let kcal = string3.getStringBetweenStrings("Kalorien</span></td><td>", string2: " kcal</td></tr><tr style=") ?? "999"
                                 let kh = string3.getStringBetweenStrings(">carbs</span></td><td>", string2: " g</td></tr><tr") ?? "999"
                                 let fett = string3.getStringBetweenStrings("Fett</span></td><td>", string2: " g</td></tr></table><h4>") ?? "999"
-                                let foodItem = generateFoodItem(name, kcal: kcal, carbs: kh, protein: protein, fett: fett)
+                                let foodItem = generateCDFoodItem(name, kcal: kcal, carbs: kh, protein: protein, fett: fett)
                                 foodItems.append(foodItem)
                             }
                         }
@@ -75,9 +75,9 @@ class FoodDatabaseSearchController {
     
    
     
-    func generateFoodItem(name: String, kcal: String, carbs: String, protein: String, fett: String) -> FoodItem {
+    func generateCDFoodItem(name: String, kcal: String, carbs: String, protein: String, fett: String) -> CDFoodItem {
         assert(managedObjectContext != nil)
-        let foodItem = NSEntityDescription.insertNewObjectForEntityForName("FoodItem", inManagedObjectContext: managedObjectContext) as! FoodItem
+        let foodItem = NSEntityDescription.insertNewObjectForEntityForName("CDFoodItem", inManagedObjectContext: managedObjectContext) as! CDFoodItem
         foodItem.name = name
         foodItem.kcal = kcal
         foodItem.carbs = carbs

@@ -10,6 +10,6 @@ import UIKit
 class EditFoodItemViewController: UIViewController {
 
 
-    var foodItem: FoodItem!
+    var foodItem: CDFoodItem!
     
 }

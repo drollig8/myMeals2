@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 class ShowFoodItemViewController: UIViewController {
-    var foodItem: FoodItem?
+    var foodItem: CDFoodItem?
     override func viewDidLoad() {
         print("ViewDidLoad ShowFoodItemViewController")
     }

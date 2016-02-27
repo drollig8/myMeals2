@@ -958,7 +958,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "425"
             endingLineNumber = "425"
-            landmarkName = "testThatWeProvideAddAmountViewControllerWithFoodEntry()"
+            landmarkName = "testThatWeProvideAddAmountViewControllerWithCDFoodEntry()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
