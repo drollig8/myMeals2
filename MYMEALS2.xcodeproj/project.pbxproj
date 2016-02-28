@@ -11,7 +11,6 @@
 		6E05EFBC1C8082BD002D1DDB /* FoodItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E05EFBB1C8082BD002D1DDB /* FoodItem.swift */; };
 		6E05EFBE1C8083F5002D1DDB /* FoodItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E05EFBD1C8083F5002D1DDB /* FoodItemTests.swift */; };
 		6E05EFC01C808800002D1DDB /* FoodItemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E05EFBF1C808800002D1DDB /* FoodItemManager.swift */; };
-		6E05EFC21C80880C002D1DDB /* FoodItemManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E05EFC11C80880C002D1DDB /* FoodItemManagerTests.swift */; };
 		6E23D2FD1C637DDD00D0F622 /* EditFoodItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E23D2FC1C637DDC00D0F622 /* EditFoodItem.swift */; };
 		6E59F1691C7DBE7F00924006 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E59F1681C7DBE7F00924006 /* UIFont+Extension.swift */; };
 		6E5BDDC01C7B168600C03115 /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5BDDBF1C7B168600C03115 /* CoreDataHelper.swift */; };
@@ -45,6 +44,7 @@
 		6EDE59F61C5E576A00F33544 /* ShowFoodItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDE59F51C5E576A00F33544 /* ShowFoodItemViewController.swift */; };
 		6EDE59F81C5E85DC00F33544 /* FoodDatabaseSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDE59F71C5E85DC00F33544 /* FoodDatabaseSearchController.swift */; };
 		6EDE59FA1C5E8CF300F33544 /* Extensions+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDE59F91C5E8CF300F33544 /* Extensions+String.swift */; };
+		6EDFCCEE1C8370890080D7FD /* FoodItemManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDFCCED1C8370890080D7FD /* FoodItemManagerTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,7 +62,6 @@
 		6E05EFBB1C8082BD002D1DDB /* FoodItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodItem.swift; sourceTree = "<group>"; };
 		6E05EFBD1C8083F5002D1DDB /* FoodItemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FoodItemTests.swift; path = MYMEALS2Tests/FoodItemTests.swift; sourceTree = SOURCE_ROOT; };
 		6E05EFBF1C808800002D1DDB /* FoodItemManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodItemManager.swift; sourceTree = "<group>"; };
-		6E05EFC11C80880C002D1DDB /* FoodItemManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FoodItemManagerTests.swift; path = MYMEALS2Tests/FoodItemManagerTests.swift; sourceTree = SOURCE_ROOT; };
 		6E23D2FC1C637DDC00D0F622 /* EditFoodItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditFoodItem.swift; sourceTree = "<group>"; };
 		6E59F1681C7DBE7F00924006 /* UIFont+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		6E5BDDBF1C7B168600C03115 /* CoreDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CoreDataHelper.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -103,6 +102,7 @@
 		6EDE59F51C5E576A00F33544 /* ShowFoodItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowFoodItemViewController.swift; sourceTree = "<group>"; };
 		6EDE59F71C5E85DC00F33544 /* FoodDatabaseSearchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodDatabaseSearchController.swift; sourceTree = "<group>"; };
 		6EDE59F91C5E8CF300F33544 /* Extensions+String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extensions+String.swift"; sourceTree = "<group>"; };
+		6EDFCCED1C8370890080D7FD /* FoodItemManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FoodItemManagerTests.swift; path = Model/FoodItemManagerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +146,7 @@
 		6E9B730D1C817DB200146B07 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				6EDFCCEF1C8370930080D7FD /* Model */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -205,16 +206,14 @@
 		6EB506B31C5D520F00CF0589 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				6E05EFBB1C8082BD002D1DDB /* FoodItem.swift */,
+				6E05EFBF1C808800002D1DDB /* FoodItemManager.swift */,
 				6EB506C01C5DF45D00CF0589 /* CDFoodEntry+CoreDataProperties.swift */,
 				6EB506C11C5DF45D00CF0589 /* CDFoodEntry.swift */,
 				6EB506C21C5DF45D00CF0589 /* CDFoodItem+CoreDataProperties.swift */,
 				6EB506C31C5DF45D00CF0589 /* CDFoodItem.swift */,
 				6EB506A91C5D513F00CF0589 /* CoreDataStack.swift */,
 				6EDE59F71C5E85DC00F33544 /* FoodDatabaseSearchController.swift */,
-				6E05EFBF1C808800002D1DDB /* FoodItemManager.swift */,
-				6E05EFC11C80880C002D1DDB /* FoodItemManagerTests.swift */,
-				6E05EFBD1C8083F5002D1DDB /* FoodItemTests.swift */,
-				6E05EFBB1C8082BD002D1DDB /* FoodItem.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -240,6 +239,15 @@
 			children = (
 			);
 			name = Controller;
+			sourceTree = "<group>";
+		};
+		6EDFCCEF1C8370930080D7FD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6E05EFBD1C8083F5002D1DDB /* FoodItemTests.swift */,
+				6EDFCCED1C8370890080D7FD /* FoodItemManagerTests.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		6EF84DE31C8170C30022D3F4 /* Controller */ = {
@@ -408,8 +416,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E05EFC21C80880C002D1DDB /* FoodItemManagerTests.swift in Sources */,
 				6E05EFBE1C8083F5002D1DDB /* FoodItemTests.swift in Sources */,
+				6EDFCCEE1C8370890080D7FD /* FoodItemManagerTests.swift in Sources */,
 				6E5BDDC21C7B208E00C03115 /* AddAmountTests.swift in Sources */,
 				6E68C2811C654A9200CD50BA /* AddFootItemTests.swift in Sources */,
 				6E70B5301C60E6BE00AA47C0 /* JournalTests.swift in Sources */,

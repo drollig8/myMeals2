@@ -108,6 +108,7 @@ class FoodItemDataProviderTests: XCTestCase {
         XCTAssertTrue(mockTableView.cellGotDequeued)
     }
     
+    /*
     func testConfigCell_GetsCalledInCellForRow() {
         let mockTableView = MockTableView()
         mockTableView.dataSource = sut
@@ -115,6 +116,7 @@ class FoodItemDataProviderTests: XCTestCase {
         
         let toDoItem = ToDoItem(title: "First")
     }
+*/
 }
 
 
@@ -130,6 +132,7 @@ extension FoodItemDataProviderTests
         
     }
     
+    /*
     class MockFoodItemCell: FoodItemCell
     {
         var configureCellGotCalled = false
@@ -138,5 +141,6 @@ extension FoodItemDataProviderTests
         }
         
     }
+*/
    
 }

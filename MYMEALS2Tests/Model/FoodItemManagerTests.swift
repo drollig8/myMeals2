@@ -41,27 +41,55 @@ class FoodItemManagerTests: XCTestCase
     {
         XCTAssertEqual(sut.itemCount, 0, "Initially toDo count should be 0")
     }
-  
-   
+    
+    
     func testFoodItemsCount_AfterAddingOneItem_IsOne()
     {
         sut.addItem(FoodItem(name: "Test FoodItem"))
         XCTAssertEqual(sut.itemCount,1, "foodItemCount should be 1")
     }
     
+    
+    func testItemAtIndex_ShouldReturnPrevouslyAddedItem()
+    {
+        let firstItem = FoodItem(name: "Test FoodItem")
+        sut.addItem(firstItem)
+        let returnedItem = sut.itemAtIndex(0)
+        
+        XCTAssertEqual(firstItem, returnedItem)
+    }
+
+    
+    
     // Hier müssen wir testen, dass wenn wir einmal den Manager = nil setzten und neu
     // instantitiieren, dass die Objecte noch vorhanden sind. Weil: Er muss sie - egal wie - in CD speichern.
     
-    func testFoodItemsCount_AfterReiinitializingFoodItemManager_StillIsOne()
+    func test_FoodItemsGetSaved()
     {
-        sut.addItem(FoodItem(name: "Test FoodItem"))
-        XCTAssertEqual(sut.itemCount,1, "foodItemCount should be 1")
+        var foodItemManager:FoodItemManager? = FoodItemManager(withManagedObjectContext: managedObjectContext)
         
-        sut = nil
-        sut = FoodItemManager(withManagedObjectContext: managedObjectContext)
-        XCTAssertEqual(sut.itemCount,1, "foodItemCount should be 1")
+        let firstItem = FoodItem(name: "Test FoodItem")
+        foodItemManager?.addItem(firstItem)
+        
+        let secondItem = FoodItem(name: "Test Second")
+        foodItemManager?.addItem(secondItem)
+        
+        // give notifaction to save !
+        
+        foodItemManager = nil
+        
+        XCTAssertNil(foodItemManager)
+        
+        foodItemManager = FoodItemManager(withManagedObjectContext: managedObjectContext)
+        
+        XCTAssertEqual(foodItemManager?.itemCount, 2)
+        XCTAssertEqual(foodItemManager?.itemAtIndex(0), firstItem)
+        XCTAssertEqual(foodItemManager?.itemAtIndex(1), secondItem)
     }
+
     
+    
+    /*
     func testFoodItemAtIndex_ShouldReturnItem()
     {
         let item = FoodItem(name: "Item")
@@ -77,7 +105,7 @@ class FoodItemManagerTests: XCTestCase
         sut.addItem(firstItem)
         XCTAssertEqual(sut.itemCount, 1)
     }
-
-
+    */
+    
 }
 

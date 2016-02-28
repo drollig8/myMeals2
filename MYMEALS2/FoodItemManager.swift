@@ -24,6 +24,7 @@ class FoodItemManager:NSObject
     init(withManagedObjectContext managedObjectContext: NSManagedObjectContext) {
         self.managedObjectContext = managedObjectContext
     }
+    
     private var fooditems = [FoodItem]()
     
     
@@ -40,8 +41,17 @@ class FoodItemManager:NSObject
     
     func itemAtIndex(index: Int) -> FoodItem
     {
-    
-        return fooditems[index]
+        
+        let fetchRequest = NSFetchRequest(entityName: "CDFoodItem")
+        let nameSort = NSSortDescriptor(key: "lastUsed", ascending: false)
+        fetchRequest.sortDescriptors = [nameSort]
+        let cdFoodItems = try!managedObjectContext.executeFetchRequest(fetchRequest) as! [CDFoodItem]
+       
+        let cdFoodItem = cdFoodItems[index]
+        
+        let foodItem = FoodItem(name: cdFoodItem.name!, calories: cdFoodItem.kcal?.toDouble(), carbs: cdFoodItem.carbs?.toDouble(), protein: cdFoodItem.protein?.toDouble(), fat: cdFoodItem.fett?.toDouble())
+        return foodItem
+
     }
 
     
