@@ -7,15 +7,12 @@
 //
 
 import XCTest
-import CoreData
+
 @testable import MYMEALS2
 
-class FoodItemsViewControllerTests: XCTestCase {
+class FoodItemsViewControllerTests: XCTestCase
+{
     
-    var storeCoordinator: NSPersistentStoreCoordinator!
-    var managedObjectContext: NSManagedObjectContext!
-    var managedObjectModel: NSManagedObjectModel!
-    var store: NSPersistentStore!
     var sut:FoodItemsViewController!
     
     
@@ -23,33 +20,91 @@ class FoodItemsViewControllerTests: XCTestCase {
         super.setUp()
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         sut = storyboard.instantiateViewControllerWithIdentifier("FoodItemsViewController") as! FoodItemsViewController
-        managedObjectModel = NSManagedObjectModel.mergedModelFromBundles(nil)
-        storeCoordinator = NSPersistentStoreCoordinator(managedObjectModel: managedObjectModel)
-        store = try? storeCoordinator.addPersistentStoreWithType(NSInMemoryStoreType, configuration: nil, URL: nil, options: nil)
-        managedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.PrivateQueueConcurrencyType)
-        managedObjectContext.persistentStoreCoordinator = storeCoordinator
-        sut.managedObjectContext = managedObjectContext
+        _ = sut.view
     }
     
-    override func tearDown() {
+    override func tearDown()
+    {
         super.tearDown()
-        managedObjectContext = nil
     }
     
     // MARK: - UITableView Tests
     
-    func testThatTableViewHasDataSource() {
+    func test_TableViewIsNotNilAfterViewDidLoad()
+    {
         XCTAssertNotNil(sut.tableView)
-        XCTAssertNotNil(sut.tableView.dataSource)
-        XCTAssertNotNil(sut.tableView.delegate)
     }
     
-    func testThatOneEntryReturnsOneRow() {
-        let foodItem = NSEntityDescription.insertNewObjectForEntityForName("CDFoodItem", inManagedObjectContext: managedObjectContext) as! CDFoodItem
-        try!foodItem.managedObjectContext?.save()
-        let _ = sut.view
-        XCTAssertEqual(sut.tableView(sut.tableView, numberOfRowsInSection: 0),1,"There should be one row in this test")
+    func testViewDidLoad_ShouldSetTableViewDataSource()
+    {
+        XCTAssertNotNil(sut.tableView.dataSource)
+        XCTAssertTrue(sut.tableView.dataSource is FoodItemDataProvider)
     }
+    
+    func testViewDidLoad_ShouldSetTableViewDelegate()
+    {
+        XCTAssertNotNil(sut.tableView.delegate)
+        XCTAssertTrue(sut.tableView.delegate is FoodItemDataProvider)
+    }
+    
+    func testViewDidLoad_SouldSetDelegateAndDataSourceToSameObject()
+    {
+
+    }
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    /*
+    
+
+    
+
     
     func testThatTwoEntriesReturnsTwoRows() {
         let foodItem = NSEntityDescription.insertNewObjectForEntityForName("CDFoodItem", inManagedObjectContext: managedObjectContext) as! CDFoodItem
@@ -432,5 +487,6 @@ class FoodItemsViewControllerTests: XCTestCase {
         XCTAssertNotNil(destinationViewController.foodEntry)
         
     }
+*/
 
 }

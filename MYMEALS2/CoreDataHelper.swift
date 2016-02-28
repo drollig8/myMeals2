@@ -14,21 +14,6 @@ class CoreDataHelper {
     
     // MARK: - CDFoodItem
     
-    // OBSOLET so etwas gehört hier definitiv nicht hin
-    // TODO:
-    /*
-    private class func getCDFoodItem(named name: String, inManagedObjectContext managedObjectContext: NSManagedObjectContext) -> CDFoodItem?
-    {
-        
-        let fetchRequest = NSFetchRequest(entityName: "CDFoodItem")
-        let predicate = NSPredicate(format: "name =%@", name)
-        fetchRequest.predicate = predicate
-        let foodItems = try!managedObjectContext.executeFetchRequest(fetchRequest) as! [CDFoodItem]
-        return foodItems.first
-        
-    }
-    
-*/
     private class func hasCDFoodItem(named name:String, inManagedObjectContext managedObjectContext: NSManagedObjectContext) -> Bool
     {
         return getCDFoodItem(named: name, inManagedObjectContext: managedObjectContext) != nil
@@ -109,29 +94,7 @@ class CoreDataHelper {
         
     }
     
-    //TODO: Sinnvoll, aber inSection umpositionieren an den Anfang.
-    
-    class func addCDFoodEntryMussWeg(dateString dateString: String, amount: Double? = nil, unit: String? = nil, inSection section: Int, withCDFoodItemNamed foodItemName: String?=nil,inManagedObjectContext managedObjectContext: NSManagedObjectContext) -> CDFoodEntry
-    {
-        
-        var foodItem : CDFoodItem?
-        if let foodItemName = foodItemName {
-            foodItem = getCDFoodItem(named: foodItemName,inManagedObjectContext: managedObjectContext)
-        }
-        let foodEntry = NSEntityDescription.insertNewObjectForEntityForName("CDFoodEntry", inManagedObjectContext: managedObjectContext) as! CDFoodEntry
-        foodEntry.dateString = dateString
-        if let amount = amount {
-            foodEntry.amount = amount
-            foodEntry.section = NSNumber(integer: section)
-            foodEntry.foodItemRel = foodItem
 
-        }
-        if let unit = unit {
-            foodEntry.unit = unit
-        }
-        foodEntry.sortOrder = NSNumber(integer: getLastEntry(dateString: dateString, inSection: section, inManagedObjectContext: managedObjectContext))
-        return foodEntry
-    }
     
     
     class func addCDFoodEntry(dateString dateString: String, inSection section: Int, amount: Double? = nil, unit: String? = nil,  withCDFoodItemNamed foodItemName: String? = nil,inManagedObjectContext managedObjectContext: NSManagedObjectContext) -> CDFoodEntry

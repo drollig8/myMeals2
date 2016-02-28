@@ -6,23 +6,43 @@
 //  Copyright © 2016 Timm Kent. All rights reserved.
 //
 
-class FoodItemManager
+import CoreData
+
+class FoodItemManager:NSObject
 {
-    var itemCount = 0
-    private var foodItems = [FoodItem]()
+    
+    let managedObjectContext : NSManagedObjectContext!
+    
+    var itemCount: Int {
+        assert(managedObjectContext != nil)
+        let cdFoodItems = CoreDataHelper.getAllCDFoodItems(inManagedObjectContext: managedObjectContext)
+        return cdFoodItems.count
+    }
+    
+    // we need to force the setting of the managedObjectContext
+    
+    init(withManagedObjectContext managedObjectContext: NSManagedObjectContext) {
+        self.managedObjectContext = managedObjectContext
+    }
+    private var fooditems = [FoodItem]()
+    
     
     func addItem(foodItem: FoodItem)
     {
-        fooditems.append(foodItem)
+        if !fooditems.contains(foodItem) {
+            
+            CoreDataHelper.createCDFoodItem(name: foodItem.name, inManagedObjectContext: managedObjectContext)
+            try!managedObjectContext.save()
+            fooditems.append(foodItem)
+        }
+       
     }
     
-/*
-    func addItem(item:ToDoItem)
+    func itemAtIndex(index: Int) -> FoodItem
     {
-        if !toDoItems.contains(item) {
-            toDoItems.append(item)
-        }
+    
+        return fooditems[index]
     }
-  */  
+
     
 }

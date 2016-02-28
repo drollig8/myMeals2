@@ -9,8 +9,11 @@
 import UIKit
 import CoreData
 
-class FoodItemsViewController: UITableViewController,AddFoodItemDelegate,AddAmountDelegate, UISearchBarDelegate, NSFetchedResultsControllerDelegate {
+class FoodItemsViewController: UIViewController, AddFoodItemDelegate,AddAmountDelegate, UISearchBarDelegate, NSFetchedResultsControllerDelegate {
 
+    @IBOutlet var tableView : UITableView!
+    @IBOutlet var dataProvider: FoodItemDataProvider!
+    
     var managedObjectContext    : NSManagedObjectContext!
     var fetchedResultsController: NSFetchedResultsController!
     var foodDatabaseSearchController = FoodDatabaseSearchController()
@@ -46,21 +49,21 @@ class FoodItemsViewController: UITableViewController,AddFoodItemDelegate,AddAmou
     
     override func viewDidLoad()
     {
-        super.viewDidLoad()
+        tableView.dataSource = dataProvider
+        tableView.delegate = dataProvider
+        
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "scan", style: .Plain, target: self, action: "scanCDFoodItem:")
         addToolBarButton()
         searchBar?.delegate = self
         searchBar?.returnKeyType = .Search
         setTitle("Eintrag hinzufügen")
-        self.fetch()
+    //    self.fetch()
     }
     
 
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar)
     {
-        // TODO ASYNC
-        // NETWORK INDICATOR
         foodDatabaseSearchController.searchText = searchBar.text
         foodDatabaseSearchController.managedObjectContext = managedObjectContext
         foodDatabaseSearchController.performSearch { (foodItems) -> () in
@@ -69,7 +72,7 @@ class FoodItemsViewController: UITableViewController,AddFoodItemDelegate,AddAmou
         }
         searchBar.resignFirstResponder()
     }
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let foodDatabaseSearchCDFoodItems = foodDatabaseSearchCDFoodItems {
             return foodDatabaseSearchCDFoodItems.count
         } else {
@@ -77,14 +80,14 @@ class FoodItemsViewController: UITableViewController,AddFoodItemDelegate,AddAmou
         }
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath)
         configureCell(cell, atIndexPath: indexPath)
         return cell
     }
     
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         //assert(foodEntry != nil)
         
@@ -106,7 +109,7 @@ class FoodItemsViewController: UITableViewController,AddFoodItemDelegate,AddAmou
         
 
     }
-    override func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
         if let foodDatabaseSearchCDFoodItems = foodDatabaseSearchCDFoodItems {
             selectedCDFoodItem = foodDatabaseSearchCDFoodItems[indexPath.row]
         } else {

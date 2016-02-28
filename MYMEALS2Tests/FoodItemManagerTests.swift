@@ -7,15 +7,29 @@
 //
 
 import XCTest
+import CoreData
 @testable import MYMEALS2
 
 class FoodItemManagerTests: XCTestCase
 {
+    var storeCoordinator: NSPersistentStoreCoordinator!
+    var managedObjectContext: NSManagedObjectContext!
+    var managedObjectModel: NSManagedObjectModel!
+    var store: NSPersistentStore!
     var sut: FoodItemManager!
+    
     override func setUp()
     {
         super.setUp()
-        sut = FoodItemManager()
+        
+        managedObjectModel = NSManagedObjectModel.mergedModelFromBundles(nil)
+        storeCoordinator = NSPersistentStoreCoordinator(managedObjectModel: managedObjectModel)
+        store = try? storeCoordinator.addPersistentStoreWithType(NSInMemoryStoreType, configuration: nil, URL: nil, options: nil)
+        managedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.PrivateQueueConcurrencyType)
+        managedObjectContext.persistentStoreCoordinator = storeCoordinator
+        
+        sut = FoodItemManager(withManagedObjectContext: managedObjectContext)
+        assert(managedObjectContext != nil)
     }
     
     override func tearDown()
@@ -28,49 +42,42 @@ class FoodItemManagerTests: XCTestCase
         XCTAssertEqual(sut.itemCount, 0, "Initially toDo count should be 0")
     }
   
+   
     func testFoodItemsCount_AfterAddingOneItem_IsOne()
     {
         sut.addItem(FoodItem(name: "Test FoodItem"))
         XCTAssertEqual(sut.itemCount,1, "foodItemCount should be 1")
     }
-    /*
-    func testItemAtIndex_ShouldReturnPreviouslyAddedItem()
+    
+    // Hier müssen wir testen, dass wenn wir einmal den Manager = nil setzten und neu
+    // instantitiieren, dass die Objecte noch vorhanden sind. Weil: Er muss sie - egal wie - in CD speichern.
+    
+    func testFoodItemsCount_AfterReiinitializingFoodItemManager_StillIsOne()
     {
-        let item = ToDoItem(title: "Item")
+        sut.addItem(FoodItem(name: "Test FoodItem"))
+        XCTAssertEqual(sut.itemCount,1, "foodItemCount should be 1")
+        
+        sut = nil
+        sut = FoodItemManager(withManagedObjectContext: managedObjectContext)
+        XCTAssertEqual(sut.itemCount,1, "foodItemCount should be 1")
+    }
+    
+    func testFoodItemAtIndex_ShouldReturnItem()
+    {
+        let item = FoodItem(name: "Item")
         sut.addItem(item)
         let returnedItem = sut.itemAtIndex(0)
-        XCTAssertEqual(item.title, returnedItem.title,"should be the same item")
+        XCTAssertEqual(item.name, returnedItem.name,"should be the same")
     }
     
-    func testCheckingItem_ChangesCountOfToDoAndOfDoneItems()
+    func testThatAddingTheSameItem_DoesNotIncreaseCount()
     {
-        sut.addItem(ToDoItem(title: "First Item"))
-        sut.checkItemAtIndex(0)
-        XCTAssertEqual(sut.toDoCount,0, "todoCount should be 0")
-        XCTAssertEqual(sut.doneCount, 1,"doneCount should be 1")
-    }
-    
-    func testCheckingItem_RemovesItFromTheToDoItemList()
-    {
-        let firstItem = ToDoItem(title: "First")
-        let secondItem = ToDoItem(title: "Second")
+        let firstItem = FoodItem(name: "First")
         sut.addItem(firstItem)
-        sut.addItem(secondItem)
-        sut.checkItemAtIndex(0)
-        XCTAssertEqual(sut.itemAtIndex(0).title, secondItem.title)
+        sut.addItem(firstItem)
+        XCTAssertEqual(sut.itemCount, 1)
     }
-    
-    func testDoneItemAtIndex_ShouldReturnPreviouslyCheckedItem()
-    {
-        let item = ToDoItem(title: "Item")
-        sut.addItem(item)
-        sut.checkItemAtIndex(0)
-        let returnedItem = sut.doneItemAtIndex(0)
-        XCTAssertEqual(item.title, returnedItem.title,"should be the same")
-    }
-*/
-    
-    // not equal
+
 
 }
 

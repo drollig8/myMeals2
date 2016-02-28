@@ -21,10 +21,34 @@ class FoodItemTests: XCTestCase
         super.tearDown()
     }
     
-    func testInit_ShouldSetTitle()
+    func testInit_ShouldSetName()
     {
         let item = FoodItem(name: "Test name")
         XCTAssertEqual(item.name, "Test name","Initializer should set the item name")
+    }
+    
+    func testInit_ShouldSetNameAndCalories()
+    {
+        let item = FoodItem(name: "Test Name", calories: 123.3)
+        XCTAssertEqual(123.3, item.calories)
+    }
+    
+    func testInit_ShouldSetNameAndCaloriesAndCarbs()
+    {
+        let item = FoodItem(name: "Test Name", calories: 0.0, carbs: 123.4)
+        XCTAssertEqual(123.4, item.carbs)
+    }
+    
+    func testInit_ShouldSetNameAndCaloriesAndCarbsAndProtein()
+    {
+        let item = FoodItem(name: "Test Name", calories: 0.0, carbs: 0.0, protein: 123.4)
+        XCTAssertEqual(123.4, item.protein)
+    }
+    
+    func testInit_ShouldSetNameAndCaloriesAndCarbsAndProteinAndFat()
+    {
+        let item = FoodItem(name: "Test Name", calories: 0.0, carbs: 0.0, protein: 0.0, fat: 123.4)
+        XCTAssertEqual(123.4, item.fat)
     }
     
     func testFoodItems_ShouldBeEqual()
@@ -41,5 +65,6 @@ class FoodItemTests: XCTestCase
         
         XCTAssertNotEqual(firstFoodItem, secondFoodItem)
     }
+    
 }
 

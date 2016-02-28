@@ -202,10 +202,10 @@
             </objects>
             <point key="canvasLocation" x="-1621" y="307"/>
         </scene>
-        <!--Food Items View Controller-->
+        <!--Table View Controller-->
         <scene sceneID="s7G-TK-eOH">
             <objects>
-                <tableViewController storyboardIdentifier="FoodItemsViewController" id="mUx-eP-RNB" customClass="FoodItemsViewController" customModule="MYMEALS2" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="mUx-eP-RNB" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="IMs-vu-2fY">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -255,7 +255,52 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="-1091" y="309"/>
+            <point key="canvasLocation" x="-1178" y="307"/>
+        </scene>
+        <!--Food Items View Controller-->
+        <scene sceneID="2Ha-J7-iRj">
+            <objects>
+                <viewController storyboardIdentifier="FoodItemsViewController" id="tbd-xn-oNL" customClass="FoodItemsViewController" customModule="MYMEALS2" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="G6Y-ZL-mtQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="vq7-zR-bRk"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="MrK-51-mxe">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5Gp-uh-rk6">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="nb5-hm-fUo" customClass="FoodItemCell" customModule="MYMEALS2" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nb5-hm-fUo" id="pXb-kB-Yzb">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="vq7-zR-bRk" firstAttribute="top" secondItem="5Gp-uh-rk6" secondAttribute="bottom" id="F4x-ph-dXC"/>
+                            <constraint firstAttribute="trailing" secondItem="5Gp-uh-rk6" secondAttribute="trailing" id="GVs-nh-9C7"/>
+                            <constraint firstItem="5Gp-uh-rk6" firstAttribute="top" secondItem="MrK-51-mxe" secondAttribute="top" id="HnM-BH-SM9"/>
+                            <constraint firstItem="5Gp-uh-rk6" firstAttribute="leading" secondItem="MrK-51-mxe" secondAttribute="leading" id="zzM-Pp-VwE"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="dataProvider" destination="Irj-eF-yaO" id="cWD-Xv-Hxx"/>
+                        <outlet property="tableView" destination="5Gp-uh-rk6" id="ilk-XO-be5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ggd-b0-diO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="Irj-eF-yaO" customClass="FoodItemDataProvider" customModule="MYMEALS2" customModuleProvider="target"/>
+            </objects>
+            <point key="canvasLocation" x="-687" y="325"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="fzP-0t-nWN">

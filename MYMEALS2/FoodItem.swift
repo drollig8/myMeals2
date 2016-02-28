@@ -10,21 +10,21 @@ struct FoodItem : Equatable
 {
     
     let name: String
-    let calories: String?
-    let carbs: String?
-    let protein: String?
-    let fett: String?
+    let calories: Double?
+    let carbs: Double?
+    let protein: Double?
+    let fat: Double?
 
     let lastUsed: NSDate
     let barcode: String
     
-    init(name: String, calories: String? = nil, carbs: String? = nil, protein: String? = nil, fett: String? = nil)
+    init(name: String, calories: Double? = nil, carbs: Double? = nil, protein: Double? = nil, fat: Double? = nil)
     {
         self.name = name
         self.calories = calories
         self.carbs = carbs
         self.protein = protein
-        self.fett = fett
+        self.fat = fat
         self.lastUsed = NSDate()
         self.barcode = ""
     }
