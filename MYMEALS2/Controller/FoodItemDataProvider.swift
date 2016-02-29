@@ -8,9 +8,22 @@
 
 import UIKit
 
+// we force that the manager gets set !
+
+@objc protocol FoodItemManagerSettable {
+    var foodItemManager: FoodItemManager? { get set }
+}
+
 class FoodItemDataProvider: NSObject, UITableViewDataSource, UITableViewDelegate
 {
     var foodItemManager: FoodItemManager?
+    
+    // MARK: - TableView DataSource
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int
+    {
+        return 6
+    }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
@@ -19,12 +32,23 @@ class FoodItemDataProvider: NSObject, UITableViewDataSource, UITableViewDelegate
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
+        guard let itemManager = foodItemManager else { fatalError() }
+        
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! FoodItemCell
+        
+        let foodItem = itemManager.itemAtIndex(indexPath.row)
+        cell.configureCelWithItem(foodItem)
+    
         return cell
     }
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int
+    
+    // MARK: - TableView Delegate
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
     {
-        return 6
+        NSNotificationCenter.defaultCenter().postNotificationName(kFoodItemSelectedNotification, object: self, userInfo: ["index":indexPath.row])
     }
+
+
 
 }

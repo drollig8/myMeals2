@@ -21,7 +21,11 @@ class FoodItemManager:NSObject
     
     // we need to force the setting of the managedObjectContext
     
-    init(withManagedObjectContext managedObjectContext: NSManagedObjectContext) {
+    init(var withManagedObjectContext managedObjectContext: NSManagedObjectContext? = nil)
+    {
+        if managedObjectContext == nil {
+            managedObjectContext = AppDelegate().coreDataStack.context
+        }
         self.managedObjectContext = managedObjectContext
     }
     

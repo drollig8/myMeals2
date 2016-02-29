@@ -13,13 +13,13 @@ import XCTest
 class FoodItemsViewControllerTests: XCTestCase
 {
     
-    var sut:FoodItemsViewController!
+    var sut:FoodItemViewController2!
     
     
     override func setUp() {
         super.setUp()
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        sut = storyboard.instantiateViewControllerWithIdentifier("FoodItemsViewController") as! FoodItemsViewController
+        sut = storyboard.instantiateViewControllerWithIdentifier("FoodItemViewController2") as! FoodItemViewController2
         _ = sut.view
     }
     
@@ -38,6 +38,7 @@ class FoodItemsViewControllerTests: XCTestCase
     func testViewDidLoad_ShouldSetTableViewDataSource()
     {
         XCTAssertNotNil(sut.tableView.dataSource)
+        print(sut.tableView.dataSource)
         XCTAssertTrue(sut.tableView.dataSource is FoodItemDataProvider)
     }
     
@@ -49,11 +50,68 @@ class FoodItemsViewControllerTests: XCTestCase
     
     func testViewDidLoad_SouldSetDelegateAndDataSourceToSameObject()
     {
-
+        let dataSource = sut.tableView.dataSource as? FoodItemDataProvider
+        let delegate = sut.tableView.delegate as? FoodItemDataProvider
+        
+        XCTAssertEqual(dataSource, delegate)
     }
 
+    // MARK: - Add Item
     
+    func testItemListViewController_HasAddBarButtonWithSelfAsTarget()
+    {
+        XCTAssertEqual(sut.navigationItem.rightBarButtonItem?.target as? UIViewController, sut)
+    }
     
+    func testAddItem_PresentsAddItemViewController()
+    {
+        XCTAssertNil(sut.presentedViewController)
+        
+        guard let addButton = sut.navigationItem.rightBarButtonItem else {XCTFail(); return }
+        
+        UIApplication.sharedApplication().keyWindow?.rootViewController = sut  // "is not in the view hierarchy" - problem
+        
+        sut.performSelector(addButton.action, withObject: addButton)
+        
+        XCTAssertNotNil(sut.presentedViewController)
+        XCTAssertTrue(sut.presentedViewController is AddFoodItemViewController)
+        
+        let viewController = sut.presentedViewController as? AddFoodItemViewController
+        
+        XCTAssertNotNil(viewController?.name)
+
+    }
+    
+    func testItemListVC_SharesItemManagerWithAddFoodItemVC()
+    {
+        XCTAssertNil(sut.presentedViewController)
+        
+        guard let addButton = sut.navigationItem.rightBarButtonItem else {XCTFail(); return }
+        
+        UIApplication.sharedApplication().keyWindow?.rootViewController = sut  // "is not in the view hierarchy" - problem
+        
+        sut.performSelector(addButton.action, withObject: addButton)
+        
+        XCTAssertNotNil(sut.presentedViewController)
+        XCTAssertTrue(sut.presentedViewController is AddFoodItemViewController)
+        
+        // TODO Anschauen, wie Hauser das REFACTORISIUERT HAT
+        
+    }
+    
+    /*
+
+
+
+
+
+
+testItemListVC_SharesItemManagerWithInputVC
+testViewDidLoad_SetsItemManagerToDataProvider
+
+testitemSelectedNotifiation_PushesDetailVC
+    
+    */
     
     
     

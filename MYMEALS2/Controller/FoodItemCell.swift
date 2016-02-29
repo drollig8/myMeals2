@@ -10,5 +10,7 @@ import UIKit
 
 class FoodItemCell:UITableViewCell
 {
-    
+    func configureCelWithItem(foodItem: FoodItem) {
+        
+    }
 }

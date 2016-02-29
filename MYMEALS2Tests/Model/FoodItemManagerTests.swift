@@ -10,6 +10,21 @@ import XCTest
 import CoreData
 @testable import MYMEALS2
 
+
+enum Section: Int
+{
+    case Frühstück
+    case ZweitesFrühstück
+    case Mittagessen
+    case PostWorkoutShake
+    case Abendessen
+    case Nachtisch
+}
+
+@objc protocol FoodItemManagerSettable {
+    var foodItemManager: FoodItemManager? { get set }
+}
+
 class FoodItemManagerTests: XCTestCase
 {
     var storeCoordinator: NSPersistentStoreCoordinator!

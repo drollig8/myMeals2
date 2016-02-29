@@ -41,10 +41,6 @@ class FoodItemDataProviderTests: XCTestCase {
         
         tableView = controller.tableView // IMPORTANT!
         tableView.dataSource = sut
-
-        
-        
-
     }
     
     override func tearDown()
@@ -69,7 +65,6 @@ class FoodItemDataProviderTests: XCTestCase {
         let sut = FoodItemDataProvider()
         let foodItemManager = FoodItemManager(withManagedObjectContext: managedObjectContext)
         sut.foodItemManager = foodItemManager
-
         
         let tableView = UITableView()
         tableView.dataSource = sut
@@ -107,16 +102,39 @@ class FoodItemDataProviderTests: XCTestCase {
         _ = mockTableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))
         XCTAssertTrue(mockTableView.cellGotDequeued)
     }
+
     
-    /*
-    func testConfigCell_GetsCalledInCellForRow() {
-        let mockTableView = MockTableView()
-        mockTableView.dataSource = sut
-        mockTableView.registerClass(MockFoodItemCell.self, forCellReuseIdentifier: "Cell")
+    func testConfigCell_GetsCalledInCellForRow()
+    {
+        let mockTableView = MockTableView.mockTableViewWithDataSource(sut)
         
-        let toDoItem = ToDoItem(title: "First")
+        let foodItem = FoodItem(name: "Test")
+        
+        sut.foodItemManager?.addItem(foodItem)
+        mockTableView.reloadData()
+        
+        let cell = mockTableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! MockFoodItemCell
+        
+        XCTAssertEqual(cell.foodItem, foodItem)
     }
-*/
+    
+    
+    func testSelectingACell_SendsNotification()
+    {
+        let item = FoodItem(name: "Test")
+        sut.foodItemManager?.addItem(item)
+        
+        expectationForNotification(kFoodItemSelectedNotification, object: nil) { (notification) -> Bool in
+            
+            guard let index = notification.userInfo?["index"] as? Int else {return false}
+            return index == 0
+        }
+        tableView.delegate?.tableView?(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
+        
+        waitForExpectationsWithTimeout(3, handler: nil)
+    }
+    
+
 }
 
 
@@ -130,17 +148,28 @@ extension FoodItemDataProviderTests
             return super.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath)
         }
         
-    }
-    
-    /*
-    class MockFoodItemCell: FoodItemCell
-    {
-        var configureCellGotCalled = false
-        func configureCell(item: ToDoItem){
-            configureCellGotCalled = true
+        class func mockTableViewWithDataSource(dataSource: UITableViewDataSource) -> MockTableView
+        {
+            let mockTableView = MockTableView(frame: CGRect(x: 0, y: 0, width: 320, height: 480), style: .Plain)
+            // necessary because "zero" cells will have size 0.0 and be nil.
+            
+            mockTableView.dataSource = dataSource
+            mockTableView.registerClass(MockFoodItemCell.self, forCellReuseIdentifier: "Cell")
+            
+            return mockTableView
         }
         
     }
-*/
+    
+    
+    class MockFoodItemCell: FoodItemCell
+    {
+        var foodItem: FoodItem?
+        override func configureCelWithItem(foodItem: FoodItem){
+            self.foodItem = foodItem
+        }
+        
+    }
+
    
 }
